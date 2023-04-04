@@ -1,0 +1,105 @@
+.heading {
+    margin: auto;
+    text-align: center;
+}
+
+.basic {
+    width: 1000px;
+    margin: auto;
+}
+
+body {
+    background: #d7eafc;
+}
+
+#top_navbar {
+    position: relative;
+    background-color: white;
+    border: 1px;
+    height: 65px;
+    display: flex;
+    justify-content: left;
+}
+
+#btns {
+    display: flex;
+    justify-content: left;
+}
+
+#apply_button1 {
+    position: absolute;
+    box-sizing: border-box;
+    text-align: center;
+    width: 200px;
+    height: 36px;
+    left: 600px;
+    top: 16px;
+    background: #ffffff;
+    border: 0.7px solid #000000;
+    border-radius: 8px;
+    color: #000000;
+}
+
+#inst_button1 {
+    position: absolute;
+    box-sizing: border-box;
+    text-align: center;
+    width: 200px;
+    height: 36px;
+    left: 30px;
+    top: 16px;
+    background: #ffffff;
+    border: 0.7px solid #000000;
+    border-radius: 8px;
+    color: #000000;
+}
+
+#profilepic1 {
+    position: absolute;
+    left: 970px;
+    top: 16px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    border-radius: 50%;
+    overflow: hidden;
+}
+#name1 {
+    position: absolute;
+    left: 1015px;
+    top: 12px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+}
+#email1 {
+    position: absolute;
+    left: 1015px;
+    top: 35px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+#sidebar1 {
+    position: sticky;
+    top:0;
+    left:0;
+    width: 275px;
+    background-color: #1a202e;
+    height: 100vh;
+    z-index: 2;
+}
+
+.nav-link:hover {
+    background-color: #5e5e5e !important;
+}
+
+.nav-link {
+    margin: 1px;
+    height: 40px;
+}
+
+.text_center {
+    text-align: center;
+}

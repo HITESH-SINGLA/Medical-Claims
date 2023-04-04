@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&family=Nunito:wght@900&display=swap");
+
+#header {
+    height: 15vh;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    height: 70%;
+    margin-left: 5%;
+}
+
+#iit_ropar {
+    margin-left: 5%;
+}
+
+#medical_claims {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgreen;
+    color: #060c5f;
+    font-weight: bolder;
+}
+
+#medical_claim_heading {
+    font-family: "Nunito", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: bolder;
+}
+
+#navbar {
+    height: 5vh;
+}
+
+#center {
+    height: 70vh;
+    /* background-color: blue; */
+    display: flex;
+    align-items: center;
+}
+
+#center_signup {
+    max-height: 70vh;
+    /* background-color: blue; */
+    display: flex;
+    /* horizontal-align: middle; */
+}
+
+#fm {
+    margin-left: auto;
+    margin-right: auto;
+
+    border: solid gray 3px;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border-radius: 2.5%;
+    min-width: 350px;
+}
+
+#fm:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s linear;
+}
+
+#footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    height: 10vh;
+    background-color: #060c5f;
+    border-top: solid lightgreen 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.signup_footer {
+    margin-top: 100px;
+}
+
+#copyright {
+    margin-left: 10%;
+}
+
+.login-with-google-btn {
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+    padding: 12px 16px 12px 42px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+
+    color: #757575;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 12px 11px;
+    margin-right: 10%;
+    margin-bottom: 0%;
+    margin-top: 5%;
+}
+
+.login-with-google-btn:hover {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.login-with-google-btn:active {
+    background-color: #eeeeee;
+}
+
+.login-with-google-btn:focus {
+    outline: none;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25),
+        0 0 0 3px #c8dafc;
+}
+
+.login-with-google-btn:disabled {
+    filter: grayscale(100%);
+    background-color: #ebebeb;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+}
+
+.forgot_password {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+
+#fm_forgot {
+    border: solid gray 3px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    border-radius: 10px;
+    min-width: 350px;
+}
+
+.forgot_footer {
+    position: fixed;
+    height: 80px;
+    bottom: 0;
+    width: 100%;
+
+    background-color: #060c5f;
+    border-top: solid lightgreen 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
