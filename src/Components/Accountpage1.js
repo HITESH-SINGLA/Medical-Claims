@@ -8,7 +8,6 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import { AuthContext } from "./Auth";
 
 import { useDropzone } from "react-dropzone";
 
@@ -264,7 +263,7 @@ function Accountpage1() {
 
         async () => {
           await getDownloadURL(storageRef).then((url) => {
-            console.log(url);
+            console.log(url,"cehbfdcebfdcgcvifv");
             img["url"] = url;
             setUrls((prevState) => [...prevState, img]);
           });

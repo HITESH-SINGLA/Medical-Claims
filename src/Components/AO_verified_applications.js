@@ -102,12 +102,6 @@ function AO_verified_applications() {
             </a>
           </li>
 
-          <li onClick={gotoForgotPassword}>
-            <a href="#" class="nav-link text-white">
-              <i class="fa fa-cog"></i>
-              <span class="ms-2 font_size_18">Change Password</span>
-            </a>
-          </li>
           <li onClick={handleLogout}>
             <a href="#" class="nav-link text-white">
               <i class="fa fa-bookmark"></i>
@@ -125,7 +119,7 @@ function AO_verified_applications() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

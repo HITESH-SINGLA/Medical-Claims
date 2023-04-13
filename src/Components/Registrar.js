@@ -50,12 +50,11 @@ function Registrar() {
 
   let navigate = useNavigate();
   const handleLogout = () => {
-    signOut(auth);
+    localStorage.removeItem("email");
+    localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
-  const gotoForgotPassword = () => {
-    navigate("/forgotPassword");
-  };
+
 
   return (
     <div>
@@ -115,7 +114,7 @@ function Registrar() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

@@ -1,15 +1,11 @@
 import React, { Component, useEffect, useState, useContext } from "react";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 
-import { Button, Form, FormGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthContext } from "./Auth";
 import "./Home_authority.css";
-//import { signInWithGoogle } from "./firebase"
 import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
-import ShowApplication from "./ShowApplication";
-import { auth } from "./firebase";
-import { signOut } from "firebase/auth";
+
 
 function Registrar_verified_applications() {
   const email = localStorage.getItem("email");
@@ -44,21 +40,17 @@ function Registrar_verified_applications() {
   const handleNavigate = () => {
     navigate(-1);
   };
+  
   const handleLogout = () => {
-    signOut(auth);
+    localStorage.removeItem("email");
+    localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
 
-  const gotoForgotPassword = () => {
-    navigate("/forgotPassword");
-  };
+
   return (
     <div>
       <div id="top_navbar">
-        {/* <div id="profilepic">
-                    {" "}
-                    <img src={currentUser.photoURL} alt=""></img>{" "}
-                </div> */}
         <div id="name">Welcome</div>
         <div id="email">{email}</div>
       </div>
@@ -110,7 +102,7 @@ function Registrar_verified_applications() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

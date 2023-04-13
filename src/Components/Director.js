@@ -3,21 +3,12 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  useHistory,
   useNavigate,
 } from "react-router-dom";
 
-import { Button, Form, FormGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AuthContext } from "./Auth";
 import "./Home_authority.css";
-//import { signInWithGoogle } from "./firebase"
 import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
-import ShowApplication from "./ShowApplication";
-
-import { auth } from "./firebase";
-import { signOut } from "firebase/auth";
 
 function Director() {
   const email = localStorage.getItem("email");
@@ -110,7 +101,7 @@ function Director() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

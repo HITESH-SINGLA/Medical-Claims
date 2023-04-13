@@ -87,12 +87,8 @@ function SrAO() {
             </li>
           </Link>
 
-          <li onClick={gotoForgotPassword}>
-            <a href="#" class="nav-link text-white">
-              <i class="fa fa-cog"></i>
-              <span class="ms-2 font_size_18">Change Password</span>
-            </a>
-          </li>
+          
+          
           <li onClick={handleLogout}>
             <a href="#" class="nav-link text-white">
               <i class="fa fa-bookmark"></i>

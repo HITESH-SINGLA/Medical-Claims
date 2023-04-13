@@ -12,7 +12,6 @@ const firebaseConfig = {
   appId: "1:242677142770:web:1dd2d01d4e9936de032c6b",
   measurementId: "G-5EX565D71M"
 };
-
 // const firebaseConfig = {
 //     apiKey: "AIzaSyBWfkXl2JqTZoPOMOvEzO3-agI80cvaYqY",
 //     authDomain: "dep-2020-e752b.firebaseapp.com",

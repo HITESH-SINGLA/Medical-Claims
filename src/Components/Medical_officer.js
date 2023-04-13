@@ -16,8 +16,6 @@ import "./Home_authority.css";
 import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
 import ShowAllApplication from "./ShowAllApplication";
 
-import { auth } from "./firebase";
-import { signOut } from "firebase/auth";
 
 function Medical_officer() {
   const email = localStorage.getItem("email");
@@ -113,7 +111,7 @@ function Medical_officer() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("./ShowApplicationToPharmaMed/" + id);
+              navigate("./ShowApplicationToPharmaMed/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

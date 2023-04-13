@@ -16,6 +16,8 @@ import {
   Navbar,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 import "./Page1.css";
 import logo from "./iitrpr_logo.png";

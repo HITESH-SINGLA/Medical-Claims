@@ -100,7 +100,7 @@ function DAorJAO() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

@@ -46,9 +46,6 @@ function Medical_officer_verified_applications() {
     navigate("/");
   };
 
-  const gotoForgotPassword = () => {
-    navigate("/forgotPassword");
-  };
   return (
     <div>
       <div id="top_navbar">
@@ -103,7 +100,7 @@ function Medical_officer_verified_applications() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowApplicationToPharmaMed/" + id);
+              navigate("ShowApplicationToPharmaMed/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >
