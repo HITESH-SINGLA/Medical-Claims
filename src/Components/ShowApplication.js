@@ -316,7 +316,7 @@ function ShowApplication() {
     }
 
     const handleupload = async () => {
-        const email = email
+        // const email = email
         // const id = user_data.application_id
 
         const promises = []
@@ -374,9 +374,7 @@ function ShowApplication() {
         })
 
         console.log("line 233", responses1)
-
         console.log("line 253", responses2)
-
         console.log("line 381", result_json)
         console.log("line 382", urls)
 

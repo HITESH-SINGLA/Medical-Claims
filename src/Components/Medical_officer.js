@@ -71,7 +71,7 @@ function Medical_officer() {
     const updateData = [];
     data2["result"].map((id1) => {
       console.log(id1[0]);
-      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date});            
+      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date, status : id1[2]});            
     });
     setData(updateData);
   };
@@ -171,6 +171,9 @@ function Medical_officer() {
                     <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
                   </button>
                 </th>
+                <th scope="col">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -181,6 +184,7 @@ function Medical_officer() {
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>
                   <td>{row.date}</td>
+                  <td>{row.status}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,26 +1,15 @@
-import React, { Component, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
-  Route,
   Link,
   useNavigate,
 } from "react-router-dom";
-import { AuthContext } from "./Auth";
-import {
-  Row,
-  Col,
-  Container,
-  Button,
-  Form,
-  FormGroup,
-  Navbar,
-} from "react-bootstrap";
+import { Row, Col, Container, Button, Form} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 import "./Page1.css";
-import logo from "./iitrpr_logo.png";
 
 
 const Page1 = () => {
@@ -148,11 +137,6 @@ const Page1 = () => {
             </a>
           </li>
 
-          {/* <Link
-            id="link_to_other_pages"
-            
-            style={{ textDecoration: "none" }}
-          > */}
           <li>
             <a
               class="nav-link text-white"
@@ -175,9 +159,6 @@ const Page1 = () => {
 
       <Container>
         <div className="App-header d-flex flex-column">
-          {/* <div id="logo">
-                    <img src={logo}></img>
-                </div> */}
           <div id="text_part">
             <br />
             <h3>भारतीय प्रौद्योगिकी संस्थान रोपड़</h3>

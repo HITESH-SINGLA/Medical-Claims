@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./Autofill.css";
 
 function Home() {
@@ -61,9 +60,9 @@ function Home() {
     const updateData = [];
     data2["result"].map((id1) => {
       console.log(id1[0]);
-      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date});            
-      console.log(data.length);
+      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date, s1 : id1[2], s2: id1[3], s3 : id1[4], s4 : id1[5]});
     });
+
     setData(updateData);
   };
 
@@ -159,13 +158,14 @@ function Home() {
             className="search-bar"
           />
           </div>
+
           <table class = "table">
             <thead>
               <tr>
                 <th scope="col">
                   
                   <button value="id" onClick={handleSortChange}>    
-                    Application ID               
+                    ID               
                     <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
                   </button>
                 </th>
@@ -181,6 +181,18 @@ function Home() {
                     <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
                   </button>
                 </th>
+                <th scope="col">
+                  Pharmacist Status
+                </th>
+                <th scope="col">
+                  Medical Officer Status
+                </th>
+                <th scope="col">
+                  Account Section Status
+                </th>
+                <th>
+                  Registrar Status
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -188,9 +200,13 @@ function Home() {
                 <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
                   navigate("ShowApplication/" + (row.id));
                 }}>
-                  <td>Application {row.id}</td>
+                  <td>{row.id}</td>
                   <td>{row.amount}</td>
                   <td>{row.date}</td>
+                  <td>{row.s1}</td>
+                  <td>{row.s2}</td>
+                  <td>{row.s3}</td>
+                  <td>{row.s4}</td>
                 </tr>
               ))}
             </tbody>

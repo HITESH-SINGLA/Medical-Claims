@@ -1,12 +1,12 @@
-import react, { Component, useEffect, useState, useContext } from "react"
+import { useEffect, useState } from "react"
 import {
     BrowserRouter as Router,
     useParams,
     useNavigate,
 } from "react-router-dom"
-import { Button, Form, FormGroup } from "react-bootstrap"
+import { Button, Form } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap"
+import { Container, Row, Col } from "react-bootstrap"
 import "./Application.css"
 import logo from "./logo.png"
 
@@ -92,7 +92,6 @@ function ShowAllApplication() {
 
     console.log(result_json)
 
-    //below code is to update applicationStatus column in database
     const navigate = useNavigate()
     const [authorityUser, setauthorityUser] = useState({
         email: "",
@@ -206,7 +205,6 @@ function ShowAllApplication() {
         getRemarks()
     }, [])
 
-    //below user json object is to store account section table data.
     const [user, setUser] = useState({
         application_id: "",
         med1: "",
@@ -248,8 +246,6 @@ function ShowAllApplication() {
     useEffect(() => {
         getdata_from_accountsectiontable()
     }, [])
-
-    // code for storing data of accountsection table
 
     const saveit = async (e) => {
         e.preventDefault()
@@ -956,35 +952,38 @@ function ShowAllApplication() {
                     <br></br>
                     <br></br>
                     <div className="acc-section">
-                        <h2
+                        <h3
                             style={{
                                 display: "flex",
                                 justifyContent: "center",
                             }}
                         >
                             (For Use by Accounts Section)
-                        </h2>
+                        </h3>
                         <br></br>
-                        <Form>
-                            <Form.Group>
-                                <table id="table">
+                        <Form >
+                            <Form.Group style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}>
+                                <table id="table" >
                                     <tr>
                                         <th>
-                                            <h2>Items</h2>
+                                            <h4>Items</h4>
                                         </th>
                                         <th>
-                                            <h2>Amount Claimed(In rupees)</h2>
+                                            <h4>Amount Claimed(In rupees)</h4>
                                         </th>
                                         <th>
-                                            <h2>Amount Allowed(In rupees)</h2>
+                                            <h4>Amount Allowed(In rupees)</h4>
                                         </th>
                                         <th>
-                                            <h2>Remarks </h2>
+                                            <h4>Remarks </h4>
                                         </th>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h4>Medicine</h4>
+                                            <h5>Medicine</h5>
                                         </td>
                                         <td>
                                             <input
@@ -1031,7 +1030,7 @@ function ShowAllApplication() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h4>Tests</h4>
+                                            <h5>Tests</h5>
                                         </td>
 
                                         <td>
@@ -1079,7 +1078,7 @@ function ShowAllApplication() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h4>Room Rent</h4>
+                                            <h5>Room Rent</h5>
                                         </td>
 
                                         <td>
@@ -1127,12 +1126,12 @@ function ShowAllApplication() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h4>
+                                            <h5>
                                                 Operation / Procedure charges
                                                 etc., (Operation, Procedure, ICU
                                                 / CCU/ Consultation / Others
                                                 Specify)
-                                            </h4>
+                                            </h5>
                                         </td>
 
                                         <td>
@@ -1180,7 +1179,7 @@ function ShowAllApplication() {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h3>TOTAL</h3>
+                                            <h5>TOTAL</h5>
                                         </td>
 
                                         <td>
@@ -1230,6 +1229,10 @@ function ShowAllApplication() {
                             </Form.Group>
                             <br></br>
                             <br></br>
+                            <div style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}>
                             <h4>
                                 Passed for Rs.
                                 <Form.Label column sm="2">
@@ -1300,7 +1303,7 @@ function ShowAllApplication() {
                                     />
                                 </Form.Label>
                                 Expenditure debitable.
-                            </h4>
+                            </h4></div>
                         </Form>
                         <br></br>
                     </div>

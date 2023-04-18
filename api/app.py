@@ -49,6 +49,8 @@ users = {
     'password': 'password123'
   },'registrar.officer.901@gmail.com': {
     'password': 'password123'
+  }, 'director.xyz1067@gmail.com' : {
+    'password' : 'password123'
   }
 }
 
@@ -533,7 +535,7 @@ def getallApplicationId():
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[6]])
 
         return {"status": "ok", "result": result_arr}
 
@@ -561,7 +563,7 @@ def getallApplicationIdForHome():
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[6], item[8], item[10], item[16]])
 
         query = f"select * from application where user_id = {email_id} and registrar='approved' and director<>'approved' order by application_id asc"
         mycursor.execute(query)
@@ -582,7 +584,7 @@ def getallApplicationIdForHome():
         for item in result:
             p = item[0]
             if (letsdic[p] >= 200000):
-                result_arr.append([str(item[0]), str(item[4])])
+                result_arr.append([str(item[0]), str(item[4]), item[6], item[8], item[10], item[16]])
         print("---------------------------")
         print(result_arr)
         print("----------------------------")
@@ -683,19 +685,14 @@ def getallApplicationIdForMedicalOff():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        #print("qresult")
         print('email: ', email_id)
-        #print("sresult")
         query = f"select * from application where pharmacist = 'approved' and medical_officer <> 'approved' order by application_id asc "
-        #print("wresult")
         mycursor.execute(query)
-        #print("wresult")
         result = mycursor.fetchall()
         result_arr = []
-        #print("result")
         print(result)
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[8]])
         print(result_arr)
 
         return {"status": "ok","result": result_arr}
@@ -747,7 +744,7 @@ def getallApplicationIdForDAorJAO():
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[10]])
 
         return {"status": "ok","result": result_arr}
 
@@ -773,7 +770,7 @@ def getallApprovedApplicationIdFromDAorJAO():
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[10]])
 
         return {"status": "ok","result": result_arr}
 
@@ -1315,6 +1312,8 @@ def resubmitApplication():
         page4 = '\'' + json.dumps(request_data["page4"]) + '\''
 
         query = f"UPDATE application SET page1 = {page1}, page2 = {page2}, page3 = {page3}, page4 = {page4} WHERE application_id = {application_id}"
+
+        query2 = "update application set"
 
         print("\nQUERY:=>\n")
         print(query)

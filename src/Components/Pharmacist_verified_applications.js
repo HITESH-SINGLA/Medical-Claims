@@ -1,10 +1,8 @@
-import React, { Component, useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./Home_authority.css";
-import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
-import ShowApplication from "./ShowApplication";
 
 function Pharmacist_verified_applications() {
   const email = localStorage.getItem("email");
