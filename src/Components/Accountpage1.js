@@ -215,7 +215,7 @@ function Accountpage1() {
     setResponses2([]);
 
     const res = await fetch(
-      "http://127.0.0.1:5000/check_user",
+      " https://aditya1024.pythonanywhere.com/check_user",
       {
         method: "POST",
         body: JSON.stringify({ user }),
@@ -229,7 +229,7 @@ function Accountpage1() {
   const handleupload = async () => {
     const email1 = email;
     const id = await fetch(
-      "http://127.0.0.1:5000/get_application_id",
+      " https://aditya1024.pythonanywhere.com/get_application_id",
       {
         method: "POST",
         body: JSON.stringify({ email1 }),
@@ -273,57 +273,68 @@ function Accountpage1() {
 
     Promise.all(promises).then(() => alert("All images uploaded!!"));
   };
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  };
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = currentDate.getDate().toString().padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
 
   return (
     <div class="d-flex flex-row">
-      <div
-        id="sidebar"
+       <div
+        id="sidebar1"
+        style={{marginRight: "30px"}}
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
-        style={{ marginRight: "4rem", position: "sticky", height: "100vh" }}
       >
-        <a href="#" class="text-white text-decoration-none">
-          <h2 class="text_center">Menu</h2>
-        </a>
+        <h2 class="text_center">Menu</h2>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="/Home" class="nav-link text-white">
-              <i class="fa fa-home"></i>
-              <span class="ms-2 font_size_18">Home </span>
-            </a>
-          </li>
-
-          <li>
-            <a href="/Autofill" class="nav-link text-white active">
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Auto Fill</span>
-            </a>
-          </li>
-
-          {/* <Link
+          <Link
             id="link_to_other_pages"
-            
+            to="/Home"
             style={{ textDecoration: "none" }}
-          > */}
-          <li>
-            <a
-              class="nav-link text-white"
-              href="/Home/Home_verified_applications"
-            >
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Approved applications</span>
-            </a>
-          </li>
-          {/* </Link> */}
+          >
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-home"></i>
+                <span class="ms-2 font_size_18">Home </span>
+              </a>
+            </li>
+          </Link>
 
-          {/* <li onClick={gotoForgotPassword}>
-            <a href="#" class="nav-link text-white">
-              <i class="fa fa-cog"></i>
-              <span class="ms-2 font_size_18">Change Password</span>
-            </a>
-          </li> */}
-          <li onClick={() => {}}>
-            <a href="#" class="nav-link text-white">
+          <Link
+            id="link_to_other_pages"
+            to="/Autofill"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Auto Fill</span>
+              </a>
+            </li>
+          </Link>
+
+          <Link
+            id="link_to_other_pages"
+            to="/Home/Home_verified_applications"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a class="nav-link text-white" href="#">
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Approved applications</span>
+              </a>
+            </li>
+          </Link>
+
+          <li onClick={handleLogout}>
+            <a href="/" class="nav-link text-white">
               <i class="fa fa-bookmark"></i>
               <span class="ms-2 font_size_18">Logout</span>
             </a>
@@ -518,7 +529,7 @@ function Accountpage1() {
                 <ul>{acceptedFileItems}</ul>
                 <h4>Rejected files</h4>
                 <ul>{fileRejectionItems}</ul>
-                <button onClick={handleupload}>upload</button>
+                <button class = "btn-primary" onClick={handleupload}>Upload</button>
               </aside>
             </div>
             <br></br>
@@ -526,6 +537,7 @@ function Accountpage1() {
               <Form.Control
                 size="sm"
                 type="Date"
+                max={formattedDate}
                 placeholder="Date"
                 onChange={(e) => setDate(e.target.value)}
               />

@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Link, useNavigate, useParams } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import "./Autofill.css";
 
 function Home() {
+  let { home_data } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState("id");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -43,7 +44,7 @@ function Home() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForHome",
+      " https://aditya1024.pythonanywhere.com/getallApplicationIdForHome",
       {
         method: "POST",
         body: JSON.stringify({ email: email }),
@@ -87,29 +88,47 @@ function Home() {
         <h2 class="text_center">Menu</h2>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
+        <Link
+            id="link_to_other_pages"
+            to="/Home"
+            style={{ textDecoration: "none" }}
+          >
           <li class="nav-item">
-            <a href="/Home" class="nav-link text-white active">
+            <a href="#" class="nav-link text-white active">
               <i class="fa fa-home"></i>
               <span class="ms-2 font_size_18">Home </span>
             </a>
           </li>
+          </Link>
 
-          <li>
-            <a href="/Autofill" class="nav-link text-white">
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Auto Fill</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Autofill"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Auto Fill</span>
+              </a>
+            </li>
+          </Link>
 
-          <li>
-            <a
-              class="nav-link text-white"
-              href="/Home/Home_verified_applications"
-            >
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Approved applications</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Home/Home_verified_applications"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a
+                class="nav-link text-white"
+                href="#"
+              >
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Approved applications</span>
+              </a>
+            </li>
+          </Link>
 
           <li onClick={handleLogout}>
             <a href="/" class="nav-link text-white">
@@ -164,19 +183,19 @@ function Home() {
               <tr>
                 <th scope="col">
                   
-                  <button value="id" onClick={handleSortChange}>    
+                  <button class = "thbtn" value="id" onClick={handleSortChange}>    
                     ID               
                     <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
                   </button>
                 </th>
                 <th scope="col">
-                  <button value="amount" onClick={handleSortChange}>
-                    Net Amount Claimed
+                  <button class = "thbtn" value="amount" onClick={handleSortChange}>
+                    Amount Claimed
                     <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
                   </button>
                 </th>
                 <th scope="col">
-                  <button value="date" onClick={handleSortChange}>
+                  <button class = "thbtn" value="date" onClick={handleSortChange}>
                     Date of submission
                     <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
                   </button>
@@ -198,7 +217,7 @@ function Home() {
             <tbody>
               {sortedData.map((row) => (
                 <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowApplication/" + (row.id));
+                  home_data === "Home" ? navigate("/ShowApplication/" + (row.id)) : navigate("/Home/ShowApplication/" + (row.id));
                 }}>
                   <td>{row.id}</td>
                   <td>{row.amount}</td>

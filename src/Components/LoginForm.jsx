@@ -19,9 +19,9 @@ const LoginForm = () => {
     setOtp(event.target.value);
   };
 
+
   const handleSubmit = async (event) => {
     const check = email;
-    setButtonText("Login")
     const see = check.split("@")[1];
 
     if (!(email[0] >= "0" && email[0] <= "9")) {
@@ -47,16 +47,34 @@ const LoginForm = () => {
         navigate("/");
     }}
     event.preventDefault();
-    setButtonText("Login")
+    
     try {
-      const response = await axios.post("http://127.0.0.1:5000/login", {
+
+      const response = await axios.post(" https://aditya1024.pythonanywhere.com/login", {
         email,
         otp,
       });
-      console.log(response.message);
+      setButtonText("Login")
       if (response.status === 200) {
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("email", email);
+
+        isPharmacist
+          ? localStorage.setItem("role", "Pharmacist")
+          : isMediOffi
+          ? localStorage.setItem("role", "Medical_officer")
+          : isDirector
+          ? localStorage.setItem("role", "Director")
+          : isDAorJAOO
+          ? localStorage.setItem("role", "DAorJAO")
+          : isAO
+          ? localStorage.setItem("role", "AO")
+          : isSrAO
+          ? localStorage.setItem("role", "SrAO")
+          : isRegistrar
+          ? localStorage.setItem("role", "Registrar")
+          : localStorage.setItem("role", "Home");
+
         isPharmacist
           ? navigate("Pharmacist")
           : isMediOffi
@@ -78,6 +96,7 @@ const LoginForm = () => {
       //   alert(response.message);
       // }
     } catch (error) {
+      alert("Enter valid email or OTP");
       // setMessage(error.response.data.message);
     }
   };

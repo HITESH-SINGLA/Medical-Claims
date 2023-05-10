@@ -23,9 +23,10 @@ import { getDownloadURL } from "firebase/storage"
 
 import { Button, Form, FormGroup } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap"
+import { Container, Row, Col} from "react-bootstrap"
 import "./Application.css"
 import logo from "./logo.png"
+// import "./ShowApplication.css"
 
 const baseStyle = {
     flex: 1,
@@ -178,7 +179,7 @@ function ShowApplication() {
 
     const getData = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5000/showApplicationId/" + id,
+            " https://aditya1024.pythonanywhere.com/showApplicationId/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -205,7 +206,7 @@ function ShowApplication() {
 
     const getStatus = async () => {
         const res2 = await fetch(
-            "http://127.0.0.1:5000/showApplicationIdStatus/" +
+            " https://aditya1024.pythonanywhere.com/showApplicationIdStatus/" +
                 id,
             {
                 method: "POST",
@@ -412,7 +413,7 @@ function ShowApplication() {
             )
         } else {
             const res4 = await fetch(
-                "http://127.0.0.1:5000/resubmitApplication",
+                " https://aditya1024.pythonanywhere.com/resubmitApplication",
                 {
                     method: "POST",
                     body: JSON.stringify({
@@ -431,6 +432,10 @@ function ShowApplication() {
             navigate("/Home")
         }
     }
+
+    const handlePrint = () => {
+        window.print();
+    };
 
     return (
         <div className="parent">
@@ -452,7 +457,7 @@ function ShowApplication() {
                 </div>
 
                 <h5>
-                    ---------------------------------------------------------------------------------
+                    ------------------------------------------------------------------------------------
                 </h5>
                 <div className="page1">
                     <h6>
@@ -466,11 +471,11 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         1. Name & Designation of Govt. Servant
-                                        (In Block Letters) - (required)
+                                        (In Block Letters) - <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user.name
                                             }
@@ -497,11 +502,11 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         (i) Whether married or unmarried -
-                                        (required)
+                                        <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user
                                                     .martial_status
@@ -529,11 +534,11 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         (ii) If married, the place where wife /
-                                        husband is employed - (required)
+                                        husband is employed - <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user
                                                     .partner_place
@@ -560,11 +565,11 @@ function ShowApplication() {
                             <Form.Group as={Row} className="mb-3">
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
-                                        2. Mobile number (required)
+                                        2. Mobile number <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user
                                                     .Mobile_number
@@ -593,11 +598,11 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         3. Employees Code No., Deptt/ Section -
-                                        (required)
+                                        <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user
                                                     .employee_code_no
@@ -624,12 +629,12 @@ function ShowApplication() {
                             <Form.Group as={Row} className="mb-3">
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
-                                        4. Pay of Govt. Servant (Band Pay &
-                                        Grade Pay) - (required)
+                                        4. Pay of Gvt. Servant(Band Pay &
+                                        Grade Pay)<span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user.pay
                                             }
@@ -654,11 +659,11 @@ function ShowApplication() {
                             <Form.Group as={Row} className="mb-3">
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
-                                        5. Residential address - (required)
+                                        5. Residential address - <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user.address
                                             }
@@ -687,11 +692,11 @@ function ShowApplication() {
                                         6. Name of the patient & his /her
                                         relationship with the Government Servant
                                         (in case of Children state age also) -
-                                        (required)
+                                        <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user.relation
                                             }
@@ -718,11 +723,11 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         7. Place at which the patient fell ill -
-                                        (required)
+                                        <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user
                                                     .place_fell_ill
@@ -750,11 +755,11 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         8. Details of the amount claimed -
-                                        (required)
+                                        <span style={{color:"red"}}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page1.user
                                                     .ammount_details
@@ -785,9 +790,7 @@ function ShowApplication() {
 
             <Container>
                 <div className="Page2">
-                    <br />
-                    <h2>Medical Attendance</h2>
-                    <br />
+                    <h2>(I) Medical Attendance</h2>
 
                     <h5>(i) Fee for consultation indicating - </h5>
 
@@ -802,7 +805,7 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page2.user.name
                                             }
@@ -834,7 +837,7 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page2.user
                                                     .numDatesFeeCon
@@ -867,7 +870,7 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page2.user
                                                     .numDatesFeeInj
@@ -893,7 +896,7 @@ function ShowApplication() {
                             </Form.Group>
                         </Form>
                     </Container>
-
+                    <br></br>
                     <h5>
                         (ii) Charges for pathological, Radiological or other
                         similar tests undertaken during diagnosis indicating the
@@ -910,7 +913,7 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page2.user
                                                     .hospitalName
@@ -945,7 +948,7 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"12px"}}
                                             defaultValue={
                                                 result_json.page2.user
                                                     .costMedicine
@@ -975,8 +978,7 @@ function ShowApplication() {
             </Container>
 
             <Container>
-                <h2>(ii) Consultation with Specialist</h2>
-                <br />
+                <h2>(II) Consultation with Specialist</h2>
                 <Container>
                     <strong>
                         Fee paid to specialist or a medical office other than
@@ -992,7 +994,7 @@ function ShowApplication() {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        as="textarea"
+                                        type="text" style={{padding:"12px"}}
                                         defaultValue={
                                             result_json.page3.user.name
                                         }
@@ -1023,7 +1025,7 @@ function ShowApplication() {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        as="textarea"
+                                        type="text" style={{padding:"12px"}}
                                         defaultValue={
                                             result_json.page3.user.numDateCon
                                         }
@@ -1050,7 +1052,7 @@ function ShowApplication() {
                         <Form.Group as={Row} className="mb-3">
                             <div id="line">
                                 <Form.Label id="form_line" column sm="5">
-                                    Total amount claimed (required)
+                                    Total amount claimed <span style={{color:"red"}}>*</span>
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
@@ -1112,7 +1114,7 @@ function ShowApplication() {
                         <Form.Group as={Row} className="mb-3">
                             <div id="line">
                                 <Form.Label id="form_line" column sm="5">
-                                    Net amount claimed (required)
+                                    Net amount claimed <span style={{color:"red"}}>*</span>
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
@@ -1215,6 +1217,9 @@ function ShowApplication() {
                         </Form.Group>
                         <br />
                         <br></br>
+                        <br></br>
+                        <br />
+                        <br />
 
                         {rslt["isHold"] === "yes" && (
                             <div>
@@ -1478,7 +1483,7 @@ function ShowApplication() {
                         )}
                         <br />
                         <div id="nav_btn">
-                            <Button onClick={window.print} type="button">
+                            <Button onClick={handlePrint} type="button">
                                 Print application
                             </Button>
                             <Button

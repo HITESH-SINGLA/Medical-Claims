@@ -74,7 +74,7 @@ function ShowAllApplication() {
 
     const getData = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5000/showallApplicationId/" + id,
+            " https://aditya1024.pythonanywhere.com/showallApplicationId/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -108,7 +108,7 @@ function ShowAllApplication() {
         console.log(e)
 
         const res = await fetch(
-            "http://127.0.0.1:5000/updateStatus",
+            " https://aditya1024.pythonanywhere.com/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -137,7 +137,7 @@ function ShowAllApplication() {
         console.log(e)
 
         const res = await fetch(
-            "http://127.0.0.1:5000/updateStatus",
+            " https://aditya1024.pythonanywhere.com/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -165,7 +165,7 @@ function ShowAllApplication() {
         authorityUser["applicationStatus"] = "rejected"
         console.log(e)
         const res = await fetch(
-            "http://127.0.0.1:5000/updateStatus",
+            " https://aditya1024.pythonanywhere.com/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -189,7 +189,7 @@ function ShowAllApplication() {
     const getRemarks = async () => {
         authorityUser["email"] = email
         const res = await fetch(
-            "http://127.0.0.1:5000/getRemarks/" + id,
+            " https://aditya1024.pythonanywhere.com/getRemarks/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -230,7 +230,7 @@ function ShowAllApplication() {
 
     const getdata_from_accountsectiontable = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5000/getData_from_accounttable/" +
+            " https://aditya1024.pythonanywhere.com/getData_from_accounttable/" +
                 id,
             {
                 method: "POST",
@@ -257,7 +257,7 @@ function ShowAllApplication() {
             )
         } else {
             const res = await fetch(
-                "http://127.0.0.1:5000/update_data_from_accountsection",
+                " https://aditya1024.pythonanywhere.com/update_data_from_accountsection",
                 {
                     method: "POST",
                     body: JSON.stringify({ user }),
@@ -289,12 +289,13 @@ function ShowAllApplication() {
                     pno: "",
                     sno: "",
                 })
+                alert("Data Saved")
 
-                window.location.reload()
+                // window.location.reload()
             }
         }
 
-        window.location.reload()
+        // window.location.reload()
     }
 
     return (

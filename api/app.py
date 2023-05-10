@@ -1,17 +1,13 @@
 from flask import Flask , request, jsonify
-import base64
-import psycopg2
 import json
-import db_connection
+import database
 from flask_cors import CORS, cross_origin
 from flask_mail import Mail, Message
 import random
-from flask.helpers import send_from_directory
 import secrets
 
-
-user_name = 'postgres'
-password = '123456'
+user_name = 'aditya1024'
+password = 'onepieceisreal'
 
 app = Flask(__name__)
 CORS(app)
@@ -28,40 +24,29 @@ app.config['MAIL_PASSWORD'] = 'nxzfkzusithjjfsj'
 
 mail = Mail(app)
 
-users = {
-  'test@example.com': {
-    'password': 'password123'
-  },'2020csb1067@iitrpr.ac.in': {
-    'password': 'password123'
-  },'2020csb1091@iitrpr.ac.in': {
-    'password': 'password123'
-  },'2020csb1215@iitrpr.ac.in': {
-    'password': 'password123'
-  },'pharmacistxyz901@gmail.com': {
-    'password': 'password123'
-  },'medical.officer.901@gmail.com': {
-    'password': 'password123'
-  },'junioracc.xyz901@gmail.com': {
-    'password': 'password123'
-  },'assessing.officer.901@gmail.com': {
-    'password': 'password123'
-  },'senior.audit.901@gmail.com': {
-    'password': 'password123'
-  },'registrar.officer.901@gmail.com': {
-    'password': 'password123'
-  }, 'director.xyz1067@gmail.com' : {
-    'password' : 'password123'
-  }
-}
-
 otp_dict = {}
 
+@app.route('/')
+def home():
+    return "onepieceisreal"
+
 @app.route('/login', methods=['POST'])
+@cross_origin()
 def login():
     email = request.json['email']
     otp = request.json['otp']
     stored_otp = otp_dict.get(email)
-    if email not in users:
+
+    conn = database.get_database(user_name, password)
+    mycursor = conn.cursor()
+    email_id = '\'' + email + '\''
+    q1= f"select count(*) from login where email = {email_id}"
+    print(q1)
+    mycursor.execute(q1)
+    isexist = mycursor.fetchone()
+    print(isexist[0])
+
+    if(isexist[0] == 0):
         return jsonify({'message': 'User does not exist.'}), 401
     if stored_otp is None:
         otp = str(random.randint(1000, 9999))
@@ -70,7 +55,7 @@ def login():
         msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
         msg.body = f'Your OTP is {otp}.'
         mail.send(msg)
-        return jsonify({'message': 'An OTP has been sent to your email.'}), 401
+        return jsonify({'message': 'An OTP has been sent to your email.'}), 200
     elif otp != stored_otp:
         return jsonify({'message': 'Invalid OTP.'}), 401
     else:
@@ -87,7 +72,7 @@ def basicDetails():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user"]["email"] + '\''
@@ -128,7 +113,7 @@ def getbasicDetails():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user"]["email"] + '\''
@@ -168,7 +153,7 @@ def check_user():
             print('user is null')
 
         print(request_data)
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         if (request_data["user"]["page_no"] == 1):
@@ -178,16 +163,15 @@ def check_user():
             page4 = '\'' + "" + '\''
             status = '\'' + "PENDING" + '\''
             email = '\'' + request_data["user"]["email"] + '\''
-            query = f"INSERT INTO application(user_id, page1, page2, page3, page4, pharmacist, medical_officer, da_jao, ao, sr_ao, registrar, director) VALUES({email}, {page1}, {page2}, {page3}, {page4}, {status}, {status}, {status}, {status}, {status}, {status}, {status}) RETURNING application_id"
+            query = f"INSERT INTO application(user_id, page1, page2, page3, page4, pharmacist, medical_officer, da_jao, ao, sr_ao, registrar, director) VALUES({email}, {page1}, {page2}, {page3}, {page4}, {status}, {status}, {status}, {status}, {status}, {status}, {status})"
             print("\nQUERY:=>\n")
             print(query)
 
             mycursor.execute(query)
-            result = mycursor.fetchone()
+            # result = mycursor.fetchone()
             conn.commit()
-            print(type(result))
-            print(result[0])
-
+            # print(type(result))
+            # print(result[0])
             mycursor.close()
             conn.close()
 
@@ -225,7 +209,7 @@ def updateStatus():
             print('Error in request data')
 
         print(request_data)
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
@@ -277,11 +261,11 @@ def getData():
             print('user is null')
 
         print(request_data)
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        
+
 
         query = f"select * from application where user_id = {email_id} order by application_id asc"
 
@@ -315,7 +299,7 @@ def getApplicationId():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["currentUser"]["email"] + '\''
@@ -340,7 +324,7 @@ def getallApplicationIdFromPharmacist():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -373,7 +357,7 @@ def getallApplicationIdFromMedicalOff():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -398,12 +382,12 @@ def getallApplicationIdFromAccSec():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select application_id from application where accountsection='approved' "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -425,12 +409,12 @@ def getallApplicationIdFromDAorJAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where da_jao='approved' "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -452,12 +436,12 @@ def getallApplicationIdFromAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where ao='approved' "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -478,12 +462,12 @@ def getallApplicationIdFromSrAo():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where sr_ao='approved' "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -504,7 +488,7 @@ def showApplicationId(id):
             return
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
         query = f"select * from application where application_id = {id} and user_id = {email_id}"
         print(query)
@@ -526,11 +510,11 @@ def getallApplicationId():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where pharmacist <> 'approved' order by application_id asc" 
+        query = f"select * from application where pharmacist <> 'approved' order by application_id asc"
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -544,7 +528,7 @@ def getallApplicationId():
 import ast
 
 @app.route('/getallApplicationIdForHome',
-           methods=['GET', 'POST'])
+          methods=['GET', 'POST'])
 @cross_origin()
 def getallApplicationIdForHome():
     if (request.method == 'POST'):
@@ -553,7 +537,7 @@ def getallApplicationIdForHome():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["email"] + '\''
@@ -602,7 +586,7 @@ def getallApprovedApplicationId():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["email"] + '\''
@@ -648,7 +632,7 @@ def getallApprovedApplicationIdFromPharmacist():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -670,8 +654,8 @@ def getallApprovedApplicationIdFromPharmacist():
         return {"status": "ok","result": result_arr}
 
     return {"status": "getallApprovedApplicationIdFromPharmacist working"}
-    
-    
+
+
 @app.route('/getallApplicationIdForMedicalOff', methods=['GET', 'POST'])  # this will fetch all  application  unseen by medical officer to his home page
 @cross_origin()
 def getallApplicationIdForMedicalOff():
@@ -681,7 +665,7 @@ def getallApplicationIdForMedicalOff():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -709,7 +693,7 @@ def getallApprovedApplicationIdFromMedicalOff():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -723,8 +707,8 @@ def getallApprovedApplicationIdFromMedicalOff():
         return {"status": "ok","result": result_arr}
 
     return {"status": "getallApprovedApplicationIdFromMedicalOff working"}
-    
-    
+
+
 @app.route('/getallApplicationIdForDAorJAO', methods=['GET', 'POST'])
 @cross_origin()
 def getallApplicationIdForDAorJAO():
@@ -734,12 +718,12 @@ def getallApplicationIdForDAorJAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where medical_officer = 'approved' and da_jao <> 'approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -749,8 +733,8 @@ def getallApplicationIdForDAorJAO():
         return {"status": "ok","result": result_arr}
 
     return {"status": "getallApplicationIdForDAorJAO working"}
-    
-    
+
+
 @app.route('/getallApprovedApplicationIdFromDAorJAO', methods=['GET', 'POST'])
 @cross_origin()
 def getallApprovedApplicationIdFromDAorJAO():
@@ -760,12 +744,12 @@ def getallApprovedApplicationIdFromDAorJAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where da_jao = 'approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -786,12 +770,12 @@ def getallApplicationIdForAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where da_jao='approved' and ao <> 'approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -801,7 +785,7 @@ def getallApplicationIdForAO():
         return {"status": "ok","result": result_arr}
 
     return {"status": "getallApplicationIdForAO working"}
-    
+
 
 @app.route('/getallApprovedApplicationIdFromAO', methods=['GET', 'POST'])
 @cross_origin()
@@ -812,12 +796,12 @@ def getallApprovedApplicationIdFromAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where ao='approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -827,7 +811,7 @@ def getallApprovedApplicationIdFromAO():
         return {"status": "ok","result": result_arr}
 
     return {"status": "getallApprovedApplicationIdFromAO working"}
-    
+
 
 @app.route('/getallApplicationIdForSrAO', methods=['GET', 'POST'])
 @cross_origin()
@@ -838,7 +822,7 @@ def getallApplicationIdForSrAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -856,7 +840,7 @@ def getallApplicationIdForSrAO():
             if(amntt>=50000):
                 result_arr.append([result[i][0], result[i][4]])
         return {"status": "ok","result": result_arr}
-        
+
     return {"status": "getallApplicationIdForSrAO working"}
 
 
@@ -870,12 +854,12 @@ def getallApprovedApplicationIdFromSrAO():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where sr_ao='approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -897,7 +881,7 @@ def getallApplicationIdForRegistrar():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -905,12 +889,12 @@ def getallApplicationIdForRegistrar():
         # if amnt>=50000:
         query = f"select * from application where ao='approved' and registrar<>'approved' order by application_id asc"
         #else:
-        #    query = f"select application_id from application where ao='approved'"  
+        #    query = f"select application_id from application where ao='approved'"
         mycursor.execute(query)
         result = mycursor.fetchall()
         #else:
-        #    query = f"select application_id from application where ao='approved'"  
-        
+        #    query = f"select application_id from application where ao='approved'"
+
         result_arr = []
         leng=len(result)
         for i in range(leng):
@@ -947,12 +931,12 @@ def getallApprovedApplicationIdFromRegistrar():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where registrar='approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -974,7 +958,7 @@ def getallApplicationIdForDirector():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
@@ -993,14 +977,14 @@ def getallApplicationIdForDirector():
                 amntt="0"
             amntt=int(amntt)
             letsdic[result_data[i][0]]=amntt
-        
-        
+
+
         result_arr = []
         for item in result:
             p=item[0]
             if(letsdic[p]>=200000):
                 result_arr.append([str(item[0]), item[4]])
-  
+
 
         return {"status": "ok","result": result_arr}
 
@@ -1017,12 +1001,12 @@ def getallApprovedApplicationIdFromDirector():
             print('Error in reading request data')
             return
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select application_id from application where director='approved' order by application_id asc "
-        
+
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -1048,7 +1032,7 @@ def showallApplicationId(id):
             return
         #id = '\'' + str(id) + '\''
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
         query = f"select * from application where application_id = {id}"
         print('line864',query)
@@ -1071,7 +1055,7 @@ def showApplicationIdStatus(id):
             return
         # id = '\'' + str(id) + '\''
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
         authority="Pharmacist approval is still pending"
         authority_remarks=""
@@ -1233,7 +1217,7 @@ def update_data_from_accountsection():
                 print('Error in request data')
 
             print(request_data)
-            conn = db_connection.get_db_connection(user_name,password)
+            conn = database.get_database(user_name,password)
             mycursor = conn.cursor()
 
             print(request_data["user"])
@@ -1241,13 +1225,13 @@ def update_data_from_accountsection():
 
             id = '\'' + request_data["user"]["application_id"] + '\''
             table_data= '\''+ json.dumps(request_data["user"]) +'\''
-            
+
             query1 =f"select count(*) from data where application_id ={id}"
             mycursor.execute(query1)
             result = mycursor.fetchone()
             conn.commit()
             if(result[0]== 0):
-                query = f"INSERT INTO data (application_id , table_data) values ({id},{table_data})"    
+                query = f"INSERT INTO data (application_id , table_data) values ({id},{table_data})"
             else:
                 query = f"UPDATE data SET table_data={table_data} where application_id = {id}"
             print("query:=>\n")
@@ -1269,7 +1253,7 @@ def getData_from_accounttable(id):
             print('user is null')
 
         print(request_data)
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         #email_id = '\'' + request_data["user"]["email"] + '\''
@@ -1302,7 +1286,7 @@ def resubmitApplication():
             print('Error in request data')
 
         print(request_data)
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         application_id = request_data["application_id"]
@@ -1339,7 +1323,7 @@ def get_application_id():
         request_data = request.get_json()
         email = '\'' + request_data["email1"] + '\''
 
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         id_query = f"select application_id from application where user_id = {email} order by application_id DESC"
@@ -1354,7 +1338,7 @@ def get_application_id():
 
     return {"status": "ok", "id": str(recent_id)}
 
-        
+
 
 @app.route('/getRemarks/<id>', methods=['GET', 'POST'])
 @cross_origin()
@@ -1368,7 +1352,7 @@ def getRemarks(id):
         email_id =request_data["authorityUser"]["email"]
         print(type(email_id),"\n")
         print("email:", email_id , "\n")
-        conn = db_connection.get_db_connection(user_name, password)
+        conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
         if(email_id == 'pharmacistxyz901@gmail.com'):
             query = f"select pharmacist_remarks from application where application_id = {id}"
@@ -1396,4 +1380,5 @@ def getRemarks(id):
 
 
 if __name__ == "__main__":
+    # app.debug = True
     app.run()

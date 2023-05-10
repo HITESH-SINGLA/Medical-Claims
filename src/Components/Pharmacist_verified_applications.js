@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./Home_authority.css";
@@ -14,7 +14,7 @@ function Pharmacist_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApprovedApplicationIdFromPharmacist",
+      " https://aditya1024.pythonanywhere.com/getallApprovedApplicationIdFromPharmacist",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -99,18 +99,18 @@ function Pharmacist_verified_applications() {
         </a>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-          <div
+        <Link
             id="link_to_other_pages"
-            onClick={handleNavigate}
+            to="/Pharmacist"
             style={{ textDecoration: "none" }}
           >
-            <li class="nav-item">
-              <a href="#" class="nav-link text-white" aria-current="page">
-                <i class="fa fa-home"></i>
-                <span class="ms-2 font_size_18">Home </span>
-              </a>
-            </li>
-          </div>
+          <li class="nav-item">
+            <a href="#" class="nav-link text-white">
+              <i class="fa fa-home"></i>
+              <span class="ms-2 font_size_18">Home </span>
+            </a>
+          </li>
+          </Link>
 
           <li>
             <a href="#" class="nav-link active">

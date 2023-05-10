@@ -73,7 +73,7 @@ function ShowApplicationToPharmaMed() {
 
     const getData = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5000/showallApplicationId/" + id,
+            " https://aditya1024.pythonanywhere.com/showallApplicationId/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -108,7 +108,7 @@ function ShowApplicationToPharmaMed() {
         console.log(e)
 
         const res = await fetch(
-            "http://127.0.0.1:5000/updateStatus",
+            " https://aditya1024.pythonanywhere.com/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -137,7 +137,7 @@ function ShowApplicationToPharmaMed() {
         console.log(e)
 
         const res = await fetch(
-            "http://127.0.0.1:5000//updateStatus",
+            " https://aditya1024.pythonanywhere.com//updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -165,7 +165,7 @@ function ShowApplicationToPharmaMed() {
         authorityUser["applicationStatus"] = "rejected"
         console.log(e)
         const res = await fetch(
-            "http://127.0.0.1:5000//updateStatus",
+            " https://aditya1024.pythonanywhere.com//updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -189,7 +189,7 @@ function ShowApplicationToPharmaMed() {
     const getRemarks = async () => {
         authorityUser["email"] = email
         const res = await fetch(
-            "http://127.0.0.1:5000/getRemarks/" + id,
+            " https://aditya1024.pythonanywhere.com/getRemarks/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),

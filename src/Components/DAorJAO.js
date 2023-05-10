@@ -4,6 +4,7 @@ import {
   Route,
   Link,
   useNavigate,
+  useParams
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -51,7 +52,7 @@ function DAorJAO() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForDAorJAO",
+      " https://aditya1024.pythonanywhere.com/getallApplicationIdForDAorJAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -89,6 +90,8 @@ function DAorJAO() {
     localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
+  
+  let { param_data } = useParams();
 
   return (
     <div>
@@ -116,7 +119,7 @@ function DAorJAO() {
 
           <Link
             id="link_to_other_pages"
-            to="./DAorJAO_verified_applications"
+            to="/DAorJAO/DAorJAO_verified_applications"
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -179,7 +182,7 @@ function DAorJAO() {
             <tbody>
               {sortedData.map((row) => (
                 <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowAllApplication/" + (row.id));
+                  param_data === "DAorJAO" ? navigate("ShowAllApplication/" + (row.id)) : navigate("/DAorJAO/ShowAllApplication/" + (row.id));
                 }}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>

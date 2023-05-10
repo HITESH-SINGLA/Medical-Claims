@@ -65,3 +65,23 @@
 #nav_btn {
     display: flex;
 }
+
+
+@media print {
+    body {
+      font-size: 12pt;
+      line-height: 1.5;
+      margin-bottom: 50px;
+    }
+    h2, h5, h4, h3{
+        font-size: 20px;
+    }
+    .form-control{
+        border: 0px;
+        border-bottom: 1px solid black;
+        width: 80%;
+    }
+    .btn{
+        display: none;
+    }
+}

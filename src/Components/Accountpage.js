@@ -46,7 +46,7 @@ function Accountpage() {
     const saveit = async (e) => {
         e.preventDefault()
         const res = await fetch(
-            "http://127.0.0.1:5000/check_user",
+            " https://aditya1024.pythonanywhere.com/check_user",
             {
                 method: "POST",
                 body: JSON.stringify({ user }),

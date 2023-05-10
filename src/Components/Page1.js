@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  useNavigate,
-} from "react-router-dom";
-import { Row, Col, Container, Button, Form} from "react-bootstrap";
+import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
+import { Row, Col, Container, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 import "./Page1.css";
-
 
 const Page1 = () => {
   const email = localStorage.getItem("email");
@@ -41,7 +36,7 @@ const Page1 = () => {
     user["email"] = email;
 
     const res2 = await fetch(
-      "http://127.0.0.1:5000/getbasicDetails",
+      " https://aditya1024.pythonanywhere.com/getbasicDetails",
       {
         method: "POST",
         body: JSON.stringify({ user }),
@@ -81,13 +76,13 @@ const Page1 = () => {
       );
     } else {
       const res = await fetch(
-          "http://127.0.0.1:5000/check_user",
-          {
-              method: "POST",
-              body: JSON.stringify({ user }),
-              headers: { "Content-Type": "application/json" },
-          }
-      )
+        " https://aditya1024.pythonanywhere.com/check_user",
+        {
+          method: "POST",
+          body: JSON.stringify({ user }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (res.ok) {
         console.log("RESPONSE WORKED1!");
@@ -114,42 +109,54 @@ const Page1 = () => {
   return (
     <div class="d-flex flex-row">
       <div
-        id="sidebar"
+        id="sidebar1"
+        style={{marginRight: "30px"}}
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
-        style={{ marginRight: "4rem", position: "sticky", height: "100vh" }}
       >
-       
         <h2 class="text_center">Menu</h2>
-        
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="/Home" class="nav-link text-white">
-              <i class="fa fa-home"></i>
-              <span class="ms-2 font_size_18">Home </span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Home"
+            style={{ textDecoration: "none" }}
+          >
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-home"></i>
+                <span class="ms-2 font_size_18">Home </span>
+              </a>
+            </li>
+          </Link>
 
-          <li>
-            <a href="/Autofill" class="nav-link text-white">
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Auto Fill</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Autofill"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Auto Fill</span>
+              </a>
+            </li>
+          </Link>
 
-          <li>
-            <a
-              class="nav-link text-white"
-              href="/Home/Home_verified_applications"
-            >
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Approved applications</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Home/Home_verified_applications"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a class="nav-link text-white" href="#">
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Approved applications</span>
+              </a>
+            </li>
+          </Link>
 
           <li onClick={handleLogout}>
-            <a href="# 
-            " class="nav-link text-white">
+            <a href="/" class="nav-link text-white">
               <i class="fa fa-bookmark"></i>
               <span class="ms-2 font_size_18">Logout</span>
             </a>
@@ -176,20 +183,21 @@ const Page1 = () => {
         </h3>
 
         <div className="page1">
-          <h3>
+          <h4>
             Form of application claiming reimbursement of medical expenses
             incurred in connection with medical attendance and/or treatment for
             self and family members/dependents.
-          </h3>
+          </h4>
           <Form>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                1. Name & Designation of Govt. Servant (In Block Letters) -
-                (required)
+                1. Name & Designation of Govt. Servant (In Block Letters)
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[name]"
                   defaultValue={user.name}
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
@@ -199,11 +207,13 @@ const Page1 = () => {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                (i) Whether married or unmarried - (required)
+                (i) Whether married or unmarried{" "}
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[martial_status]"
                   defaultValue={user.martial_status}
                   onChange={(e) =>
@@ -218,12 +228,13 @@ const Page1 = () => {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                (ii) If married, the place where wife / husband is employed -
-                (required)
+                (ii) If married, the place where wife / husband is employed
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[partner_place]"
                   defaultValue={user.partner_place}
                   onChange={(e) =>
@@ -238,30 +249,27 @@ const Page1 = () => {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                2. Mobile number (required)
+                2. Mobile number <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
-                <Form.Control
-                  as="textarea"
+                <PhoneInput
                   name="Mobile_number"
-                  defaultValue={user.Mobile_number}
-                  onChange={(e) =>
-                    setUser({
-                      ...user,
-                      Mobile_number: e.target.value,
-                    })
-                  }
+                  country={"in"}
+                  value={user.Mobile_number}
+                  onChange={(e) => setUser({ ...user, Mobile_number: e })}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Col>
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                3. Employees Code No., Deptt/ Section - (required)
+                3. Employees Code No., Deptt/ Section{" "}
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Label column sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[employee_code_no]"
                   defaultValue={user.employee_code_no}
                   onChange={(e) =>
@@ -277,11 +285,13 @@ const Page1 = () => {
 
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                4. Pay of Govt. Servant (Band Pay & Grade Pay) - (required)
+                4. Pay of Govt. Servant (Band Pay & Grade Pay){" "}
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Label column sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[pay]"
                   defaultValue={user.pay}
                   onChange={(e) => setUser({ ...user, pay: e.target.value })}
@@ -291,11 +301,12 @@ const Page1 = () => {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                5. Residential address - (required)
+                5. Residential address <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Label column sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[address]"
                   defaultValue={user.address}
                   onChange={(e) =>
@@ -311,13 +322,14 @@ const Page1 = () => {
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
                 6. Name of the patient & his /her relationship with the
-                Government Servant (in case of Children state age also) -
-                (required)
+                Government Servant (in case of Children state age also)
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Label column sm="7">
                 <Form.Control
                   required
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[relation]"
                   defaultValue={user.relation}
                   onChange={(e) =>
@@ -332,11 +344,13 @@ const Page1 = () => {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                7. Place at which the patient fell ill - (required)
+                7. Place at which the patient fell ill{" "}
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Label column sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="text"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[place_fell_ill]"
                   defaultValue={user.place_fell_ill}
                   onChange={(e) =>
@@ -351,11 +365,13 @@ const Page1 = () => {
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
-                8. Details of the amount claimed - (required)
+                8. Details of the amount claimed{" "}
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Form.Label column sm="7">
                 <Form.Control
-                  as="textarea"
+                  type="number"
+                  style={{ padding: "12px", width: "450px" }}
                   name="user[ammount_details]"
                   defaultValue={user.ammount_details}
                   onChange={(e) =>

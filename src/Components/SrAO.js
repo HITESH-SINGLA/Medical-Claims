@@ -20,7 +20,7 @@ function SrAO() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForSrAO",
+      " https://aditya1024.pythonanywhere.com/getallApplicationIdForSrAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -76,7 +76,7 @@ function SrAO() {
 
           <Link
             id="link_to_other_pages"
-            to="./SrAO_verified_applications"
+            to="/SrAO/SrAO_verified_applications"
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -106,7 +106,7 @@ function SrAO() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

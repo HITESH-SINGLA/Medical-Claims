@@ -4,6 +4,7 @@ import {
   Route,
   Link,
   useNavigate,
+  useParams
 } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -50,7 +51,7 @@ function Pharmacist() {
   const [result_arr, setresult_arr] = useState([]);
 
   const getApplicationId = async () => {
-    const res = await fetch("http://127.0.0.1:5000/getallApplicationId", {
+    const res = await fetch(" https://aditya1024.pythonanywhere.com/getallApplicationId", {
       method: "POST",
       body: JSON.stringify({ user_data }),
       headers: { "Content-Type": "application/json" },
@@ -82,6 +83,8 @@ function Pharmacist() {
     localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
+  
+  let { home_data } = useParams();
  
   return (
     <div>
@@ -109,7 +112,7 @@ function Pharmacist() {
 
           <Link
             id="link_to_other_pages"
-            to="./Pharmacist_verified_applications"
+            to="/Pharmacist/Pharmacist_verified_applications"
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -172,7 +175,8 @@ function Pharmacist() {
             <tbody>
               {sortedData.map((row) => (
                 <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowApplicationtoPharmaMed/" + (row.id));
+                  home_data === "Pharmacist" ? navigate("ShowApplicationtoPharmaMed/" + (row.id)) : navigate("/Pharmacist/ShowApplicationtoPharmaMed/" + (row.id));
+                  
                 }}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>

@@ -83,7 +83,7 @@ const Application = () => {
 
     const getData = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5000/getData",
+            " https://aditya1024.pythonanywhere.com/getData",
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -139,7 +139,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "name"
@@ -161,7 +161,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "martial_status"
@@ -184,7 +184,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "partner_place"
@@ -206,7 +206,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "Mobile_number"
@@ -229,7 +229,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "employee_code_no"
@@ -252,7 +252,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "pay"
@@ -274,7 +274,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "address"
@@ -298,7 +298,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "relation"
@@ -320,7 +320,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "place_fell_ill"
@@ -342,7 +342,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "ammount_details"
@@ -364,12 +364,9 @@ const Application = () => {
 
             <Container>
                 <div className="Page2">
-                    <br />
-                    <h2>Medical Attendance</h2>
-                    <br />
+                    <h2>(I) Medical Attendance</h2>
 
                     <h5>(i) Fee for consultation indicating - </h5>
-
                     <Container>
                         <Form>
                             <Form.Group as={Row} className="mb-3">
@@ -381,7 +378,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page2"]["user"][
                                                     "name"
@@ -405,7 +402,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page2"]["user"][
                                                     "numDatesFeeCon"
@@ -429,7 +426,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page2"]["user"][
                                                     "numDatesFeeInj"
@@ -463,7 +460,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page2"]["user"][
                                                     "hospitalName"
@@ -489,7 +486,7 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            as="textarea"
+                                            type="text" style={{padding:"14px"}}
                                             placeholder={
                                                 result_json["page2"]["user"][
                                                     "costMedicine"
@@ -510,8 +507,7 @@ const Application = () => {
             </Container>
 
             <Container>
-                <h2>(ii) Consultation with Specialist</h2>
-                <br />
+                <h2>(II) Consultation with Specialist</h2>
                 <Container>
                     <strong>
                         Fee paid to specialist or a medical office other than
@@ -527,7 +523,7 @@ const Application = () => {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        as="textarea"
+                                        type="text" style={{padding:"14px"}}
                                         placeholder={
                                             result_json["page3"]["user"]["name"]
                                                 ? result_json["page3"]["user"][
@@ -549,7 +545,7 @@ const Application = () => {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        as="textarea"
+                                        type="text" style={{padding:"14px"}}
                                         placeholder={
                                             result_json["page3"]["user"][
                                                 "numDateCon"

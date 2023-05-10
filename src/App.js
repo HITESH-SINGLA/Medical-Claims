@@ -48,12 +48,34 @@ import LoginForm from "./Components/LoginForm";
 import OTPForm from "./Components/OTPForm";
 
 function App() {
+  const roleFinder = ()=>{
+    const role = localStorage.getItem("role");
+    if(role == null){
+      return <LoginForm/>
+    }else if(role === "Pharmacist"){
+      return <Pharmacist/>
+    }else if(role === "Medical_officer"){
+      return <Medical_officer/>
+    }else if(role === "Director"){
+      return <Director/>      
+    }else if(role === "DAorJAO"){
+      return <DAorJAO/>
+    }else if(role === "AO"){
+      return <AO/>
+    }else if(role === "SrAO"){
+      return <SrAO/>
+    }else if(role === "Registrar"){
+      return <Registrar/>
+    }else if(role === "Home"){
+      return <Home/>
+    }
+  }
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element={<PrivateRoute>
-                <Home />
+                {roleFinder()}
               </PrivateRoute>} />
           <Route path="/otp" element={<OTPForm />} />
           <Route path="*" element={<Errorpage />} />

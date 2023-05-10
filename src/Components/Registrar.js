@@ -29,7 +29,7 @@ function Registrar() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForRegistrar",
+      " https://aditya1024.pythonanywhere.com/getallApplicationIdForRegistrar",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -86,7 +86,7 @@ function Registrar() {
 
           <Link
             id="link_to_other_pages"
-            to="./Registrar_verified_applications"
+            to="/Registrar/Registrar_verified_applications"
             style={{ textDecoration: "none" }}
           >
             <li>

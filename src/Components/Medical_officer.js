@@ -3,9 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Switch,
-  useHistory,
   useNavigate,
+  useParams
 } from "react-router-dom";
 
 import { Button, Form, FormGroup } from "react-bootstrap";
@@ -55,7 +54,7 @@ function Medical_officer() {
 
   const getallApplicationIdFromPharmacist = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForMedicalOff",
+      " https://aditya1024.pythonanywhere.com/getallApplicationIdForMedicalOff",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -89,6 +88,7 @@ function Medical_officer() {
     navigate("/");
   };
 
+  let { param_data } = useParams();
   return (
     <div>
       <div id="top_navbar">
@@ -115,7 +115,7 @@ function Medical_officer() {
 
           <Link
             id="link_to_other_pages"
-            to="./Medical_officer_verified_applications"
+            to="/Medical_officer/Medical_officer_verified_applications"
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -179,7 +179,7 @@ function Medical_officer() {
             <tbody>
               {sortedData.map((row) => (
                 <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowApplicationtoPharmaMed/" + (row.id));
+                  param_data === "Medical_officer" ? navigate("ShowApplicationtoPharmaMed/" + (row.id)) : navigate("/Medical_officer/ShowApplicationtoPharmaMed/" + (row.id));
                 }}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>

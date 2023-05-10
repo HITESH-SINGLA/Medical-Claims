@@ -16,7 +16,7 @@ function SrAO_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApprovedApplicationIdFromSrAO",
+      " https://aditya1024.pythonanywhere.com/getallApprovedApplicationIdFromSrAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -103,7 +103,7 @@ function SrAO_verified_applications() {
           <div
             className="application_id"
             onClick={() => {
-              navigate("ShowAllApplication/" + id);
+              navigate("ShowAllApplication/" + id[0]);
             }}
             style={{ cursor: "pointer" }}
           >

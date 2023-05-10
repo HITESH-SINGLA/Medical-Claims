@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "./Auth";
 import { Row, Col, Container, Button, Form } from "react-bootstrap";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "./Home.css";
 import "./Autofill.css";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 function Autofill() {
   const email = localStorage.getItem("email");
@@ -35,7 +36,7 @@ function Autofill() {
   const getBasicDetails = async () => {
     user["email"] = email;
 
-    const res2 = await fetch("http://127.0.0.1:5000/getbasicDetails", {
+    const res2 = await fetch(" https://aditya1024.pythonanywhere.com/getbasicDetails", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },
@@ -55,7 +56,7 @@ function Autofill() {
     e.preventDefault();
     user["email"] = email;
 
-    const res = await fetch("http://127.0.0.1:5000/basicDetails", {
+    const res = await fetch(" https://aditya1024.pythonanywhere.com/basicDetails", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },
@@ -91,29 +92,47 @@ function Autofill() {
         <h2 class="text_center">Menu</h2>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
+        <Link
+            id="link_to_other_pages"
+            to="/Home"
+            style={{ textDecoration: "none" }}
+          >
           <li class="nav-item">
-            <a href="/Home" class="nav-link text-white">
+            <a href="#" class="nav-link text-white">
               <i class="fa fa-home"></i>
               <span class="ms-2 font_size_18">Home </span>
             </a>
           </li>
+          </Link>
 
-          <li>
-            <a href="/Autofill" class="nav-link text-white active">
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Auto Fill</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Autofill"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a href="#" class="nav-link text-white active" >
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Auto Fill</span>
+              </a>
+            </li>
+          </Link>
 
-          <li>
-            <a
-              class="nav-link text-white"
-              href="/Home/Home_verified_applications"
-            >
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Approved applications</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Home/Home_verified_applications"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a
+                class="nav-link text-white"
+                href="#"
+              >
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Approved applications</span>
+              </a>
+            </li>
+          </Link>
 
           <li onClick={handleLogout}>
             <a href="/" class="nav-link text-white">
@@ -165,7 +184,7 @@ function Autofill() {
                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
-                      as="textarea"
+                      type="text" style = {{padding : "12px", width:"450px"}}
                       name="name"
                       defaultValue={user.name}
                       onChange={(e) =>
@@ -184,7 +203,7 @@ function Autofill() {
                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
-                      as="textarea"
+                      type="text" style = {{padding : "12px", width:"450px"}}
                       name="martial_status"
                       defaultValue={user.martial_status}
                       onChange={(e) =>
@@ -204,7 +223,7 @@ function Autofill() {
                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
-                      as="textarea"
+                      type="text" style = {{padding : "12px", width:"450px"}}
                       name="partner_place"
                       defaultValue={user.partner_place}
                       onChange={(e) =>
@@ -221,36 +240,21 @@ function Autofill() {
                   <Form.Label column sm="5">
                     2. Mobile number
                   </Form.Label>
-                  <Col sm="7">
-                    <Form.Control
-                      as="textarea"
-                      name="Mobile_number"
-                      defaultValue={user.Mobile_number}
-                      onChange={(e) =>
-                        setUser({
-                          ...user,
-                          Mobile_number: e.target.value,
-                        })
-                      }
+                  <Form.Label column sm="7">
+                    <PhoneInput
+                      country={'in'}
+                      value={user.Mobile_number}
+                      onChange={(e) => setUser({...user, Mobile_number: e, })}
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
-                  </Col>
+                  </Form.Label>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
                     3. Employees Code No., Deptt/ Section -
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control
-                      as="textarea"
-                      name="employee_code_no"
-                      defaultValue={user.employee_code_no}
-                      onChange={(e) =>
-                        setUser({
-                          ...user,
-                          employee_code_no: e.target.value,
-                        })
-                      }
+                    <Form.Control type="text" style = {{padding : "12px", width:"450px"}} name="employee_code_no" defaultValue={user.employee_code_no}
+                      onChange={(e) => setUser({...user, employee_code_no: e.target.value, })}
                     />
                     {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Form.Label>
@@ -262,7 +266,7 @@ function Autofill() {
                   </Form.Label>
                   <Form.Label column sm="7">
                     <Form.Control
-                      as="textarea"
+                      type="text" style = {{padding : "12px", width:"450px"}}
                       name="pay"
                       defaultValue={user.pay}
                       onChange={(e) =>
@@ -281,7 +285,7 @@ function Autofill() {
                   </Form.Label>
                   <Form.Label column sm="7">
                     <Form.Control
-                      as="textarea"
+                      type="text" style = {{padding : "12px", width:"450px"}}
                       name="address"
                       defaultValue={user.address}
                       onChange={(e) =>
