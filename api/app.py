@@ -55,7 +55,7 @@ def login():
         msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
         msg.body = f'Your OTP is {otp}.'
         mail.send(msg)
-        return jsonify({'message': 'An OTP has been sent to your email.'}), 200
+        return jsonify({'message': 'An OTP has been sent to your email.'}), 201
     elif otp != stored_otp:
         return jsonify({'message': 'Invalid OTP.'}), 401
     else:
@@ -83,7 +83,7 @@ def basicDetails():
 
         mycursor.execute(q1)
         isexist = mycursor.fetchone()
-        print('isexist', isexist[0])
+        # print('isexist', isexist[0])
 
         if(isexist[0] == 0):
             query = f"INSERT INTO basicdetails(user_id, data) VALUES({email_id}, {data})"
@@ -132,8 +132,8 @@ def getbasicDetails():
             result = mycursor.fetchone()
         else:
             result = ('{"user": {"address": "", "email": "", "employee_code_no": "", "martial_status": "", "name": "", "partner_place": "", "pay": ""}}',)
-        print('result line 82',result)
-        print(json.loads(result[0]))
+        # print('result line 82',result)
+        # print(json.loads(result[0]))
 
         mycursor.close()
         conn.close()
@@ -152,7 +152,7 @@ def check_user():
         if (request_data == None):
             print('user is null')
 
-        print(request_data)
+        # print(request_data)
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
@@ -208,7 +208,7 @@ def updateStatus():
         if (request_data == None):
             print('Error in request data')
 
-        print(request_data)
+        # print(request_data)
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
@@ -260,7 +260,7 @@ def getData():
         if (request_data == None):
             print('user is null')
 
-        print(request_data)
+        # print(request_data)
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
@@ -274,12 +274,12 @@ def getData():
 
         mycursor.execute(query)
         result = mycursor.fetchall()
-        print(type(result))
-        print(json.loads(result[-1][2]))
-        print(json.loads(result[-1][3]))
-        print(json.loads(result[-1][4]))
-        print(json.loads(result[-1][5]))
-        print(type(result[-1][4]))
+        # print(type(result))
+        # print(json.loads(result[-1][2]))
+        # print(json.loads(result[-1][3]))
+        # print(json.loads(result[-1][4]))
+        # print(json.loads(result[-1][5]))
+        # print(type(result[-1][4]))
         mycursor.close()
         conn.close()
 
@@ -338,10 +338,10 @@ def getallApplicationIdFromPharmacist():
         result = mycursor.fetchall()
         result_arr = []
         #print("result")
-        print(result)
+        # print(result)
         for item in result:
             result_arr.append([str(item[0]), item[4]])
-        print(result_arr)
+        # print(result_arr)
 
         return {"status": "ok","result": result_arr}
 
@@ -494,7 +494,7 @@ def showApplicationId(id):
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
-        print('showapplication result',result)
+        # print('showapplication result',result)
         return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
 
@@ -569,9 +569,9 @@ def getallApplicationIdForHome():
             p = item[0]
             if (letsdic[p] >= 200000):
                 result_arr.append([str(item[0]), str(item[4]), item[6], item[8], item[10], item[16]])
-        print("---------------------------")
-        print(result_arr)
-        print("----------------------------")
+        # print("---------------------------")
+        # print(result_arr)
+        # print("----------------------------")
         return {"status": "ok", "result": result_arr}
 
     return {"status": "getallApplicationIdForHome working"}
@@ -646,10 +646,10 @@ def getallApprovedApplicationIdFromPharmacist():
         result = mycursor.fetchall()
         result_arr = []
         #print("result")
-        print(result)
+        # print(result)
         for item in result:
             result_arr.append([str(item[0]), item[4]])
-        print(result_arr)
+        # print(result_arr)
 
         return {"status": "ok","result": result_arr}
 
@@ -674,10 +674,10 @@ def getallApplicationIdForMedicalOff():
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
-        print(result)
+        # print(result)
         for item in result:
             result_arr.append([str(item[0]), item[4], item[8]])
-        print(result_arr)
+        # print(result_arr)
 
         return {"status": "ok","result": result_arr}
 
@@ -780,7 +780,7 @@ def getallApplicationIdForAO():
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[12]])
 
         return {"status": "ok","result": result_arr}
 
@@ -806,7 +806,7 @@ def getallApprovedApplicationIdFromAO():
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[12]])
 
         return {"status": "ok","result": result_arr}
 
@@ -904,18 +904,18 @@ def getallApplicationIdForRegistrar():
                 amntt="0"
             amntt=int(amntt)
             if(amntt<50000):
-                result_arr.append([result[i][0],result[i][4]])
-        query = f"select application_id,page3 from application where sr_ao='approved'and registrar<>'approved' order by application_id asc"
+                result_arr.append([result[i][0],result[i][4], result[i][16]])
+        query = f"select * from application where sr_ao='approved'and registrar<>'approved' order by application_id asc"
         mycursor.execute(query)
         result = mycursor.fetchall()
         leng=len(result)
         for i in range(leng):
-            ajso=json.loads(result[i][1])
+            ajso=json.loads(result[i][4])
             amntt=ajso["user"]["netAmntClaimed"]
             if(amntt==""):
                 amntt="0"
             amntt=int(amntt)
-            result_arr.append([result[i][0], result[i][1]])
+            result_arr.append([result[i][0], result[i][4], result[i][16]])
 
         return {"status": "ok","result": result_arr}
 
@@ -935,13 +935,13 @@ def getallApprovedApplicationIdFromRegistrar():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where registrar='approved' order by application_id asc "
+        query = f"select * from application where registrar='approved' order by application_id asc"
 
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4]])
+            result_arr.append([str(item[0]), item[4], item[16]])
 
         return {"status": "ok","result": result_arr}
 
@@ -962,7 +962,7 @@ def getallApplicationIdForDirector():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select application_id from application where registrar='approved' and director<>'approved' order by application_id asc "
+        query = f"select application_id from application where registrar='approved' and director<>'approved' order by application_id asc"
         mycursor.execute(query)
         result = mycursor.fetchall()
         query = f"select application_id,table_data from data"
@@ -1018,10 +1018,6 @@ def getallApprovedApplicationIdFromDirector():
     return {"status": "getallApprovedApplicationIdFromDirector working"}
 
 
-
-
-
-
 @app.route('/showallApplicationId/<id>', methods=['GET', 'POST'])
 @cross_origin()
 def showallApplicationId(id):
@@ -1038,7 +1034,7 @@ def showallApplicationId(id):
         print('line864',query)
         mycursor.execute(query)
         result = mycursor.fetchone()
-        print('line 867 result',result)
+        # print('line 867 result',result)
         return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
 
@@ -1164,7 +1160,7 @@ def showApplicationIdStatus(id):
 
         query = f"select registrar from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select registrar_remarks from application where application_id= {id} and user_id = {email_id}"
-        print(query)
+        # print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
         mycursor.execute(query_for_remarks)
@@ -1184,7 +1180,7 @@ def showApplicationIdStatus(id):
 
         query = f"select director from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select director_remarks from application where application_id= {id} and user_id = {email_id}"
-        print(query)
+        # print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
         mycursor.execute(query_for_remarks)
@@ -1216,12 +1212,12 @@ def update_data_from_accountsection():
             if(request_data == None):
                 print('Error in request data')
 
-            print(request_data)
+            # print(request_data)
             conn = database.get_database(user_name,password)
             mycursor = conn.cursor()
 
-            print(request_data["user"])
-            print(type(request_data["user"]))
+            # print(request_data["user"])
+            # print(type(request_data["user"]))
 
             id = '\'' + request_data["user"]["application_id"] + '\''
             table_data= '\''+ json.dumps(request_data["user"]) +'\''
@@ -1264,9 +1260,9 @@ def getData_from_accounttable(id):
 
         mycursor.execute(query)
         result = mycursor.fetchone()
-        print("line 140",result)
-        print(type(result[1]))
-        print(json.loads(result[1]))
+        # print("line 140",result)
+        # print(type(result[1]))
+        # print(json.loads(result[1]))
         mycursor.close()
         conn.close()
 
@@ -1285,7 +1281,7 @@ def resubmitApplication():
         if (request_data == None):
             print('Error in request data')
 
-        print(request_data)
+        # print(request_data)
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
@@ -1380,5 +1376,5 @@ def getRemarks(id):
 
 
 if __name__ == "__main__":
-    # app.debug = True
+    app.debug = True
     app.run()

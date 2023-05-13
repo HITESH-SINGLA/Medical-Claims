@@ -1,6 +1,6 @@
 import "./Accountpage.css";
-import React, { useMemo, useState, useContext} from "react";
-import { Container, Button, Form} from "react-bootstrap";
+import React, { useMemo, useState, useContext } from "react";
+import { Container, Button, Form } from "react-bootstrap";
 
 import {
   BrowserRouter as Router,
@@ -16,6 +16,7 @@ import "./Accountpage1.css";
 import { storage } from "./firebase";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { getDownloadURL } from "firebase/storage";
+import ExampleDoc from "../assets/IPD_Form.pdf";
 
 const baseStyle = {
   flex: 1,
@@ -263,7 +264,7 @@ function Accountpage1() {
 
         async () => {
           await getDownloadURL(storageRef).then((url) => {
-            console.log(url,"cehbfdcebfdcgcvifv");
+            console.log(url, "cehbfdcebfdcgcvifv");
             img["url"] = url;
             setUrls((prevState) => [...prevState, img]);
           });
@@ -286,9 +287,9 @@ function Accountpage1() {
 
   return (
     <div class="d-flex flex-row">
-       <div
+      <div
         id="sidebar1"
-        style={{marginRight: "30px"}}
+        style={{ marginRight: "30px" }}
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
         <h2 class="text_center">Menu</h2>
@@ -411,7 +412,6 @@ function Accountpage1() {
                 ))}
               </tbody>
             </table>
-
             <br></br>
             <h4>Edit a row</h4>
             <br />
@@ -441,7 +441,6 @@ function Accountpage1() {
                 Edit
               </button>
             </form>
-
             <br></br>
             <br></br>
             <form>
@@ -483,7 +482,6 @@ function Accountpage1() {
               </tbody>
             </table>
             <br></br>
-
             <h4>Edit a row</h4>
             <form>
               <input
@@ -511,7 +509,21 @@ function Accountpage1() {
                 Edit
               </button>
             </form>
-
+            <h2
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "20px",
+              }}
+            >
+              (PART B- For Indoor Patients, IPD)
+            </h2>
+            Please download and fill the form provided below and attach it with the bills (in
+            jpg or jpeg format).
+            <br />
+            <a href={ExampleDoc} download="IPD Form" target="_blank">
+              <Button style={{padding:"4px", marginTop:"10px"}}>Download IPD Form</Button>
+            </a>
             <br></br>
             <br></br>
             <h5>
@@ -529,7 +541,9 @@ function Accountpage1() {
                 <ul>{acceptedFileItems}</ul>
                 <h4>Rejected files</h4>
                 <ul>{fileRejectionItems}</ul>
-                <button class = "btn-primary" onClick={handleupload}>Upload</button>
+                <Button onClick={handleupload}>
+                  Upload
+                </Button>
               </aside>
             </div>
             <br></br>
@@ -542,7 +556,6 @@ function Accountpage1() {
                 onChange={(e) => setDate(e.target.value)}
               />
             </Form.Label>
-
             <Form.Group>
               <Form.Check
                 type="checkbox"
@@ -559,7 +572,9 @@ function Accountpage1() {
             </Button>
           </Link>
         </Container>
-        <br/><br/><br/>
+        <br />
+        <br />
+        <br />
         {/* <div class="footer">
                 <h6 id="copyright">
                     <b>Copyright &#169; 2022, IIT ROPAR</b>
