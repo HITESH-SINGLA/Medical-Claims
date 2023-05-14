@@ -79,6 +79,7 @@
     .form-control{
         border: 0px;
         border-bottom: 1px solid black;
+        
         width: 80%;
     }
     .btn{
