@@ -179,7 +179,7 @@ function ShowApplication() {
 
     const getData = async () => {
         const res = await fetch(
-            " https://aditya1024.pythonanywhere.com/showApplicationId/" + id,
+            "http://127.0.0.1:5000/showApplicationId/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -206,7 +206,7 @@ function ShowApplication() {
 
     const getStatus = async () => {
         const res2 = await fetch(
-            " https://aditya1024.pythonanywhere.com/showApplicationIdStatus/" +
+            "http://127.0.0.1:5000/showApplicationIdStatus/" +
                 id,
             {
                 method: "POST",
@@ -413,7 +413,7 @@ function ShowApplication() {
             )
         } else {
             const res4 = await fetch(
-                " https://aditya1024.pythonanywhere.com/resubmitApplication",
+                "http://127.0.0.1:5000/resubmitApplication",
                 {
                     method: "POST",
                     body: JSON.stringify({

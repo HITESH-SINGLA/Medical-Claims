@@ -216,7 +216,7 @@ function Accountpage1() {
     setResponses2([]);
 
     const res = await fetch(
-      " https://aditya1024.pythonanywhere.com/check_user",
+      "http://127.0.0.1:5000/check_user",
       {
         method: "POST",
         body: JSON.stringify({ user }),
@@ -230,7 +230,7 @@ function Accountpage1() {
   const handleupload = async () => {
     const email1 = email;
     const id = await fetch(
-      " https://aditya1024.pythonanywhere.com/get_application_id",
+      "http://127.0.0.1:5000/get_application_id",
       {
         method: "POST",
         body: JSON.stringify({ email1 }),

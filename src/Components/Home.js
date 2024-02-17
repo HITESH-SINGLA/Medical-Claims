@@ -44,7 +44,7 @@ function Home() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      " https://aditya1024.pythonanywhere.com/getallApplicationIdForHome",
+      "http://127.0.0.1:5000/getallApplicationIdForHome",
       {
         method: "POST",
         body: JSON.stringify({ email: email }),

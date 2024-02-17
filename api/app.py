@@ -1,11 +1,9 @@
-from flask import Flask , request, jsonify
-import json
-import database
+from flask import Flask, request, jsonify,json
 from flask_cors import CORS, cross_origin
 from flask_mail import Mail, Message
 import random
 import secrets
-
+import database
 user_name = 'aditya1024'
 password = 'onepieceisreal'
 
@@ -13,7 +11,6 @@ app = Flask(__name__)
 CORS(app)
 
 app.secret_key = secrets.token_hex(16)
-
 
 app.config['SECRET_KEY'] = 'secret-key'
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -24,8 +21,6 @@ app.config['MAIL_PASSWORD'] = 'nxzfkzusithjjfsj'
 
 mail = Mail(app)
 
-otp_dict = {}
-
 @app.route('/')
 def home():
     return "onepieceisreal"
@@ -34,33 +29,27 @@ def home():
 @cross_origin()
 def login():
     email = request.json['email']
-    otp = request.json['otp']
-    stored_otp = otp_dict.get(email)
+    otp = str(random.randint(1000, 9999))
 
-    conn = database.get_database(user_name, password)
-    mycursor = conn.cursor()
-    email_id = '\'' + email + '\''
-    q1= f"select count(*) from login where email = {email_id}"
-    print(q1)
-    mycursor.execute(q1)
-    isexist = mycursor.fetchone()
-    print(isexist[0])
+    # Mocking database check
+    isexist = 1  # Assuming user exists
 
-    if(isexist[0] == 0):
+    if isexist == 0:
         return jsonify({'message': 'User does not exist.'}), 401
-    if stored_otp is None:
-        otp = str(random.randint(1000, 9999))
-        print(otp)
-        otp_dict[email] = otp
-        msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
-        msg.body = f'Your OTP is {otp}.'
-        mail.send(msg)
-        return jsonify({'message': 'An OTP has been sent to your email.'}), 201
-    elif otp != stored_otp:
-        return jsonify({'message': 'Invalid OTP.'}), 401
-    else:
-        del otp_dict[email]
-        return jsonify({'message': 'Login successful.'}), 200
+
+    msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
+    msg.body = f'Your OTP is {otp}.'
+    mail.send(msg)
+    response = {
+        'message': 'An OTP has been sent to your email.',
+        'otp': otp  # Sending OTP in the response
+    }
+    return jsonify(response), 201
+
+
+    
+    
+    
 
 
 @app.route('/basicDetails', methods=['GET', 'POST'])

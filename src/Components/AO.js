@@ -53,7 +53,7 @@ function AO() {
   const [result_arr, setresult_arr] = useState([]);
 
   const getApplicationId = async () => {
-    const res = await fetch(" https://aditya1024.pythonanywhere.com/getallApplicationIdForAO", {
+    const res = await fetch("http://127.0.0.1:5000/getallApplicationIdForAO", {
       method: "POST",
       body: JSON.stringify({ user_data }),
       headers: { "Content-Type": "application/json" },

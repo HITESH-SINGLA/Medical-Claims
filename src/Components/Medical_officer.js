@@ -54,7 +54,7 @@ function Medical_officer() {
 
   const getallApplicationIdFromPharmacist = async () => {
     const res = await fetch(
-      " https://aditya1024.pythonanywhere.com/getallApplicationIdForMedicalOff",
+      "http://127.0.0.1:5000/getallApplicationIdForMedicalOff",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

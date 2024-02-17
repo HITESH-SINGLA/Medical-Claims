@@ -36,7 +36,7 @@ const Page1 = () => {
     user["email"] = email;
 
     const res2 = await fetch(
-      " https://aditya1024.pythonanywhere.com/getbasicDetails",
+      "http://127.0.0.1:5000/getbasicDetails",
       {
         method: "POST",
         body: JSON.stringify({ user }),
@@ -76,7 +76,7 @@ const Page1 = () => {
       );
     } else {
       const res = await fetch(
-        " https://aditya1024.pythonanywhere.com/check_user",
+        "http://127.0.0.1:5000/check_user",
         {
           method: "POST",
           body: JSON.stringify({ user }),

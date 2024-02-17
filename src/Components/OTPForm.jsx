@@ -17,6 +17,7 @@ const OtpForm = () => {
 
   const handleOtpChange = (event) => {
     setOtp(event.target.value);
+    console.log(otp);
   };
 
   const handleSubmit = async (event) => {
@@ -47,11 +48,14 @@ const OtpForm = () => {
     }}
     event.preventDefault();
     try {
-      const response = await axios.post(" https://aditya1024.pythonanywhere.com/login", {
+      const response = await axios.post("http://127.0.0.1:5000/login", {
         email,
         otp,
       });
-      if (response.status === 200) {
+
+console.log(response.otp)
+      console.log(otp);
+      if (otp==response.otp) {
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("email", email);
         isPharmacist
@@ -78,7 +82,7 @@ const OtpForm = () => {
 
   return (
     <div>
-      <div id="header" style={{ marginTop: "0px" }}>
+      {/* <div id="header" style={{ marginTop: "0px" }}>
         <img
           src="http://www.iitrpr.ac.in/sites/default/files/image.jpg"
           alt=""
@@ -135,7 +139,8 @@ const OtpForm = () => {
         <h6 id="copyright">
           <b>Copyright &#169; 2022, IIT ROPAR</b>
         </h6>
-      </div>
+      </div> */}
+      hello
     </div>
   );
 };

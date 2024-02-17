@@ -83,7 +83,7 @@ const Application = () => {
 
     const getData = async () => {
         const res = await fetch(
-            " https://aditya1024.pythonanywhere.com/getData",
+            "http://127.0.0.1:5000/getData",
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),

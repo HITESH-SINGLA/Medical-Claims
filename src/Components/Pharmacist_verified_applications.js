@@ -14,7 +14,7 @@ function Pharmacist_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      " https://aditya1024.pythonanywhere.com/getallApprovedApplicationIdFromPharmacist",
+      "http://127.0.0.1:5000/getallApprovedApplicationIdFromPharmacist",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

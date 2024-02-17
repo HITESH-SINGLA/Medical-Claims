@@ -36,7 +36,7 @@ function Autofill() {
   const getBasicDetails = async () => {
     user["email"] = email;
 
-    const res2 = await fetch(" https://aditya1024.pythonanywhere.com/getbasicDetails", {
+    const res2 = await fetch("http://127.0.0.1:5000/getbasicDetails", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },
@@ -56,7 +56,7 @@ function Autofill() {
     e.preventDefault();
     user["email"] = email;
 
-    const res = await fetch(" https://aditya1024.pythonanywhere.com/basicDetails", {
+    const res = await fetch("http://127.0.0.1:5000/basicDetails", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },

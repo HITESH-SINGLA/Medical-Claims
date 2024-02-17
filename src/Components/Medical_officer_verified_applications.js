@@ -45,7 +45,7 @@ function Medical_officer_verified_applications() {
 
   const getallApplicationIdFromPharmacist = async () => {
     const res = await fetch(
-      " https://aditya1024.pythonanywhere.com/getallApprovedApplicationIdFromMedicalOff",
+      "http://127.0.0.1:5000/getallApprovedApplicationIdFromMedicalOff",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

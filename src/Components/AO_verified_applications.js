@@ -54,7 +54,7 @@ function AO_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      " https://aditya1024.pythonanywhere.com/getallApprovedApplicationIdFromAO",
+      "http://127.0.0.1:5000/getallApprovedApplicationIdFromAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
