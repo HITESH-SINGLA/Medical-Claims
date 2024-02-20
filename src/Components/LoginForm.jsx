@@ -20,22 +20,35 @@ const LoginForm = () => {
     setOtp(event.target.value);
   };
 
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://127.0.0.1:5000/login", {
         email,
       });
-
-      // Assuming response contains OTP
-      setSentOtp(response.data.otp);
-      console.log(response.data.otp);
-      setButtonText("Validate OTP");
-      alert("OTP Sent to your email.");
+  
+      if (response.status === 200) {
+        if (response.data.message === 'User does not exist.') {
+          alert("User does not exist. Please sign up first.");
+        } else {
+          // If email exists and OTP sent successfully
+          setSentOtp(response.data.otp);
+          console.log(response.data.otp);
+          setButtonText("Validate OTP");
+          alert("OTP sent to your email successfully.");
+        }
+      } else {
+        // If other error occurs
+        alert("Failed to send OTP. Please try again later.");
+      }
     } catch (error) {
       alert("Failed to send OTP. Please try again later.");
     }
   };
+  
+  
 
   const handleValidate = async (event) => {
     event.preventDefault();

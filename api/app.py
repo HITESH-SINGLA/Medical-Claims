@@ -30,21 +30,29 @@ def home():
 def login():
     email = request.json['email']
     otp = str(random.randint(1000, 9999))
-
+    
     # Mocking database check
     isexist = 1  # Assuming user exists
-
+    print(email)
+    # conn = database.get_database(user_name, password)
+    # mycursor = conn.cursor()
+    q1= f"select count(*) from login where email = '{email}'"
+    # mycursor.execute(q1)
+    # isexist = mycursor.fetchone()[0]
+    isexist = 1  # Assuming user exists
     if isexist == 0:
-        return jsonify({'message': 'User does not exist.'}), 401
+        return jsonify({'message': 'User does not exist.'}), 200  # Return 200 for not found
 
     msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
     msg.body = f'Your OTP is {otp}.'
-    mail.send(msg)
+    # mail.send(msg)
     response = {
         'message': 'An OTP has been sent to your email.',
         'otp': otp  # Sending OTP in the response
     }
-    return jsonify(response), 201
+    return jsonify(response), 200
+
+
 
 
     
@@ -152,7 +160,12 @@ def check_user():
             page4 = '\'' + "" + '\''
             status = '\'' + "PENDING" + '\''
             email = '\'' + request_data["user"]["email"] + '\''
-            query = f"INSERT INTO application(user_id, page1, page2, page3, page4, pharmacist, medical_officer, da_jao, ao, sr_ao, registrar, director) VALUES({email}, {page1}, {page2}, {page3}, {page4}, {status}, {status}, {status}, {status}, {status}, {status}, {status})"
+            query = f"""
+                   INSERT INTO application(user_id, page1, page2, page3, page4, pharmacist, pharmacist_remarks, medical_officer, medical_officer_remarks, "DA_JAO", "DA_JAO_remarks", "AO", "AO_remarks", "Sr_AO", "Sr_AO_remarks", registrar, registrar_remarks, director, director_remarks)
+                  VALUES ({email}, {page1}, {page2}, {page3}, {page4}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status}, {status})
+                   """
+
+          
             print("\nQUERY:=>\n")
             print(query)
 
@@ -204,7 +217,7 @@ def updateStatus():
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
         email_id = '\'' + request_data["authorityUser"]["email"] + '\''
         applicationStatus = '\'' + request_data["authorityUser"]["applicationStatus"] + '\''
-        remarks = '\'' + request_data["authorityUser"]["remarks"] + '\''
+        remarks = '\''+ request_data["authorityUser"]["remarks"]+ '\''
 
         print('applicationStatus: ',applicationStatus)
 
@@ -217,13 +230,13 @@ def updateStatus():
             print("assignment of query successful")
 
         elif (email_id  == '\''+'junioracc.xyz901@gmail.com'+'\''):
-            query = f"UPDATE application SET da_jao = {applicationStatus} , da_jao_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"UPDATE application SET da_jao = {applicationStatus} , DA_JAO_remarks = {remarks} WHERE application_id  = {id}"
 
         elif (email_id  == '\''+'assessing.officer.901@gmail.com'+'\''):
-            query = f"UPDATE application SET ao = {applicationStatus} , ao_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"UPDATE application SET ao = {applicationStatus} , AO_remarks = {remarks} WHERE application_id  = {id}"
 
         elif (email_id  == '\''+'senior.audit.901@gmail.com'+'\''):
-            query = f"UPDATE application SET sr_ao = {applicationStatus} , sr_ao_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"UPDATE application SET sr_ao = {applicationStatus} , Sr_AO_remarks = {remarks} WHERE application_id  = {id}"
 
         elif (email_id  == '\''+'registrar.officer.901@gmail.com'+'\''):
             query = f"UPDATE application SET registrar = {applicationStatus} , registrar_remarks = {remarks} WHERE application_id  = {id}"
@@ -290,10 +303,10 @@ def getApplicationId():
 
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
-
+        email=request_data["currentUser"]["email"]
         email_id = '\'' + request_data["currentUser"]["email"] + '\''
         print('email: ', email_id)
-        query = f"select application_id from application where user_id = {email_id} order by application_id asc"
+        query = f"select application_id from application where user_id = '{email}' order by application_id asc"
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -475,7 +488,7 @@ def showApplicationId(id):
         if (request_data == None):
             print('Error in reading request data')
             return
-
+       
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
@@ -514,56 +527,41 @@ def getallApplicationId():
 
     return {"status": "getallapplicationId working"}
 
-import ast
 
-@app.route('/getallApplicationIdForHome',
-          methods=['GET', 'POST'])
+
+@app.route('/getallApplicationIdForHome', methods=['POST'])
 @cross_origin()
-def getallApplicationIdForHome():
-    if (request.method == 'POST'):
-        request_data = request.get_json()
-        if (request_data == None):
-            print('Error in reading request data')
-            return
+def get_all_application_id_for_home():
+    request_data = request.get_json()
+    if request_data is None:
+        return jsonify({"status": "error", "message": "Error in reading request data"})
 
-        conn = database.get_database(user_name, password)
+    email = request_data.get("email")
+    if not email:
+        return jsonify({"status": "error", "message": "Email not provided in request"})
+
+    conn = database.get_database(user_name, password)
+    if not conn:
+        return jsonify({"status": "error", "message": "Failed to connect to the database"})
+
+    try:
         mycursor = conn.cursor()
-
-        email_id = '\'' + request_data["email"] + '\''
-        print('email: ', email_id)
-        query = f"select * from application where user_id = {email_id} and registrar<>'approved' order by application_id asc"
-        mycursor.execute(query)
+        query = f"SELECT * FROM application WHERE user_id ='{email}'"
+        mycursor.execute(query, (email,))
         result = mycursor.fetchall()
+
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[6], item[8], item[10], item[16]])
+            
+        print(result_arr)
+        return jsonify({"status": "ok", "result": result})
+    
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
 
-        query = f"select * from application where user_id = {email_id} and registrar='approved' and director<>'approved' order by application_id asc"
-        mycursor.execute(query)
-        result = mycursor.fetchall()
-        query = f"select application_id,table_data from data"
-        mycursor.execute(query)
-        result_meta = mycursor.fetchall()
-        leng = len(result_meta)
-        letsdic = {}
-        for i in range(leng):
-            ajso = json.loads(result_meta[i][1])
-            amntt = ajso["total2"]
-            if (amntt == ""):
-                amntt = "0"
-            amntt = int(amntt)
-            letsdic[result_meta[i][0]] = amntt
-
-        for item in result:
-            p = item[0]
-            if (letsdic[p] >= 200000):
-                result_arr.append([str(item[0]), str(item[4]), item[6], item[8], item[10], item[16]])
-        # print("---------------------------")
-        # print(result_arr)
-        # print("----------------------------")
-        return {"status": "ok", "result": result_arr}
-
-    return {"status": "getallApplicationIdForHome working"}
+    finally:
+        conn.close()
 
 
 @app.route('/getallApprovedApplicationId', methods=['GET', 'POST'])
@@ -1088,7 +1086,7 @@ def showApplicationIdStatus(id):
             isHold = "no"
 
         query = f"select da_jao from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select da_jao_remarks from application where application_id= {id} and user_id = {email_id}"
+        query_for_remarks = f"select DA_JAO_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1108,7 +1106,7 @@ def showApplicationIdStatus(id):
             isHold = "no"
 
         query = f"select ao from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select ao_remarks from application where application_id= {id} and user_id = {email_id}"
+        query_for_remarks = f"select AO_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1128,7 +1126,7 @@ def showApplicationIdStatus(id):
             isHold = "no"
 
         query = f"select sr_ao from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select sr_ao_remarks from application where application_id= {id} and user_id = {email_id}"
+        query_for_remarks = f"select Sr_AO_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1344,11 +1342,11 @@ def getRemarks(id):
         elif(email_id == 'medical.officer.901@gmail.com'):
             query = f"select medical_officer_remarks from application where application_id = {id}"
         elif(email_id == 'junioracc.xyz901@gmail.com'):
-            query = f"select da_jao_remarks from application where application_id = {id}"
+            query = f"select DA_JAO_remarks from application where application_id = {id}"
         elif(email_id == 'assessing.officer.901@gmail.com'):
-            query = f"select ao_remarks from application where application_id = {id}"
+            query = f"select AO_remarks from application where application_id = {id}"
         elif(email_id == 'senior.audit.901@gmail.com'):
-            query = f"select sr_ao_remarks from application where application_id = {id}"
+            query = f"select Sr_AO_remarks from application where application_id = {id}"
         elif(email_id == 'registrar.officer.901@gmail.com'):
             query = f"select registrar_remarks from application where application_id = {id}"
         elif(email_id == 'tempusageww3@gmail.com'):
