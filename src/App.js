@@ -46,6 +46,7 @@ import Home_verified_applications from "./Components/Home_verified_applications"
 import Instructions from "./Components/Instructions";
 import LoginForm from "./Components/LoginForm";
 import OTPForm from "./Components/OTPForm";
+import LandingPage from './Components/Landingpage';
 
 function App() {
   const roleFinder = ()=>{
@@ -74,9 +75,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<PrivateRoute>
+          <Route path="/" element={<LandingPage />}/>
+          {/* <Route path="/" element={<PrivateRoute>
                 {roleFinder()}
-              </PrivateRoute>} />
+              </PrivateRoute>} /> */}
           <Route path="/otp" element={<OTPForm />} />
           <Route path="*" element={<Errorpage />} />
           <Route
@@ -84,6 +86,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/LoginForm"
+            element={
+              <PrivateRoute>
+                <LoginForm />
               </PrivateRoute>
             }
           />

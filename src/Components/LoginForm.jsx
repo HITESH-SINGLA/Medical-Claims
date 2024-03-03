@@ -67,20 +67,20 @@ var check=email;
 
 
       isPharmacist
-        ? navigate("Pharmacist")
+        ? navigate("/Pharmacist")
         : isMediOffi
-        ? navigate("Medical_officer")
+        ? navigate("/Medical_officer")
         : isDirector
-        ? navigate("Director")
+        ? navigate("/Director")
         : isDAorJAOO
-        ? navigate("DAorJAO")
+        ? navigate("/DAorJAO")
         : isAO
-        ? navigate("AO")
+        ? navigate("/AO")
         : isSrAO
-        ? navigate("SrAO")
+        ? navigate("/SrAO")
         : isRegistrar
-        ? navigate("Registrar")
-        : navigate("Home");
+        ? navigate("/Registrar")
+        : navigate("/Home");
 
     } else {
       alert("Invalid OTP. Please try again.");
