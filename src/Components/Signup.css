@@ -34,21 +34,40 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 20px;
+  border: #7be0b5;
   
 }
 .signup-input-field::placeholder {
   font-size: 18px; /* Adjust the size as needed */
   font-weight: 300;
 }
+.signup-input-field select option[disabled]:first-child {
+  font-size: 18px; /* Adjust the size as needed */
+  font-weight: 300;
+}
 .signup-button{
   width: 120px;
   height: 40px;
-  background-color: #7be0b5;
-  border: 2px solid #000000;
+  background-color: #16a668;
+  /* border: 2px solid #000000; */
   border-radius: 40px;
+  border: none;
 
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
+.signup-login-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #009664;
+  text-decoration: none;
+}
+
+.stray8{
+justify-content: flex-end;
+
+}
+

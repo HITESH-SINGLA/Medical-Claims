@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 
 function SignupPage() {
@@ -6,6 +7,7 @@ function SignupPage() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleGetOTP = () => {
     const generatedOTP = Math.floor(100000 + Math.random() * 900000);
@@ -21,29 +23,53 @@ function SignupPage() {
     }
   };
 
+  const handleDropdownChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
   return (
     <div className="signup-overlay">
       <div className="signup-popup">
-        <h1 className="signup-title-box1">Signup</h1>
+        <h1 className="signup-title-box1">SignUp</h1>
         {!showOtpField ? (
           <>
             <input
               type="text"
-              placeholder="Name"
+              placeholder="name"
               className="signup-input-field"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="email"
               className="signup-input-field"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <select
+              value={selectedOption}
+              onChange={handleDropdownChange}
+              className="signup-input-field"
+              
+            >
+              <option>department</option>
+              <option >pharmacist</option>
+              <option >medical officer</option>
+              <option>Sr_AO</option>
+              <option >DA_JAO</option>
+              <option >Registrar</option>
+              <option >Director</option>
+              <option >Accountant</option>
+            </select>
+            <div className="stray8"> 
             <button className="signup-button" onClick={handleGetOTP}>
               Get OTP
             </button>
+            
+            <Link className="signup-login-link" to="/login">Already have an account? Login</Link>
+          </div>
+            
           </>
         ) : (
           <>
