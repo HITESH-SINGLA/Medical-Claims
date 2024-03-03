@@ -1,194 +1,66 @@
-import React, { Component, useContext, useState } from "react"
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Switch,
-    useNavigate,
-} from "react-router-dom"
+// src/Signup.js
+import React, { useState } from 'react';
+import './Signup.css';
 
-import { Button, Form, FormGroup } from "react-bootstrap"
-import "bootstrap/dist/css/bootstrap.min.css"
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    mobile: '',
+    email: '',
+    department: '',
+  });
 
-import logo from "./logo.png"
-import "./Login.css"
-import { signInWithGoogle } from "./firebase"
-import { AuthContext } from "./Auth"
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut,
-    EmailAuthProvider,
-} from "firebase/auth"
-import { getAuth, linkWithCredential } from "firebase/auth"
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-import { auth } from "./firebase"
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your signup logic here or simply log the form data
+    console.log('Form data submitted:', formData);
+  };
 
-import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap"
+  return (
+    <div className="signup-container">
+      <div className="outer-rectangle">
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
 
-function Signup() {
-    const [registerEmail, setRegisterEmail] = useState("")
-    const [registerPassword, setRegisterPassword] = useState("")
+          <label htmlFor="mobile">Mobile Number:</label>
+          <input
+            type="text"
+            id="mobile"
+            name="mobile"
+            pattern="[0-9]{10}"
+            placeholder="Enter 10-digit mobile number"
+            value={formData.mobile}
+            onChange={handleChange}
+          />
 
-    const [user, setUser] = useState({})
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@example.com"
+            value={formData.email}
+            onChange={handleChange}
+          />
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
+          <label htmlFor="department">Department:</label>
+          <select id="department" name="department" value={formData.department} onChange={handleChange}>
+            <option value="">Select Department</option>
+            <option value="pharmacist">Pharmacist</option>
+            <option value="doctor">Doctor</option>
+            <option value="student">Student</option>
+          </select>
 
-    const navigate = useNavigate()
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-    const provider = new GoogleAuthProvider()
-
-    const HandleEmailSignup = async () => {
-        if (registerEmail.split("@")[1] !== "iitrpr.ac.in") {
-            alert("Your email id should be institute email id only")
-        } else if (registerEmail[0] >= "0" && registerEmail[0] <= "9") {
-            //that means email starts with digit
-            alert("Students are not allowed to sign up")
-        } else if (registerPassword.length < 6) {
-            //that means email starts with digit
-            alert(
-                "Weak Password. \nPassword must be at least 6 characters long"
-            )
-        } else {
-            try {
-                signInWithPopup(auth, provider).then((result) => {
-                    const credential = EmailAuthProvider.credential(
-                        registerEmail,
-                        registerPassword
-                    )
-
-                    //const auth = getAuth();
-                    linkWithCredential(auth.currentUser, credential)
-                        .then((usercred) => {
-                            const user = usercred.user
-                            console.log("Account linking success", user)
-                        })
-                        .catch((error) => {
-                            console.log("Account linking error", error)
-                            if (error.code === "auth/provider-already-linked") {
-                                alert("Account already exist")
-                            }
-                            if (error.code === "auth/weak-password") {
-                                alert(
-                                    "Password must be at least 6-20 characters long"
-                                )
-                            }
-                        })
-                    const name = result.user.displayName
-                    const email = result.user.email
-                    const profilePic = result.user.photoURL
-                    console.log("Name " + name)
-                    console.log("email " + email)
-                    console.log("profilePicURL " + profilePic)
-                    navigate("/")
-                })
-            } catch (error) {
-                console.log(error.code)
-            }
-        }
-    }
-
-    return (
-        <div>
-            <div id="header">
-                <img
-                    src="http://www.iitrpr.ac.in/sites/default/files/image.jpg"
-                    alt=""
-                    id="logo"
-                />
-                <h1 id="iit_ropar">
-                    <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
-                </h1>
-            </div>
-            <div id="medical_claims">
-                <h1 id="medical_claim_heading">
-                    <b>Medical Claims</b>
-                </h1>
-            </div>
-            <div id="navbar">
-                <link
-                    rel="stylesheet"
-                    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-                    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-                    crossorigin="anonymous"
-                />
-                <link
-                    rel="stylesheet"
-                    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-                    crossorigin="anonymous"
-                />
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbar"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </nav>
-            </div>
-            <h4
-                style={{
-                    "text-align": "center",
-                    "margin-top": 20,
-                    "margin-bottom": 20,
-                }}
-            >
-                Create a new account
-            </h4>
-            <div id="center_signup">
-                <form id="fm">
-                    <div class="form-group">
-                        <label>Email address</label>
-                        <span style={{ color: "red" }}>*</span>
-                        <input
-                            type="email"
-                            name="registerEmail"
-                            class="form-control"
-                            placeholder="Enter your institute email"
-                            onChange={(event) => {
-                                setRegisterEmail(event.target.value)
-                            }}
-                        />
-                        <Form.Text id="passwordHelpBlock" muted>
-                            Email must be institute mail id
-                        </Form.Text>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <span style={{ color: "red" }}>*</span>
-                        <input
-                            type="password"
-                            name="registerPassword"
-                            class="form-control"
-                            placeholder="Password"
-                            onChange={(event) => {
-                                setRegisterPassword(event.target.value)
-                            }}
-                        />
-                        <Form.Text id="passwordHelpBlock" muted>
-                            Your password must be atleast 6-20 characters long.
-                        </Form.Text>
-                    </div>
-                    <Button onClick={HandleEmailSignup} type="button">
-                        Signup
-                    </Button>
-                    <br />
-                </form>
-            </div>
-
-            <div id="footer" class="signup_footer">
-                <h6 id="copyright">
-                    <b>Copyright &#169; 2022, IIT ROPAR</b>
-                </h6>
-            </div>
-        </div>
-    )
-}
-
-export default Signup
+export default Signup;

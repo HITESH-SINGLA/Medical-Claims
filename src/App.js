@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import Login from "./Components/Login";
-import Signup from "./Components/Signup";
 import ForgotPassword from "./Components/ForgotPassword";
 
 import { AuthProvider } from "./Components/Auth";
@@ -47,6 +46,7 @@ import Instructions from "./Components/Instructions";
 import LoginForm from "./Components/LoginForm";
 import OTPForm from "./Components/OTPForm";
 import LandingPage from './Components/Landingpage';
+import Signup from './Components/Signup';
 
 function App() {
   const roleFinder = ()=>{
@@ -80,12 +80,21 @@ function App() {
                 {roleFinder()}
               </PrivateRoute>} /> */}
           <Route path="/otp" element={<OTPForm />} />
+          <Route path="/Signup" element={<Signup />} />
           <Route path="*" element={<Errorpage />} />
           <Route
             path="/Home"
             element={
               <PrivateRoute>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/Signup"
+            element={
+              <PrivateRoute>
+                <Signup />
               </PrivateRoute>
             }
           />

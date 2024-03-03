@@ -2,13 +2,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Landingpage.css";
 
-
 const Landingpage = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
     // Assuming you have a route named "/login", adjust it accordingly
     navigate("/LoginForm");
+  };
+  const handleSignup = () => {
+    // Assuming you have a route named "/login", adjust it accordingly
+    navigate("/Signup");
   };
   return (
     <div className="landingpage">
@@ -33,7 +36,11 @@ const Landingpage = () => {
                   Login
                 </button>
 
-                <button className="btn btn-outline-success" type="submit">
+                <button
+                  className="btn btn-outline-success"
+                  type="submit"
+                  onClick={handleSignup}
+                >
                   Signup
                 </button>
               </div>
