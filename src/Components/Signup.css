@@ -1,17 +1,19 @@
 /* styles.css */
 
 .signup-overlay {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.5); /* semi-transparent black background */
+  margin: 100px 0 100px 0;
+  background-color:#b4b4b8; /* semi-transparent black background */
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
+.back{
+  background-color:#b4b4b8; 
+}
 .signup-popup {
   background-color: white;
   width: 80%;

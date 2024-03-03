@@ -27,6 +27,11 @@ const Landingpage = () => {
                   height="80"
                 />
               </a>
+
+              <h2 id="iit_roparland">
+                <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
+              </h2>
+
               <div className="d-flex">
                 <button
                   className="btn btn-outline-success me-2"
@@ -62,7 +67,11 @@ const Landingpage = () => {
           <div className="card">
             <div className="top">
               <h2 className="name">Dr. Reena </h2>
-              <img className="circle-img" src="./images/doc1.png" alt="avatar_img" />
+              <img
+                className="circle-img"
+                src="./images/doc1.png"
+                alt="avatar_img"
+              />
             </div>
             <div className="bottom">
               <p className="info">
@@ -79,7 +88,11 @@ const Landingpage = () => {
           <div className="card">
             <div className="top">
               <h2 className="name">Dr. Gurvinder</h2>
-              <img className="circle-img" src="./images/doc2.png" alt="avatar_img" />
+              <img
+                className="circle-img"
+                src="./images/doc2.png"
+                alt="avatar_img"
+              />
             </div>
             <div className="bottom">
               <p className="info">
@@ -89,7 +102,7 @@ const Landingpage = () => {
                 <i className="fas fa-phone"></i> 9050477612
               </p>
               <p className="info">
-                <i className="fas fa-envelope"></i>  drgurvinderk@gmail.com
+                <i className="fas fa-envelope"></i> drgurvinderk@gmail.com
               </p>
             </div>
           </div>
@@ -99,7 +112,11 @@ const Landingpage = () => {
           <div className="card">
             <div className="top">
               <h2 className="name">Dr.Charanjit</h2>
-              <img className="circle-img" src="./images/doc3.png" alt="avatar_img" />
+              <img
+                className="circle-img"
+                src="./images/doc3.png"
+                alt="avatar_img"
+              />
             </div>
             <div className="bottom">
               <p className="info">
@@ -116,7 +133,11 @@ const Landingpage = () => {
           <div className="card">
             <div className="top">
               <h2 className="name"> Dr. Dipti</h2>
-              <img className="circle-img" src="./images/doc4.png" alt="avatar_img" />
+              <img
+                className="circle-img"
+                src="./images/doc4.png"
+                alt="avatar_img"
+              />
             </div>
             <div className="bottom">
               <p className="info">
