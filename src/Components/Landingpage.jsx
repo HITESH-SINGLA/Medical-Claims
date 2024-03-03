@@ -61,35 +61,35 @@ const Landingpage = () => {
         <div className="sameline">
           <div className="card">
             <div className="top">
-              <h2 className="name">Hitesh Singla</h2>
-              <img className="circle-img" src="./hitesh.jpg" alt="avatar_img" />
+              <h2 className="name">Dr. Reena </h2>
+              <img className="circle-img" src="./images/doc1.png" alt="avatar_img" />
             </div>
             <div className="bottom">
               <p className="info">
-                <i className="fas fa-user"></i> Director
+                <i className="fas fa-user"></i> Medical Officer
               </p>
               <p className="info">
                 <i className="fas fa-phone"></i> 9050477612
               </p>
               <p className="info">
-                <i className="fas fa-envelope"></i> hiteshsingla071@gmail.com
+                <i className="fas fa-envelope"></i> reena@iitrpr.ac.in
               </p>
             </div>
           </div>
           <div className="card">
             <div className="top">
-              <h2 className="name">Mohit Meena</h2>
-              <img className="circle-img" src="./hitesh.jpg" alt="avatar_img" />
+              <h2 className="name">Dr. Gurvinder</h2>
+              <img className="circle-img" src="./images/doc2.png" alt="avatar_img" />
             </div>
             <div className="bottom">
               <p className="info">
-                <i className="fas fa-user"></i> Dean
+                <i className="fas fa-user"></i> Medical Officer
               </p>
               <p className="info">
                 <i className="fas fa-phone"></i> 9050477612
               </p>
               <p className="info">
-                <i className="fas fa-envelope"></i> mohit@gmail.com
+                <i className="fas fa-envelope"></i>  drgurvinderk@gmail.com
               </p>
             </div>
           </div>
@@ -98,35 +98,35 @@ const Landingpage = () => {
         <div className="sameline">
           <div className="card">
             <div className="top">
-              <h2 className="name">Mohit Kumar</h2>
-              <img className="circle-img" src="./hitesh.jpg" alt="avatar_img" />
+              <h2 className="name">Dr.Charanjit</h2>
+              <img className="circle-img" src="./images/doc3.png" alt="avatar_img" />
             </div>
             <div className="bottom">
               <p className="info">
-                <i className="fas fa-user"></i>HOD
+                <i className="fas fa-user"></i>Medical Officer
               </p>
               <p className="info">
                 <i className="fas fa-phone"></i>9050477612
               </p>
               <p className="info">
-                <i className="fas fa-envelope"></i>mohit2gmail.com
+                <i className="fas fa-envelope"></i> drcharanjit@iitrpr.ac.in
               </p>
             </div>
           </div>
           <div className="card">
             <div className="top">
-              <h2 className="name">Imrozepal Singh</h2>
-              <img className="circle-img" src="./hitesh.jpg" alt="avatar_img" />
+              <h2 className="name"> Dr. Dipti</h2>
+              <img className="circle-img" src="./images/doc4.png" alt="avatar_img" />
             </div>
             <div className="bottom">
               <p className="info">
-                <i className="fas fa-user"></i>Dean
+                <i className="fas fa-user"></i>Medical Officer
               </p>
               <p className="info">
                 <i className="fas fa-phone"></i>9050477612
               </p>
               <p className="info">
-                <i className="fas fa-envelope"></i>imrozepal@gmail.com
+                <i className="fas fa-envelope"></i>diptiborad4@gmail.com
               </p>
             </div>
           </div>

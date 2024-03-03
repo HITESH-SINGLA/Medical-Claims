@@ -20,17 +20,15 @@ const LoginForm = () => {
     setOtp(event.target.value);
   };
 
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://127.0.0.1:5000/login", {
         email,
       });
-  
+
       if (response.status === 200) {
-        if (response.data.message === 'User does not exist.') {
+        if (response.data.message === "User does not exist.") {
           alert("User does not exist. Please sign up first.");
         } else {
           // If email exists and OTP sent successfully
@@ -47,8 +45,6 @@ const LoginForm = () => {
       alert("Failed to send OTP. Please try again later.");
     }
   };
-  
-  
 
   const handleValidate = async (event) => {
     event.preventDefault();
@@ -56,7 +52,7 @@ const LoginForm = () => {
       alert("OTP Validated!");
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("email", email);
-var check=email;
+      var check = email;
       var isPharmacist = check === "pharmacistxyz901@gmail.com";
       var isMediOffi = check === "medical.officer.901@gmail.com";
       var isDirector = check === "tempusageww3@gmail.com";
@@ -64,7 +60,6 @@ var check=email;
       var isAO = check === "assessing.officer.901@gmail.com";
       var isSrAO = check === "senior.audit.901@gmail.com";
       var isRegistrar = check === "registrar.officer.901@gmail.com";
-
 
       isPharmacist
         ? navigate("/Pharmacist")
@@ -81,7 +76,6 @@ var check=email;
         : isRegistrar
         ? navigate("/Registrar")
         : navigate("/Home");
-
     } else {
       alert("Invalid OTP. Please try again.");
     }
@@ -89,7 +83,7 @@ var check=email;
 
   return (
     <div>
-      <div id="header" style={{ marginTop: "0px" }}>
+      {/* <div id="header" style={{ marginTop: "0px" }}>
         <img
           src="http://www.iitrpr.ac.in/sites/default/files/image.jpg"
           alt=""
@@ -99,6 +93,26 @@ var check=email;
         <h1 id="iit_ropar">
           <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
         </h1>
+      </div> */}
+
+      <div>
+        <nav className="navbar navbar-dark bg-dark border-bottom border-body">
+          <div className="container-fluid">
+            <a href="http://localhost:3000/" className="navbar-brand">
+              <img
+                className="logoimg"
+                src="./logo.png"
+                alt="IIT Ropar Logo"
+                height="80"
+              />
+            </a>
+            <div className="d-flex">
+              <h1 id="iit_ropar">
+                <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
+              </h1>
+            </div>
+          </div>
+        </nav>
       </div>
 
       <div
@@ -150,11 +164,72 @@ var check=email;
           </form>
         )}
       </div>
-      <div id="footer" style={{ position: "absolute", bottom: "0" }}>
-        <h6 id="copyright">
-          <b>Copyright &#169; 2022, IIT ROPAR</b>
-        </h6>
-      </div>
+      <div>
+          <footer class="footer-distributed">
+            <div class="footer-left">
+              <h3>
+                <img
+                  className="logoimg"
+                  src="./logo.png"
+                  alt="IIT Ropar Logo"
+                  height="80"
+                />
+              </h3>
+
+              <p class="footer-links">
+                <a href="https://www.iitrpr.ac.in/" class="link-1">
+                  Indian Institute of technology, Ropar
+                </a>
+              </p>
+
+              <p class="footer-company-name">
+                2016 MEDICAL CENTER. All Rights Reserved
+              </p>
+            </div>
+
+            <div class="footer-center">
+              <div>
+                <i class="fas fa-building"></i>
+                <p>
+                  <span>IIT Ropar</span>Rupnagar, Punjab, INDIA 140001
+                </p>
+              </div>
+
+              <div>
+                <i class="fas fa-phone-alt fa-flip-horizontal"></i>
+                <p>+91-1881-242124</p>
+              </div>
+
+              <div>
+                <i class="far fa-envelope"></i>
+                <p>
+                  <a href="mailto:support@company.com">support@iitrpr.com</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="footer-right">
+              <p class="footer-company-about">
+                <span>About the company</span>
+                An online portal for submitting and tracking medical
+                reimbursement requests, thus digitalizing the process, making it
+                more accessible and convenient for the staff.
+              </p>
+
+              <div class="footer-icons">
+                <a href="https://twitter.com/?lang=en">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/school/iitropar/">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/iitrpr_iitrpr/">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </footer>
+        </div>
     </div>
   );
 };
