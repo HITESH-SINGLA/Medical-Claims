@@ -73,3 +73,17 @@ justify-content: flex-end;
 
 }
 
+.login-link {
+  margin-left: 30px; /* Adjust as needed */
+  /* Additional styles for the login link */
+  color:#009664;
+  font-weight: 900;
+  font-size: medium;
+}
+.button-c {
+  display: flex;
+  align-items: center;
+}
+.signup-button, .login-link {
+  display: inline-block; /* Display as inline-block to allow them to appear horizontally */
+}

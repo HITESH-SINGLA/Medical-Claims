@@ -14,7 +14,8 @@
 
 #iit_ropar {
     color: white;
-    margin-left: 5%;
+ margin-left: -60%;
+
 }
 
 #medical_claims {
@@ -52,16 +53,16 @@
 }
 
 #fm {
-    margin-left: auto;
-    margin-right: auto;
+    
 
     border: solid gray 3px;
-    padding-left: 4%;
-    padding-right: 4%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    border-radius: 2.5%;
+ padding: 50px;
+    border-radius: 35px;
     min-width: 350px;
+}
+#fm h4{
+    margin-top: -20px;
+    margin-bottom: 25px;
 }
 
 #fm:hover {
@@ -164,4 +165,10 @@
     display: flex;
     align-items: center;
     color: white;
+}
+.ccc{
+    justify-content: center;
+    align-items: center;
+    position: center;
+margin: auto;
 }

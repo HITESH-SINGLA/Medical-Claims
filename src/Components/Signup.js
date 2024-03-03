@@ -55,27 +55,54 @@ function SignupPage() {
             <>
               <input
                 type="text"
-                placeholder="Name"
+                placeholder="name"
                 className="signup-input-field"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="email"
                 className="signup-input-field"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button className="signup-button" onClick={handleGetOTP}>
-                Get OTP
-              </button>
+                 <input
+                type="email"
+                placeholder="mobile"
+                className="signup-input-field"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <select
+                value={selectedOption}
+                onChange={handleDropdownChange}
+                className="signup-input-field"
+
+              >
+                <option>department</option>
+                <option >pharmacist</option>
+                <option >medical officer</option>
+                <option>Sr_AO</option>
+                <option >DA_JAO</option>
+                <option >Registrar</option>
+                <option >Director</option>
+                <option >Accountant</option>
+              </select>
+              <div class="buttonc">
+                <button className="signup-button" onClick={handleGetOTP}>
+                  Get OTP
+                </button>
+                <a href="#" class="login-link">Already?Login</a>
+              </div>
+
+
             </>
           ) : (
             <>
               <input
                 type="text"
-                placeholder="Enter OTP"
+                placeholder="enter OTP"
                 className="signup-input-field"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
