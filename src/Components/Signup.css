@@ -1,54 +1,54 @@
-/* src/Signup.css */
-.signup-container {
+/* styles.css */
+
+.signup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* semi-transparent black background */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
-.outer-rectangle {
-  border: 2px solid #61dafb;
-  border-radius: 15px;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.signup-form {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.signup-popup {
+  background-color: white;
+  width: 80%;
   max-width: 400px;
-  width: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+  background-color: rgba(117, 113, 113, 0.5); /* semi-transparent black background */
+  justify-content: center;
+  align-items: center;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
+.signup-title-box1 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-input,
-select {
-  width: 100%;
+.signup-input-field {
+  width: calc(100% - 20px); /* minus padding */
+  margin-bottom: 10px;
   padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 20px;
+  
 }
+.signup-input-field::placeholder {
+  font-size: 18px; /* Adjust the size as needed */
+  font-weight: 300;
+}
+.signup-button{
+  width: 120px;
+  height: 40px;
+  background-color: #7be0b5;
+  border: 2px solid #000000;
+  border-radius: 40px;
 
-button {
-  background-color: #61dafb;
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #4fa3ff;
-  box-shadow: 0 0 15px rgba(97, 218, 251, 0.7);
 }
