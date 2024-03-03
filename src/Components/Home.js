@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { BrowserRouter as Router, Link, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
@@ -11,14 +11,79 @@ function Home() {
   const [sortColumn, setSortColumn] = useState("id");
   const [sortDirection, setSortDirection] = useState("asc");
   const [data, setData] = useState([]);
+  const [email, setEmail] = useState("");
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSortChange = (event) => {
-    setSortColumn(event.target.value);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  const handleSortChange = (column) => {
+    setSortColumn(column);
+    setSortDirection((prevDirection) => (prevDirection === "asc" ? "desc" : "asc"));
+  };
+
+  useEffect(() => {
+    const getEmail = localStorage.getItem("email");
+    setEmail(getEmail);
+
+    const getApplicationId = async () => {
+      try {
+        const res = await fetch("http://127.0.0.1:5000/getallApplicationIdForHome", {
+          method: "POST",
+          body: JSON.stringify({ email: getEmail }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        let data = await res.json();
+        data=data.result
+        for(let i=0;i<data.length;i++)
+        {
+          let datai=data[i]
+          let num=datai[0]
+          let username=datai[1]
+          for(let j=2;j<=num;j++)
+          {
+            datai[j]=JSON.parse(datai[j])
+          }
+          data[i]=datai
+        }
+        console.log(data)
+  setData(data)
+        // const applicationId = data.result[0][0];
+        // const dateOfClaim = JSON.parse(data.result[0][5]).user.date;
+        // const netAmount = JSON.parse(data.result[0][4]).user.netAmntClaimed;
+        // const status1 = data.result[0][6];
+        // const status2 = data.result[0][8];
+        // const status3 = data.result[0][10];
+        // const status4=data.result[0][14];
+        // console.log(status4);
+        // console.log(data.result[0][16]);
+        // console.log(data.result[0][22]);
+        // const updatedData = data.result.map((id1) => ({
+        //   id: applicationId,
+        //   amount: netAmount,
+        //   date: dateOfClaim,
+        //   s1: status1,
+        //   s2: status2,
+        //   s3: status3,
+        //   s4:status4,
+        // }));
+
+        // setData(updatedData);
+      } catch (error) {
+        console.error("Error fetching application data:", error);
+      }
+    };
+
+    getApplicationId();
+  }, []);
+
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
   };
 
   const filteredData = data.filter((row) =>
@@ -38,108 +103,49 @@ function Home() {
     }
   });
 
-  const email = localStorage.getItem("email");
-
-  const [result_arr, setresult_arr] = useState([]);
-
-  const getApplicationId = async () => {
-    const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForHome",
-      {
-        method: "POST",
-        body: JSON.stringify({ email: email }),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-
-    const data2 = await res.json();
-    console.log(data2["result"]);
-
-    setresult_arr(data2["result"]);
-    console.log(result_arr);
-
-    const updateData = [];
-    data2["result"].map((id1) => {
-      console.log(id1[0]);
-      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date, s1 : id1[2], s2: id1[3], s3 : id1[4], s4 : id1[5]});
-    });
-
-    setData(updateData);
-  };
-
-  useEffect(() => {
-    getApplicationId();
-  }, []);
-
-  let navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("email");
-    localStorage.removeItem("isLoggedIn");
-    navigate("/");
-  };
-
   return (
     <div style={{ display: "flex" }}>
-      <div
-        id="sidebar1"
-        class="d-flex flex-column  flex-shrink-0 p-3 text-white"
-      >
-        <h2 class="text_center">Menu</h2>
+      {/* Sidebar */}
+      <div id="sidebar1" className="d-flex flex-column flex-shrink-0 p-3 text-white">
+        <h2 className="text_center">Menu</h2>
         <br />
-        <ul class="nav nav-pills flex-column mb-auto">
-        <Link
-            id="link_to_other_pages"
-            to="/Home"
-            style={{ textDecoration: "none" }}
-          >
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white active">
-              <i class="fa fa-home"></i>
-              <span class="ms-2 font_size_18">Home </span>
-            </a>
-          </li>
-          </Link>
-
-          <Link
-            id="link_to_other_pages"
-            to="/Autofill"
-            style={{ textDecoration: "none" }}
-          >
-            <li>
-              <a href="#" class="nav-link text-white">
-                <i class="fa fa-first-order"></i>
-                <span class="ms-2 font_size_18">Auto Fill</span>
+        <ul className="nav nav-pills flex-column mb-auto">
+          <Link to="/Home" style={{ textDecoration: "none" }}>
+            <li className="nav-item">
+              <a href="#" className="nav-link text-white active">
+                <i className="fa fa-home"></i>
+                <span className="ms-2 font_size_18">Home </span>
               </a>
             </li>
           </Link>
-
-          <Link
-            id="link_to_other_pages"
-            to="/Home/Home_verified_applications"
-            style={{ textDecoration: "none" }}
-          >
+          <Link to="/Autofill" style={{ textDecoration: "none" }}>
             <li>
-              <a
-                class="nav-link text-white"
-                href="#"
-              >
-                <i class="fa fa-first-order"></i>
-                <span class="ms-2 font_size_18">Approved applications</span>
+              <a href="#" className="nav-link text-white">
+                <i className="fa fa-first-order"></i>
+                <span className="ms-2 font_size_18">Auto Fill</span>
               </a>
             </li>
           </Link>
-
+          <Link to="/Home/Home_verified_applications" style={{ textDecoration: "none" }}>
+            <li>
+              <a className="nav-link text-white" href="#">
+                <i className="fa fa-first-order"></i>
+                <span className="ms-2 font_size_18">Approved applications</span>
+              </a>
+            </li>
+          </Link>
           <li onClick={handleLogout}>
-            <a href="/" class="nav-link text-white">
-              <i class="fa fa-bookmark"></i>
-              <span class="ms-2 font_size_18">Logout</span>
+            <a href="/" className="nav-link text-white">
+              <i className="fa fa-bookmark"></i>
+              <span className="ms-2 font_size_18">Logout</span>
             </a>
           </li>
         </ul>
       </div>
 
+      {/* Main Content */}
       <div style={{ marginBottom: "50px", width: "100%" }}>
+        {/* Top Navbar */}
         <div id="top_navbar">
           <div id="btns">
             <Link to="/Home/Instructions" style={{ textDecoration: "none" }}>
@@ -150,78 +156,71 @@ function Home() {
             </Link>
           </div>
           <div>
-            {/* <div id="profilepic1">
-              {" "}
-              <img src={currentUser.photoURL} alt=""></img>{" "}
-            </div>*/}
             <div id="name1">Welcome</div>
             <div id="email1">{email}</div>
           </div>
         </div>
 
+        {/* Last Heading */}
         <div id="last_heading" style={{ marginLeft: "30px" }}>
           <h4>Home </h4>
-          <h6>
-            (applications which are yet to be approved by all authority people
-            will appear here)
-          </h6>
+          <h6>(applications which are yet to be approved by all authority people will appear here)</h6>
         </div>
 
+        {/* Application List */}
         <div className="application_list">
-          <div style = {{margin:"20px"}}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-bar"
-          />
+          <div style={{ margin: "20px" }}>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="search-bar"
+            />
           </div>
 
-          <table class = "table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">
-                  
-                  <button class = "thbtn" value="id" onClick={handleSortChange}>    
-                    ID               
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
+                  <button className="thbtn" onClick={() => handleSortChange("id")}>
+                    ID
+                    <i className="fa-solid fa-sort" style={{ marginLeft: "4px" }}></i>
                   </button>
                 </th>
                 <th scope="col">
-                  <button class = "thbtn" value="amount" onClick={handleSortChange}>
+                  <button className="thbtn" onClick={() => handleSortChange("amount")}>
                     Amount Claimed
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
+                    <i className="fa-solid fa-sort" style={{ marginLeft: "4px" }}></i>
                   </button>
                 </th>
                 <th scope="col">
-                  <button class = "thbtn" value="date" onClick={handleSortChange}>
+                  <button className="thbtn" onClick={() => handleSortChange("date")}>
                     Date of submission
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
+                    <i className="fa-solid fa-sort" style={{ marginLeft: "4px" }}></i>
                   </button>
                 </th>
-                <th scope="col">
-                  Pharmacist Status
-                </th>
-                <th scope="col">
-                  Medical Officer Status
-                </th>
-                <th scope="col">
-                  Account Section Status
-                </th>
-                <th>
-                  Registrar Status
-                </th>
+                <th>Pharmacist Status</th>
+                <th>Medical Officer Status</th>
+                <th>Account Section Status</th>
+                <th>Registrar Status</th>
               </tr>
             </thead>
             <tbody>
-              {sortedData.map((row) => (
-                <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  home_data === "Home" ? navigate("/ShowApplication/" + (row.id)) : navigate("/Home/ShowApplication/" + (row.id));
-                }}>
+              {data.map((row) => (
+                <tr
+                  key={row.id}
+                  className="application_id1"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    home_data === "Home"
+                      ? navigate("/ShowApplication/" + row[0])
+                      : navigate("/Home/ShowApplication/" + row[0]);
+                  }}
+                >
                   <td>{row.id}</td>
-                  <td>{row.amount}</td>
-                  <td>{row.date}</td>
+                  {row[4].user.amountClaimed && <td>{row[4].user.amountClaimed}</td>}
+                  {row[4].user.date && <td>{row[4].user.date}</td>}
                   <td>{row.s1}</td>
                   <td>{row.s2}</td>
                   <td>{row.s3}</td>
