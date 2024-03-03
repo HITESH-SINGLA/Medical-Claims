@@ -221,10 +221,10 @@ function Home() {
                   <td>{row.id}</td>
                   {row[4].user.amountClaimed && <td>{row[4].user.amountClaimed}</td>}
                   {row[4].user.date && <td>{row[4].user.date}</td>}
-                  <td>{row.s1}</td>
-                  <td>{row.s2}</td>
-                  <td>{row.s3}</td>
-                  <td>{row.s4}</td>
+                  {row[6]&& <td>{row[6]}</td>}
+                  {row[8]&& <td>{row[8]}</td>}
+                  {row[12]&& <td>{row[12]}</td>}
+                  {row[16]&& <td>{row[16]}</td>}
                 </tr>
               ))}
             </tbody>

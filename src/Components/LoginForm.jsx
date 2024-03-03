@@ -52,7 +52,7 @@ const LoginForm = () => {
       alert("OTP Validated!");
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("email", email);
-      var check = email;
+var check=email;
       var isPharmacist = check === "pharmacistxyz901@gmail.com";
       var isMediOffi = check === "medical.officer.901@gmail.com";
       var isDirector = check === "tempusageww3@gmail.com";

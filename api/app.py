@@ -230,13 +230,13 @@ def updateStatus():
             print("assignment of query successful")
 
         elif (email_id  == '\''+'junioracc.xyz901@gmail.com'+'\''):
-            query = f"UPDATE application SET da_jao = {applicationStatus} , DA_JAO_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"""UPDATE application SET "DA_JAO" = {applicationStatus} , "DA_JAO_remarks" = {remarks} WHERE application_id  = {id}"""
 
         elif (email_id  == '\''+'assessing.officer.901@gmail.com'+'\''):
-            query = f"UPDATE application SET ao = {applicationStatus} , AO_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"""UPDATE application SET "AO" = {applicationStatus} , "AO_remarks" = {remarks} WHERE application_id  = {id}"""
 
         elif (email_id  == '\''+'senior.audit.901@gmail.com'+'\''):
-            query = f"UPDATE application SET sr_ao = {applicationStatus} , Sr_AO_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"""UPDATE application SET Sr_AO = {applicationStatus} , Sr_AO_remarks = {remarks} WHERE application_id  = {id}"""
 
         elif (email_id  == '\''+'registrar.officer.901@gmail.com'+'\''):
             query = f"UPDATE application SET registrar = {applicationStatus} , registrar_remarks = {remarks} WHERE application_id  = {id}"
@@ -333,7 +333,7 @@ def getallApplicationIdFromPharmacist():
         #print("qresult")
         print('email: ', email_id)
         #print("sresult")
-        query = f"select application_id from application where pharmacist = 'approved' "
+        query = f"""select application_id from application where "pharmacist" = 'approved' """
         #print("wresult")
         mycursor.execute(query)
         #print("wresult")
@@ -415,7 +415,7 @@ def getallApplicationIdFromDAorJAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where da_jao='approved' "
+        query = f"""select * from application where "DA_JAO"='approved' """
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -442,7 +442,7 @@ def getallApplicationIdFromAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where ao='approved' "
+        query = f"select * from application where AO='approved' "
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -468,7 +468,7 @@ def getallApplicationIdFromSrAo():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where sr_ao='approved' "
+        query = f"select * from application where Sr_AO='approved' "
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -585,7 +585,7 @@ def getallApprovedApplicationId():
         for item in result:
             result_arr.append([str(item[0]), item[4]])
 
-        query = f"select * from application where user_id = {email_id} and registrar='approved' and director<>'approved' order by application_id asc"
+        query = f"""select * from application where user_id = {email_id} and "registrar"='approved' and director<>'approved' order by application_id asc"""
         mycursor.execute(query)
         result = mycursor.fetchall()
         query = f"select application_id,table_data from data"
@@ -709,7 +709,7 @@ def getallApplicationIdForDAorJAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where medical_officer = 'approved' and da_jao <> 'approved' order by application_id asc "
+        query = f"""SELECT * FROM application WHERE medical_officer = 'approved' AND "DA_JAO" <> 'approved' ORDER BY application_id ASC;"""
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -735,7 +735,7 @@ def getallApprovedApplicationIdFromDAorJAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where da_jao = 'approved' order by application_id asc "
+        query = f"""select * from application where "DA_JAO" = 'approved' order by application_id asc """
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -761,7 +761,7 @@ def getallApplicationIdForAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where da_jao='approved' and ao <> 'approved' order by application_id asc "
+        query = f"""select * from application where "DA_JAO"='approved' and "AO" <> 'approved' order by application_id asc """
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -787,7 +787,7 @@ def getallApprovedApplicationIdFromAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where ao='approved' order by application_id asc "
+        query = f"""select * from application where "AO"='approved' order by application_id asc """
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -813,7 +813,7 @@ def getallApplicationIdForSrAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where ao='approved' and sr_ao <> 'approved' order by application_id asc "
+        query = f"""select * from application where "AO"='approved' and "Sr_AO" <> 'approved' order by application_id asc"""
         mycursor.execute(query)
         result = mycursor.fetchall()
         result_arr = []
@@ -845,7 +845,7 @@ def getallApprovedApplicationIdFromSrAO():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where sr_ao='approved' order by application_id asc "
+        query = f"select * from application where Sr_AO='approved' order by application_id asc "
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -874,13 +874,13 @@ def getallApplicationIdForRegistrar():
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         # amnt=int(amnt)
         # if amnt>=50000:
-        query = f"select * from application where ao='approved' and registrar<>'approved' order by application_id asc"
+        query = f"""select * from application where "AO"='approved' and registrar<>'approved' order by application_id asc"""
         #else:
-        #    query = f"select application_id from application where ao='approved'"
+        #    query = f"select application_id from application where AO='approved'"
         mycursor.execute(query)
         result = mycursor.fetchall()
         #else:
-        #    query = f"select application_id from application where ao='approved'"
+        #    query = f"select application_id from application where AO='approved'"
 
         result_arr = []
         leng=len(result)
@@ -892,7 +892,7 @@ def getallApplicationIdForRegistrar():
             amntt=int(amntt)
             if(amntt<50000):
                 result_arr.append([result[i][0],result[i][4], result[i][16]])
-        query = f"select * from application where sr_ao='approved'and registrar<>'approved' order by application_id asc"
+        query = f"""select * from application where "Sr_AO"='approved'and registrar<>'approved' order by application_id asc"""
         mycursor.execute(query)
         result = mycursor.fetchall()
         leng=len(result)
@@ -922,7 +922,7 @@ def getallApprovedApplicationIdFromRegistrar():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select * from application where registrar='approved' order by application_id asc"
+        query = f"""select * from application where "registrar"='approved' order by application_id asc"""
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -935,45 +935,42 @@ def getallApprovedApplicationIdFromRegistrar():
     return {"status": "getallApprovedApplicationIdFromRegistrar working"}
 
 
-
 @app.route('/getallApplicationIdForDirector', methods=['GET', 'POST'])
 @cross_origin()
 def getallApplicationIdForDirector():
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         request_data = request.get_json()
-        if (request_data == None):
+        if request_data is None:
             print('Error in reading request data')
-            return
+            return {"status": "Error in reading request data"}
 
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select application_id from application where registrar='approved' and director<>'approved' order by application_id asc"
+        query = """SELECT application_id FROM application WHERE "registrar"='approved' AND "director"<>'approved' ORDER BY application_id ASC"""
         mycursor.execute(query)
         result = mycursor.fetchall()
-        query = f"select application_id,table_data from data"
+
+        query = """SELECT "application_id","table_data" FROM data"""
         mycursor.execute(query)
         result_data = mycursor.fetchall()
-        leng=len(result_data)
-        letsdic={}
-        for i in range(leng):
-            ajso=json.loads(result_data[i][1])
-            amntt=ajso["total2"]
-            if(amntt==""):
-                amntt="0"
-            amntt=int(amntt)
-            letsdic[result_data[i][0]]=amntt
-
 
         result_arr = []
         for item in result:
-            p=item[0]
-            if(letsdic[p]>=200000):
-                result_arr.append([str(item[0]), item[4]])
+            p = item[0]
+            for data in result_data:
+                if data[0] == p:
+                    try:
+                        ajso = json.loads(data[1])
+                        amntt = int(ajso.get("total2", "0"))  # Use get() to handle missing key gracefully
+                        result_arr.append([str(p), amntt])
+                    except KeyError:
+                        print(f"KeyError: 'total2' not found in JSON data for application_id {p}")
+                        continue
+                    break
 
-
-        return {"status": "ok","result": result_arr}
+        return {"status": "ok", "result": result_arr}
 
     return {"status": "getallApplicationIdForDirector working"}
 
@@ -992,7 +989,7 @@ def getallApprovedApplicationIdFromDirector():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"select application_id from application where director='approved' order by application_id asc "
+        query = f"""select application_id from application where "director"='approved' order by application_id asc;"""
 
         mycursor.execute(query)
         result = mycursor.fetchall()
@@ -1085,7 +1082,7 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select da_jao from application where application_id = {id} and user_id = {email_id}"
+        query = f"select DA_JAO from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select DA_JAO_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
         mycursor.execute(query)
@@ -1105,7 +1102,7 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select ao from application where application_id = {id} and user_id = {email_id}"
+        query = f"select AO from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select AO_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
         mycursor.execute(query)
@@ -1125,7 +1122,7 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select sr_ao from application where application_id = {id} and user_id = {email_id}"
+        query = f"select Sr_AO from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select Sr_AO_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
         mycursor.execute(query)
