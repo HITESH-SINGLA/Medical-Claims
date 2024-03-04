@@ -10,7 +10,7 @@ The purpose of a medical claim website is to provide a platform for Stakeholder 
 
 3. Claim Tracking: Users can track the status of their claims, including any approvals or denials.
 
-4. Auto Fill : Auto Fill is a feature that automatically populates form fields with pre-existing data or commonly used values.Auto Fill can save time and reduce errors by automatically filling in patient information.
+4. Auto Fill : Auto Fill is a feature that automatically populates form fields with pre-existing data that we collect at the signup time or commonly used values.Auto Fill can save time and reduce errors by automatically filling in patient information.
 
 ## Technology Stack
 
