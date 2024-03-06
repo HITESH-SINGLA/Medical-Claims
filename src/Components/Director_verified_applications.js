@@ -28,7 +28,7 @@ function Director_verified_applications() {
     const data = await res.json();
     console.log(data["result"]);
 
-    setresult_arr(data["result"]);
+     setresult_arr(data["result"]);
   };
   useEffect(() => {
     getApplicationId();
@@ -112,10 +112,10 @@ function Director_verified_applications() {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <div>Date of application : {JSON.parse(id[1]).user.date}</div>
+                  {/* <div>Date of application : {}</div>
                   <div>
-                    Amount claimed : {JSON.parse(id[1]).user.netAmntClaimed}
-                  </div>
+                    Amount claimed : {id[1]}
+                  </div> */}
                 </div>
               </Row>
             </Container>

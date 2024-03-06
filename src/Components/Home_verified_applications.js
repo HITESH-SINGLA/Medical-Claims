@@ -58,12 +58,24 @@ function Home_verified_applications() {
       }
     );
 
-    const data2 = await res.json();
-    console.log(data2["result"]);
+    let data = await res.json();
+    data=data.result
+    for(let i=0;i<data.length;i++)
+    {
+      let datai=data[i]
+      let num=datai[0]
+      let username=datai[1]
+      for(let j=2;j<=num;j++)
+      {
+        datai[j]=JSON.parse(datai[j])
+      }
+      data[i]=datai
+    }
+    console.log(data)
     const updateData = [];
-    data2["result"].map((id1) => {
-      console.log(id1[0]);
-      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date});
+    data.map((id) => {
+      console.log(id[4]);
+      updateData.push({id: id[0], amount: id[4].user.netAmntClaimed, date: id[4].user.date});
     });
 
     setData(updateData);

@@ -27,14 +27,17 @@ const LoginForm = () => {
       });
 
       if (response.status === 200) {
+        
         if (response.data.message === "User does not exist.") {
           alert("User does not exist. Please sign up first.");
+          navigate("/signup")
         } else {
           setSentOtp(response.data.otp);
           console.log(response.data.otp);
           setButtonText("Validate OTP");
           alert("OTP sent to your email successfully.");
         }
+        // alert(response.data.message)
       } else {
         alert("Failed to send OTP. Please try again later.");
       }
@@ -123,6 +126,7 @@ const LoginForm = () => {
               <Button type="submit" className="signup-button">
                 {buttonText}
               </Button>
+            
             </form>
             </div>
           )}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 function SignupPage() {
@@ -8,7 +8,7 @@ function SignupPage() {
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-
+const navigate=useNavigate();
   const handleGetOTP = () => {
     const generatedOTP = Math.floor(100000 + Math.random() * 900000);
     console.log("Generated OTP:", generatedOTP);
@@ -93,7 +93,7 @@ function SignupPage() {
                 <button className="signup-button" onClick={handleGetOTP}>
                   Get OTP
                 </button>
-                <a href="#" class="login-link">Already?Login</a>
+                <a href="#" class="login-link" onClick={navigate("/LoginForm")}>Already?Login</a>
               </div>
 
 

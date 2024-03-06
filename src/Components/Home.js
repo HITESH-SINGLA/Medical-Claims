@@ -218,7 +218,7 @@ function Home() {
                       : navigate("/Home/ShowApplication/" + row[0]);
                   }}
                 >
-                  <td>{row.id}</td>
+                  <td>{row[0]}</td>
                   {row[4].user.amountClaimed && <td>{row[4].user.amountClaimed}</td>}
                   {row[4].user.date && <td>{row[4].user.date}</td>}
                   {row[6]&& <td>{row[6]}</td>}

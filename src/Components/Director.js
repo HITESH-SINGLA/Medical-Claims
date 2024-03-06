@@ -29,6 +29,7 @@ function Director() {
     );
 
     const data = await res.json();
+    console.log(data);
     console.log(data["result"]);
 
     setresult_arr(data["result"]);
@@ -112,9 +113,9 @@ function Director() {
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <div>Date of application : {JSON.parse(id[1]).user.date}</div>
+                  <div>Date of application : {}</div>
                   <div>
-                    Amount claimed : {JSON.parse(id[1]).user.netAmntClaimed}
+                    Amount claimed : {}
                   </div>
                 </div>
               </Row>

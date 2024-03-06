@@ -34,12 +34,12 @@ def login():
     # Mocking database check
     isexist = 1  # Assuming user exists
     print(email)
-    # conn = database.get_database(user_name, password)
-    # mycursor = conn.cursor()
+    conn = database.get_database(user_name, password)
+    mycursor = conn.cursor()
     q1= f"select count(*) from login where email = '{email}'"
-    # mycursor.execute(q1)
-    # isexist = mycursor.fetchone()[0]
-    isexist = 1  # Assuming user exists
+    mycursor.execute(q1)
+    isexist = mycursor.fetchone()[0]
+    # isexist = 1  # Assuming user exists
     if isexist == 0:
         return jsonify({'message': 'User does not exist.'}), 200  # Return 200 for not found
 
@@ -581,31 +581,31 @@ def getallApprovedApplicationId():
         query = f"select * from application where user_id = {email_id} and director='approved' order by application_id asc"
         mycursor.execute(query)
         result = mycursor.fetchall()
-        result_arr = []
-        for item in result:
-            result_arr.append([str(item[0]), item[4]])
+        # result_arr = []
+        # for item in result:
+        #     result_arr.append([str(item[0]), item[4]])
 
-        query = f"""select * from application where user_id = {email_id} and "registrar"='approved' and director<>'approved' order by application_id asc"""
-        mycursor.execute(query)
-        result = mycursor.fetchall()
-        query = f"select application_id,table_data from data"
-        mycursor.execute(query)
-        result_meta = mycursor.fetchall()
-        leng = len(result_meta)
-        letsdic = {}
-        for i in range(leng):
-            ajso = json.loads(result_meta[i][1])
-            amntt = ajso["total2"]
-            if (amntt == ""):
-                amntt = "0"
-            amntt = int(amntt)
-            letsdic[result_meta[i][0]] = amntt
+        # query = f"""select * from application where user_id = {email_id} and "registrar"='approved' and director<>'approved' order by application_id asc"""
+        # mycursor.execute(query)
+        # result = mycursor.fetchall()
+        # query = f"select application_id,table_data from data"
+        # mycursor.execute(query)
+        # result_meta = mycursor.fetchall()
+        # leng = len(result_meta)
+        # letsdic = {}
+        # for i in range(leng):
+        #     ajso = json.loads(result_meta[i][1])
+        #     amntt = ajso["total2"]
+        #     if (amntt == ""):
+        #         amntt = "0"
+        #     amntt = int(amntt)
+        #     letsdic[result_meta[i][0]] = amntt
 
-        for item in result:
-            p = item[0]
-            if (letsdic[p] < 200000):
-                result_arr.append([str(item[0]), item[4]])
-        return {"status": "ok", "result": result_arr}
+        # for item in result:
+        #     p = item[0]
+        #     if (letsdic[p] < 200000):
+        #         result_arr.append([str(item[0]), item[4]])
+        return {"status": "ok", "result": result}
 
     return {"status": "getallApprovedApplicationId working"}
 
@@ -993,11 +993,10 @@ def getallApprovedApplicationIdFromDirector():
 
         mycursor.execute(query)
         result = mycursor.fetchall()
-        result_arr = []
-        for item in result:
-            result_arr.append([str(item[0]), item[4]])
+        print(result)
+       
 
-        return {"status": "ok","result": result_arr}
+        return {"status": "ok","result": result}
 
     return {"status": "getallApprovedApplicationIdFromDirector working"}
 
