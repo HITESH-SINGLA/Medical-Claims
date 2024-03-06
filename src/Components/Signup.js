@@ -5,21 +5,57 @@ import "./Signup.css";
 function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [generatedOTP, setGeneratedOTP] = useState("");
+
   const handleGetOTP = () => {
-    const generatedOTP = Math.floor(100000 + Math.random() * 900000);
-    console.log("Generated OTP:", generatedOTP);
-    setShowOtpField(true);
+    if (!/^\d+$/.test(mobile)) {
+      alert("Invalid mobile number. Please enter only digits.");
+      return;
+    }
+
+    // Check if a department is selected
+    if (!selectedOption) {
+      alert("Please select a department.");
+      return;
+    }
+    if (email.endsWith("@iitrpr.ac.in")) {
+      // Generate OTP
+      console.log("Name:", name);
+      console.log("Email:", email);
+      console.log("Mobile:", mobile);
+      console.log("Selected Option:", selectedOption);
+      const newGeneratedOTP = Math.floor(100000 + Math.random() * 900000);
+      console.log("Generated OTP:", newGeneratedOTP);
+
+      // Set the generated OTP in the state
+      setGeneratedOTP(newGeneratedOTP);
+
+      // Show the OTP field
+      setShowOtpField(true);
+    } else {
+      // Alert the user if the email is not valid
+      alert("Invalid email. Please use an email ending with @iitrpr.ac.in");
+    }
   };
 
   const handleValidateOTP = () => {
-    if (otp === "123456") {
+    const trimmedEnteredOTP = otp.trim(); // Remove leading/trailing whitespaces
+
+    if (trimmedEnteredOTP === generatedOTP.toString()) {
       console.log("OTP validated successfully!");
+      alert("Signed up sucessfully");
+      // Navigate to the login page (replace '/LoginForm' with the actual path)
+      navigate("/LoginForm");
     } else {
       console.log("Invalid OTP. Please try again.");
+      alert("Invalid OTP. Please try again.");
+      // Clear the OTP field for retry
+      setOtp("");
     }
   };
 
@@ -67,36 +103,38 @@ const navigate=useNavigate();
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-                 <input
-                type="email"
+              <input
+                type="mobile"
                 placeholder="mobile"
                 className="signup-input-field"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
               />
               <select
                 value={selectedOption}
                 onChange={handleDropdownChange}
                 className="signup-input-field"
-
               >
-                <option>department</option>
-                <option >pharmacist</option>
-                <option >medical officer</option>
+                <option value="" disabled>
+                  Select department
+                </option>
+                <option>Student</option>
+                <option>pharmacist</option>
+                <option>medical officer</option>
                 <option>Sr_AO</option>
-                <option >DA_JAO</option>
-                <option >Registrar</option>
-                <option >Director</option>
-                <option >Accountant</option>
+                <option>DA_JAO</option>
+                <option>Registrar</option>
+                <option>Director</option>
+                <option>Accountant</option>
               </select>
               <div class="buttonc">
                 <button className="signup-button" onClick={handleGetOTP}>
                   Get OTP
                 </button>
-                <a href="#" class="login-link" onClick={navigate("/LoginForm")}>Already?Login</a>
+                <a href="/LoginForm" class="login-link">
+                  Already?Login
+                </a>
               </div>
-
-
             </>
           ) : (
             <>
@@ -107,6 +145,7 @@ const navigate=useNavigate();
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
               />
+
               <button className="signup-button" onClick={handleValidateOTP}>
                 Validate
               </button>
