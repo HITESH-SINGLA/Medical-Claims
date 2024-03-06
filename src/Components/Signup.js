@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Signup.css";
 
 function SignupPage() {
@@ -11,8 +12,10 @@ function SignupPage() {
   const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
   const [generatedOTP, setGeneratedOTP] = useState("");
-
-  const handleGetOTP = () => {
+  const generateOTP = () => {
+    return Math.floor(1000 + Math.random() * 9000);
+}
+  const handleGetOTP = async (event) => {
     if (!/^\d+$/.test(mobile)) {
       alert("Invalid mobile number. Please enter only digits.");
       return;
@@ -24,23 +27,56 @@ function SignupPage() {
       return;
     }
     if (email.endsWith("@iitrpr.ac.in")) {
-      // Generate OTP
-      console.log("Name:", name);
-      console.log("Email:", email);
-      console.log("Mobile:", mobile);
-      console.log("Selected Option:", selectedOption);
-      const newGeneratedOTP = Math.floor(100000 + Math.random() * 900000);
-      console.log("Generated OTP:", newGeneratedOTP);
-
-      // Set the generated OTP in the state
-      setGeneratedOTP(newGeneratedOTP);
+    
 
       // Show the OTP field
-      setShowOtpField(true);
+      
     } else {
       // Alert the user if the email is not valid
       alert("Invalid email. Please use an email ending with @iitrpr.ac.in");
     }
+
+
+
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/userexist", {
+        email,
+      });
+      console.log(email)
+console.log(response.data)
+      if(response.data.isexist===1){
+        alert("User Exist Already. Please Login")
+        navigate("/LoginForm")
+        return
+      }
+      else{
+
+
+let gotp=generateOTP()
+setGeneratedOTP(gotp);
+
+     //write a route for sending thr otp by mail only 
+
+     console.log(gotp);
+
+
+        setShowOtpField(true);
+       
+       
+
+
+
+
+      }
+
+
+
+
+    } catch (error) {
+      alert("Failed to send OTP. Please try again later.");
+    }
+
   };
 
   const handleValidateOTP = () => {
@@ -48,7 +84,10 @@ function SignupPage() {
 
     if (trimmedEnteredOTP === generatedOTP.toString()) {
       console.log("OTP validated successfully!");
-      alert("Signed up sucessfully");
+
+
+      //send the details by route to enter in table  signuproute
+      alert("Signed up sucessfully.Please Login now");
       // Navigate to the login page (replace '/LoginForm' with the actual path)
       navigate("/LoginForm");
     } else {

@@ -55,6 +55,51 @@ def login():
 
 
 
+# @app.route('/signup', methods=['POST'])
+# @cross_origin()
+# def login():
+#     email = request.json['email']
+#     otp = str(random.randint(1000, 9999))
+    
+#     # Mocking database check
+#     isexist = 1  # Assuming user exists
+#     print(email)
+#     conn = database.get_database(user_name, password)
+#     mycursor = conn.cursor()
+#     q1= f"select count(*) from login where email = '{email}'"
+#     mycursor.execute(q1)
+#     isexist = mycursor.fetchone()[0]
+#     isexist = 1  # Assuming user exists
+#     if isexist == 0:
+#         return jsonify({'message': 'User does not exist.'}), 200  # Return 200 for not found
+
+#     msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
+#     msg.body = f'Your OTP is {otp}.'
+#     # mail.send(msg)
+#     response = {
+#         'message': 'An OTP has been sent to your email.',
+#         'otp': otp  # Sending OTP in the response
+#     }
+#     return jsonify(response), 200
+
+@app.route('/userexist', methods=['POST'])
+@cross_origin()
+def userexist():
+    email = request.json['email']
+    
+    print(email)
+    conn = database.get_database(user_name, password)
+    mycursor = conn.cursor()
+    q1= f"select count(*) from login where email = '{email}'"
+    mycursor.execute(q1)
+    isexist = mycursor.fetchone()[0]
+    # isexist=1
+    print(isexist)
+    response = {
+        "isexist": isexist,
+         }
+    return jsonify(response), 200    
+    
     
     
     
