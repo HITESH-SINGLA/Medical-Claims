@@ -34,42 +34,39 @@ function Home() {
           headers: { "Content-Type": "application/json" },
         });
 
-        let data = await res.json();
-        data=data.result
-        for(let i=0;i<data.length;i++)
-        {
-          let datai=data[i]
-          let num=datai[0]
-          let username=datai[1]
-          for(let j=2;j<=num;j++)
-          {
-            datai[j]=JSON.parse(datai[j])
-          }
-          data[i]=datai
-        }
-        console.log(data)
-  setData(data)
-        // const applicationId = data.result[0][0];
-        // const dateOfClaim = JSON.parse(data.result[0][5]).user.date;
-        // const netAmount = JSON.parse(data.result[0][4]).user.netAmntClaimed;
-        // const status1 = data.result[0][6];
-        // const status2 = data.result[0][8];
-        // const status3 = data.result[0][10];
-        // const status4=data.result[0][14];
-        // console.log(status4);
-        // console.log(data.result[0][16]);
-        // console.log(data.result[0][22]);
-        // const updatedData = data.result.map((id1) => ({
-        //   id: applicationId,
-        //   amount: netAmount,
-        //   date: dateOfClaim,
-        //   s1: status1,
-        //   s2: status2,
-        //   s3: status3,
-        //   s4:status4,
-        // }));
 
-        // setData(updatedData);
+
+
+
+
+
+
+
+        
+        let data2 = await res.json();
+      
+const jsonDataString = JSON.stringify(data2.result);
+
+
+const parsedData = JSON.parse(jsonDataString);
+
+
+
+for(let i=0;i<parsedData.length;i++){
+  
+  parsedData[i][4]=JSON.parse(parsedData[i][4])
+}
+        
+        console.log(parsedData)
+     
+        
+        setData(parsedData);
+        
+
+
+
+
+
       } catch (error) {
         console.error("Error fetching application data:", error);
       }
@@ -218,7 +215,7 @@ function Home() {
                       : navigate("/Home/ShowApplication/" + row[0]);
                   }}
                 >
-                  <td>{row[0]}</td>
+                  {row[0]&& < td>{row[0]}</td>}
                   {row[4].user.amountClaimed && <td>{row[4].user.amountClaimed}</td>}
                   {row[4].user.date && <td>{row[4].user.date}</td>}
                   {row[6]&& <td>{row[6]}</td>}

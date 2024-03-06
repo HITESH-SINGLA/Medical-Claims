@@ -39,7 +39,7 @@ def login():
     q1= f"select count(*) from login where email = '{email}'"
     mycursor.execute(q1)
     isexist = mycursor.fetchone()[0]
-    # isexist = 1  # Assuming user exists
+    isexist = 1  # Assuming user exists
     if isexist == 0:
         return jsonify({'message': 'User does not exist.'}), 200  # Return 200 for not found
 

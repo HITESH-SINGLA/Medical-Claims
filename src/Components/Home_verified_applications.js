@@ -58,29 +58,23 @@ function Home_verified_applications() {
       }
     );
 
-    let data = await res.json();
-    data=data.result
-    for(let i=0;i<data.length;i++)
-    {
-      let datai=data[i]
-      let num=datai[0]
-      let username=datai[1]
-      for(let j=2;j<=num;j++)
-      {
-        datai[j]=JSON.parse(datai[j])
-      }
-      data[i]=datai
+    let data2 = await res.json();
+      
+    const jsonDataString = JSON.stringify(data2.result);
+    
+    
+    const parsedData = JSON.parse(jsonDataString);
+    
+    
+    
+    for(let i=0;i<parsedData.length;i++){
+      
+      parsedData[i][4]=JSON.parse(parsedData[i][4])
     }
-    console.log(data)
-    const updateData = [];
-    data.map((id) => {
-      console.log(id[4]);
-      updateData.push({id: id[0], amount: id[4].user.netAmntClaimed, date: id[4].user.date});
-    });
-
-    setData(updateData);
-
-    setresult_arr(data["result"]);
+            
+            console.log(parsedData)
+setData(parsedData)
+    // setresult_arr(data["result"]);
   };
   useEffect(() => {
     getApplicationId();
@@ -220,12 +214,12 @@ function Home_verified_applications() {
             </thead>
             <tbody>
               {sortedData.map((row) => (
-                <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
+                <tr key={row[0]} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
                   navigate("/Home/ShowApplication/" + (row.id));
                 }}>
-                  <td>{row.id}</td>
-                  <td>{row.amount}</td>
-                  <td>{row.date}</td>
+                  <td>{row[0]}</td>
+                  <td>{row[4].user.amountClaimed}</td>
+                  <td>{row[4].user.date}</td>
                 </tr>
               ))}
             </tbody>
