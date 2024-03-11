@@ -1,217 +1,79 @@
-body {
-    background: #d7eafc;
-}
-#top_navbar {
-    position: relative;
-    background-color: white;
-    border: 1px;
-    height: 65px;
-    display: flex;
-    justify-content: left;
+.home-container {
+  display: flex;
 }
 
-#btns {
-    display: flex;
-    justify-content: left;
+.sidebar {
+  flex: 0 0 200px; /* Sidebar width */
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  min-height: 100vh;
+  min-width: 17%;
 }
 
-#apply_button {
-    position: absolute;
-    box-sizing: border-box;
-    text-align: center;
-    width: 150px;
-    height: 36px;
-    left: 200px;
-    top: 16px;
-    background: #ffffff;
-    border: 0.7px solid #000000;
-    border-radius: 8px;
-    color: #000000;
-}
-
-#inst_button {
-    position: absolute;
-    box-sizing: border-box;
-    text-align: center;
-    width: 200px;
-    height: 36px;
-    left: 300px;
-    top: 16px;
-
-    background: #ffffff;
-    border: 0.7px solid #000000;
-    border-radius: 8px;
-    color: #000000;
-}
-
-#profilepic {
-    position: absolute;
-    left: 1270px;
-    top: 16px;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    border-radius: 50%;
-    overflow: hidden;
-}
-#name {
-    position: absolute;
-    left: 1315px;
-    top: 12px;
-
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-}
-#email {
-    position: absolute;
-    left: 1315px;
-    top: 35px;
-
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-}
-
-#sidebar {
-    position: absolute;
-    width: 275px;
-    background-color: #1a202e;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    z-index: 2;
-}
-
-.nav-link:hover {
-    background-color: #5e5e5e !important;
+.sidebar h2 {
+  text-align: center;
 }
 
 .nav-link {
-    margin: 1px;
-    height: 40px;
+  color: #fff;
 }
 
-.text_center {
-    text-align: center;
+.main-content {
+  flex: 1;
+  padding: 20px;
 }
 
-.application_list {
-    position: absolute;
-    left: 300px;
-    top: 190px;
-    width: 1200px;
-    min-height: 500px;
-    background-color: white;
-    margin-bottom: 50px;
-    overflow-x: hidden;
-    overflow-y: auto;
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.application_id {
-    position: relative;
-    top: 20px;
-    left: 30px;
-    width: 1150px;
-    height: 65px;
-    background-color: white;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-    box-sizing: border-box;
-    border: 0.7px solid #000000;
-    border-radius: 4px;
+.btns {
+  display: flex;
 }
 
-#last_heading {
-    margin-top: 25px;
-    margin-left: 330px;
+.btn {
+  margin-right: 10px;
+}
+.approved-applications {
+  
+  margin-bottom: 60px; /* Adjust margin as needed */
 }
 
-.application_id1:hover{
-    transform: scale(1.005);
-    /* background-color: #929292; */
-
+.inst-button,
+.apply-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
 }
 
-th:hover{
-    transform: scale(1.01);
-    background-color: #dcdcdc;
+.last-heading {
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+.application-list table {
+  width: 98%;
+  border-collapse: collapse;
+  border-right: 4px solid #000000;
+  padding-right: 30px;
 }
 
-table button{
-    border: 0;
-    background: none;
-    font-weight: bold;
+.application-list th,
+.application-list td {
+  padding: 10px;
+  border: 2px solid #000000; /* Adjust border thickness */
 }
 
+.application-list th {
+  background-color: #98c9fd;
+  font-weight: bold;
+  text-align: left;
+}
 
-.search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar {
-    padding: 8px;
-    font-size: 16px;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    width: 200px;
-    transition: width 0.2s ease-in-out;
-  }
-  
-  .search-bar:focus {
-    outline: none;
-    width: 300px;
-  }
-  
-  .search-button {
-    background-color: #eee;
-    border: none;
-    padding: 8px;
-  }
-  
-  .search-button:hover {
-    cursor: pointer;
-  }
-  
-  .fa-search {
-    color: #555;
-  }
-  
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  thead {
-    background-color: #eee;
-  }
-  
-  th {
-    text-align: left;
-    padding: 8px;
-  }
-  
-  td {
-    border: 1px solid #ccc;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .thbtn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: inherit;
-    font-weight: bold;
-  }
-  
-  button:hover {
-    text-decoration: underline;
-  }
-  
+.application-list tbody tr:nth-child(even) {
+  background-color: #fffefe;
+}
