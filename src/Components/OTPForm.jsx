@@ -29,14 +29,14 @@ const OtpForm = () => {
         see !== "iitrpr.ac.in" &&
         check !== "pharmacistxyz901@gmail.com" &&
         check !== "medical.officer.901@gmail.com" &&
-        check !== "tempusageww3@gmail.com" &&
+        check !== "directorxyz@gmail.com" &&
         check !== "junioracc.xyz901@gmail.com" &&
         check !== "assessing.officer.901@gmail.com" &&
         check !== "senior.audit.901@gmail.com" &&
         check !== "registrar.officer.901@gmail.com";
       var isPharmacist = check === "pharmacistxyz901@gmail.com";
       var isMediOffi = check === "medical.officer.901@gmail.com";
-      var isDirector = check === "tempusageww3@gmail.com";
+      var isDirector = check === "directorxyz@gmail.com";
       var isDAorJAOO = check === "junioracc.xyz901@gmail.com";
       var isAO = check === "assessing.officer.901@gmail.com";
       var isSrAO = check === "senior.audit.901@gmail.com";

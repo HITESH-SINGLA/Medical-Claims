@@ -34,6 +34,7 @@ function SignupPage() {
     } else {
       // Alert the user if the email is not valid
       alert("Invalid email. Please use an email ending with @iitrpr.ac.in");
+      return;
     }
 
 
@@ -58,6 +59,17 @@ setGeneratedOTP(gotp);
 
      //write a route for sending thr otp by mail only 
 
+
+
+     try{
+      const response = await axios.post("http://127.0.0.1:5000/sendotp", {
+        "email":email,
+        "otp":gotp
+      });
+     }
+     catch(error){
+
+     }
      console.log(gotp);
 
 

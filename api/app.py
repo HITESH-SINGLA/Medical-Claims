@@ -34,6 +34,7 @@ def login():
     # Mocking database check
     isexist = 1  # Assuming user exists
     print(email)
+    print(otp)
     conn = database.get_database(user_name, password)
     mycursor = conn.cursor()
     q1= f"select count(*) from login where email = '{email}'"
@@ -101,8 +102,21 @@ def userexist():
     return jsonify(response), 200    
     
     
-    
-    
+
+
+@app.route('/sendotp', methods=['POST'])
+@cross_origin()
+def sendotp():
+    print(request.json)
+    email = request.json['email']
+    otp = request.json['otp']
+    print(email)
+    print(otp)
+    msg = Message('Login OTP', sender='guptaaditya70993@gmail.com', recipients=[email])
+    msg.body = f'Your OTP is {otp}.'
+    # mail.send(msg) 
+    return jsonify(1), 200 
+
 
 
 @app.route('/basicDetails', methods=['GET', 'POST'])
@@ -285,7 +299,7 @@ def updateStatus():
 
         elif (email_id  == '\''+'registrar.officer.901@gmail.com'+'\''):
             query = f"UPDATE application SET registrar = {applicationStatus} , registrar_remarks = {remarks} WHERE application_id  = {id}"
-        elif (email_id  == '\''+'tempusageww3@gmail.com'+'\''):
+        elif (email_id  == '\''+'directorxyz@gmail.com'+'\''):
             query = f"UPDATE application SET director = {applicationStatus} , director_remarks = {remarks} WHERE application_id  = {id}"
 
         print("\nQUERY:=>\n")
@@ -1390,7 +1404,7 @@ def getRemarks(id):
             query = f"select Sr_AO_remarks from application where application_id = {id}"
         elif(email_id == 'registrar.officer.901@gmail.com'):
             query = f"select registrar_remarks from application where application_id = {id}"
-        elif(email_id == 'tempusageww3@gmail.com'):
+        elif(email_id == 'directorxyz@gmail.com'):
             query = f"select director_remarks from application where application_id = {id}"
         print("line 990:",query)
         mycursor.execute(query)

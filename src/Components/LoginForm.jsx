@@ -55,7 +55,7 @@ const LoginForm = () => {
       var check = email;
       var isPharmacist = check === "pharmacistxyz901@gmail.com";
       var isMediOffi = check === "medical.officer.901@gmail.com";
-      var isDirector = check === "tempusageww3@gmail.com";
+      var isDirector = check === "directorxyz@gmail.com";
       var isDAorJAOO = check === "junioracc.xyz901@gmail.com";
       var isAO = check === "assessing.officer.901@gmail.com";
       var isSrAO = check === "senior.audit.901@gmail.com";

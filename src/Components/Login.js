@@ -46,14 +46,14 @@ function Login() {
           see !== "iitrpr.ac.in" &&
           check !== "pharmacistxyz901@gmail.com" &&
           check !== "medical.officer.901@gmail.com" &&
-          check !== "tempusageww3@gmail.com" &&
+          check !== "directorxyz@gmail.com" &&
           check !== "junioracc.xyz901@gmail.com" &&
           check !== "assessing.officer.901@gmail.com" &&
           check !== "senior.audit.901@gmail.com" &&
           check !== "registrar.officer.901@gmail.com";
         const isPharmacist = check === "pharmacistxyz901@gmail.com";
         const isMediOffi = check === "medical.officer.901@gmail.com";
-        const isDirector = check === "tempusageww3@gmail.com";
+        const isDirector = check === "directorxyz@gmail.com";
         const isDAorJAOO = check === "junioracc.xyz901@gmail.com";
         const isAO = check === "assessing.officer.901@gmail.com";
         const isSrAO = check === "senior.audit.901@gmail.com";
@@ -137,14 +137,14 @@ function Login() {
               see !== "iitrpr.ac.in" &&
               check !== "pharmacistxyz901@gmail.com" &&
               check !== "medical.officer.901@gmail.com" &&
-              check !== "tempusageww3@gmail.com" &&
+              check !== "directorxyz@gmail.com" &&
               check !== "junioracc.xyz901@gmail.com" &&
               check !== "assessing.officer.901@gmail.com" &&
               check !== "senior.audit.901@gmail.com" &&
               check !== "registrar.officer.901@gmail.com";
             const isPharmacist = check === "pharmacistxyz901@gmail.com";
             const isMediOffi = check === "medical.officer.901@gmail.com";
-            const isDirector = check === "tempusageww3@gmail.com";
+            const isDirector = check === "directorxyz@gmail.com";
             const isDAorJAOO = check === "junioracc.xyz901@gmail.com";
             const isAO = check === "assessing.officer.901@gmail.com";
             const isSrAO = check === "senior.audit.901@gmail.com";

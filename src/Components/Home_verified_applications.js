@@ -215,7 +215,7 @@ setData(parsedData)
             <tbody>
               {sortedData.map((row) => (
                 <tr key={row[0]} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("/Home/ShowApplication/" + (row.id));
+                  navigate("/Home/ShowApplication/" + (row[0]));
                 }}>
                   <td>{row[0]}</td>
                   <td>{row[4].user.amountClaimed}</td>
