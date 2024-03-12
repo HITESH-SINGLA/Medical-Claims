@@ -144,6 +144,7 @@ function Autofill() {
       </div>
 
       <div style={{ marginBottom: "50px", width: "100%" }}>
+        
       <div className="main-content">
         <div className="top-navbar">
           <div className="btns">
@@ -154,13 +155,22 @@ function Autofill() {
               <div className="apply-button">Apply for Reimbursement</div>
             </Link>
           </div>
-          <div>
-            <div className="name">Welcome</div>
-            <div className="email">{email}</div>
+          <div className="welcome">
+          <div className="welcome-icon">
+  <i className="fas fa-user-circle" ></i> {/* Add margin to move the icon */}
+</div>
+
+            <div className="welcome-text">
+
+              <div className="name">Mohit</div> {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="email">
+                <i className="fas fa-envelope"></i> {email} {/* You can use envelope icon for email */}
+              </div>
+            </div>
           </div>
         </div>
         </div>
-        <hr></hr>
+        
 
         <div class="heading" style={{ marginLeft: "30px" }}>
           <br />
@@ -182,7 +192,7 @@ function Autofill() {
                     1. Name & Designation of Govt. Servant (In Block Letters) -
                   </Form.Label>
                   <Col sm="7">
-                    <Form.Control
+                    <Form.Control required
                       type="text" style = {{padding : "12px", width:"450px"}}
                       name="name"
                       defaultValue={user.name}
@@ -201,7 +211,7 @@ function Autofill() {
                     (i) Whether married or unmarried -
                   </Form.Label>
                   <Col sm="7">
-                    <Form.Control
+                    <Form.Control required
                       type="text" style = {{padding : "12px", width:"450px"}}
                       name="martial_status"
                       defaultValue={user.martial_status}
@@ -221,7 +231,7 @@ function Autofill() {
                     -
                   </Form.Label>
                   <Col sm="7">
-                    <Form.Control
+                    <Form.Control required
                       type="text" style = {{padding : "12px", width:"450px"}}
                       name="partner_place"
                       defaultValue={user.partner_place}
@@ -252,7 +262,7 @@ function Autofill() {
                     3. Employees Code No., Deptt/ Section -
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control type="text" style = {{padding : "12px", width:"450px"}} name="employee_code_no" defaultValue={user.employee_code_no}
+                    <Form.Control required type="text" style = {{padding : "12px", width:"450px"}} name="employee_code_no" defaultValue={user.employee_code_no}
                       onChange={(e) => setUser({...user, employee_code_no: e.target.value, })}
                     />
                     {/* {user.errors.name && <p>{user.errors.name}</p>} */}
@@ -264,7 +274,7 @@ function Autofill() {
                     4. Pay of Govt. Servant (Band Pay & Grade Pay) -
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control
+                    <Form.Control required
                       type="text" style = {{padding : "12px", width:"450px"}}
                       name="pay"
                       defaultValue={user.pay}
@@ -283,7 +293,7 @@ function Autofill() {
                     5. Residential address -
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control
+                    <Form.Control required
                       type="text" style = {{padding : "12px", width:"450px"}}
                       name="address"
                       defaultValue={user.address}

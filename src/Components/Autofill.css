@@ -1,105 +1,100 @@
-.heading {
-    margin: auto;
-    text-align: center;
-}
-
-.basic {
-    width: 1000px;
-    margin: auto;
-}
-
+/* General body styling */
 body {
-    background: #d7eafc;
-}
-
-#top_navbar {
-    position: relative;
-    background-color: white;
-    border: 1px;
-    height: 65px;
-    display: flex;
-    justify-content: left;
-}
-
-#btns {
-    display: flex;
-    justify-content: left;
-}
-
-#apply_button1 {
-    position: absolute;
-    box-sizing: border-box;
-    text-align: center;
-    width: 200px;
-    height: 36px;
-    left: 600px;
-    top: 16px;
-    background: #ffffff;
-    border: 0.7px solid #000000;
-    border-radius: 8px;
-    color: #000000;
-}
-
-#inst_button1 {
-    position: absolute;
-    box-sizing: border-box;
-    text-align: center;
-    width: 200px;
-    height: 36px;
-    left: 30px;
-    top: 16px;
-    background: #ffffff;
-    border: 0.7px solid #000000;
-    border-radius: 8px;
-    color: #000000;
-}
-
-#profilepic1 {
-    position: absolute;
-    left: 970px;
-    top: 16px;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    border-radius: 50%;
-    overflow: hidden;
-}
-#name1 {
-    position: absolute;
-    left: 1015px;
-    top: 12px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-}
-#email1 {
-    position: absolute;
-    left: 1015px;
-    top: 35px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-}
-
-#sidebar1 {
-    position: sticky;
-    top:0;
-    left:0;
-    width: 275px;
-    background-color: #1a202e;
-    height: 100vh;
-    z-index: 2;
-}
-
-.nav-link:hover {
-    background-color: #5e5e5e !important;
-}
-
-.nav-link {
-    margin: 1px;
-    height: 40px;
-}
-
-.text_center {
-    text-align: center;
-}
+    background: #f4f7f6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Sidebar styling */
+  #sidebar1 {
+    background-color: #2C3E50; /* Dark shade for contrast */
+    color: #ECF0F1; /* Light text for readability */
+    min-height: 100vh;
+  }
+  
+  #sidebar1 .text_center {
+    color: #ECF0F1;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  #sidebar1 .nav-link {
+    color: #ECF0F1;
+    border-radius: 0.25rem;
+    margin: 0.125rem 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  #sidebar1 .nav-link:hover, #sidebar1 .nav-link.active {
+    background-color: #18BC9C; /* Soft green for hover/active state */
+    color: #FFFFFF;
+  }
+  
+  #sidebar1 .fa {
+    margin-right: 0.5rem;
+  }
+  
+  /* Improved label and input styling for a modern look */
+  .form-label, .form-control {
+    border-radius: 0.5rem;
+  }
+  
+  .form-control {
+    border: 2px solid #bdc3c7; /* Light gray border */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #3498db; /* Bright blue when focused */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Slightly stronger shadow on focus */
+  }
+  
+  /* Button restyling */
+  .btn-save, .inst-button, .apply-button {
+    background-color: #3498DB; /* Bright blue for buttons */
+    border: none;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-save:hover, .inst-button:hover, .apply-button:hover {
+    background-color: #2980B9; /* Darker shade on hover */
+  }
+  
+  /* Adjust top navbar and welcome elements */
+  .top-navbar {
+    background-color: #ECF0F1; /* Soft light background */
+    padding: 10px 20px;
+    border-bottom: 2px solid #bdc3c7; /* Light gray border */
+  }
+  
+  .name, .email {
+    color: #2C3E50; /* Dark text for contrast */
+  }
+  
+  .btns .btn {
+    margin-right: 10px; /* Spacing between buttons */
+  }
+  
+  /* General spacing and alignment improvements */
+  .container, .main-content, .heading {
+    padding: 20px;
+  }
+  
+  .heading h3 {
+    color: #2C3E50; /* Dark text for titles */
+  }
+  
+  /* Modernizing phone input specifically */
+  .react-tel-input .form-control {
+    border-radius: 0.5rem !important; /* Ensures consistency */
+  }
+  
+  /* Enhance the visual hierarchy and spacing */
+  .heading, .basic {
+    margin-bottom: 1.5rem;
+  }
+  

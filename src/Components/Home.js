@@ -44,34 +44,61 @@ function Home() {
   };
 
   return (
-    <div className="home-container">
-      <div className="sidebar">
-        <h2 className="text-center">Menu</h2>
+    <div style={{ display: "flex" }}>
+       <div
+        id="sidebar1"
+        class="d-flex flex-column  flex-shrink-0 p-3 text-white"
+      >
+        <h2 class="text_center">Menu</h2>
         <br />
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li>
-            <Link to="/Home" className="nav-link active">
-              <i className="fa fa-home"></i>
-              <span className="ms-2 font-size-18">Home</span>
-            </Link>
+        <ul class="nav nav-pills flex-column mb-auto">
+        <Link
+            id="link_to_other_pages"
+            to="/Home"
+            style={{ textDecoration: "none" }}
+          >
+          <li class="nav-item">
+            <a href="#" class="nav-link text-white active">
+              <i class="fa fa-home"></i>
+              <span class="ms-2 font_size_18">Home </span>
+            </a>
           </li>
-          <li>
-            <Link to="/Autofill" className="nav-link">
-              <i className="fa fa-first-order"></i>
-              <span className="ms-2 font-size-18">Auto Fill</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/Home/Home_verified_applications" className="nav-link">
-              <i className="fa fa-first-order"></i>
-              <span className="approved-applications ms-3 font-size-20">Approved applications</span>
-            </Link>
-          </li>
+          </Link>
+
+          <Link
+            id="link_to_other_pages"
+            to="/Autofill"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a href="#" class="nav-link text-white" >
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Auto Fill</span>
+              </a>
+            </li>
+          </Link>
+
+          <Link
+            id="link_to_other_pages"
+            to="/Home/Home_verified_applications"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a
+                class="nav-link text-white"
+                href="#"
+              >
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Approved applications</span>
+              </a>
+            </li>
+          </Link>
+
           <li onClick={handleLogout}>
-            <Link to="/" className="nav-link">
-              <i className="fa fa-bookmark"></i>
-              <span className="ms-2 font-size-18">Logout</span>
-            </Link>
+            <a href="/" class="nav-link text-white">
+              <i class="fa fa-bookmark"></i>
+              <span class="ms-2 font_size_18">Logout</span>
+            </a>
           </li>
         </ul>
       </div>

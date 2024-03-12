@@ -157,9 +157,18 @@ function Home_verified_applications() {
               <div className="apply-button">Apply for Reimbursement</div>
             </Link>
           </div>
-          <div>
-            <div className="name">Welcome</div>
-            <div className="email">{email}</div>
+          <div className="welcome">
+          <div className="welcome-icon">
+  <i className="fas fa-user-circle" ></i> {/* Add margin to move the icon */}
+</div>
+
+            <div className="welcome-text">
+
+              <div className="name">Mohit</div> {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="email">
+                <i className="fas fa-envelope"></i> {email} {/* You can use envelope icon for email */}
+              </div>
+            </div>
           </div>
         </div>
         <hr></hr>
