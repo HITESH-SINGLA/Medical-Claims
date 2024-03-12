@@ -91,7 +91,7 @@ function Pharmacist_verified_applications() {
   return (
     <div style={{ display: "flex" }}>
       <div
-        id="sidebar"
+        id="sidebar1"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
         <a href="#" class="text-white text-decoration-none">

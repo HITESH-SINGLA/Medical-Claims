@@ -93,7 +93,7 @@ function Home_verified_applications() {
   return (
     <div style={{ display: "flex" }}>
       <div
-        id="sidebar"
+        id="sidebar1"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
         <h2 class="text_center">Menu</h2>
