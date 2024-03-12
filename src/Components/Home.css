@@ -76,4 +76,43 @@
 
 .application-list tbody tr:nth-child(even) {
   background-color: #fffefe;
+}.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align items to the center horizontally */
 }
+
+.welcome-icon {
+  /* Adjust the font-size if needed for the icon size */
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: -10px; /* Reduced space below the icon */
+}
+
+/* The rest of the CSS remains unchanged */
+
+
+.welcome-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align text items to the center */
+  margin-top: 0px;
+}
+
+.name {
+  font-size: 1.2rem; /* Adjust size as needed */
+ 
+
+}
+
+.email {
+  display: flex;
+  align-items: center; /* Align email text and icon */
+}
+
+.email i {
+  margin-right: 5px; /* Add space between icon and email address */
+}
+
+/* The rest of the CSS remains unchanged */
