@@ -1140,8 +1140,8 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select DA_JAO from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select DA_JAO_remarks from application where application_id= {id} and user_id = {email_id}"
+        query = f"""select "DA_JAO" from application where application_id = {id} and user_id = {email_id}"""
+        query_for_remarks = f"""select "DA_JAO_remarks" from application where application_id= {id} and user_id = {email_id}"""
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1160,8 +1160,8 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select AO from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select AO_remarks from application where application_id= {id} and user_id = {email_id}"
+        query = f"""select "AO" from application where application_id = {id} and user_id = {email_id}"""
+        query_for_remarks = f"""select "AO_remarks" from application where application_id= {id} and user_id = {email_id}"""
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1180,8 +1180,8 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select Sr_AO from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select Sr_AO_remarks from application where application_id= {id} and user_id = {email_id}"
+        query = f"""select "Sr_AO" from application where application_id = {id} and user_id = {email_id}"""
+        query_for_remarks = f"""select "Sr_AO_remarks" from application where application_id= {id} and user_id = {email_id}"""
         print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1200,8 +1200,8 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select registrar from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select registrar_remarks from application where application_id= {id} and user_id = {email_id}"
+        query = f"""select "registrar" from application where application_id = {id} and user_id = {email_id}"""
+        query_for_remarks = f"""select "registrar_remarks" from application where application_id= {id} and user_id = {email_id}"""
         # print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
@@ -1220,8 +1220,8 @@ def showApplicationIdStatus(id):
             authority_remarks = result1[0]
             isHold = "no"
 
-        query = f"select director from application where application_id = {id} and user_id = {email_id}"
-        query_for_remarks = f"select director_remarks from application where application_id= {id} and user_id = {email_id}"
+        query = f"""select "director" from application where application_id = {id} and user_id = {email_id}"""
+        query_for_remarks = f"""select "director_remarks" from application where application_id= {id} and user_id = {email_id}"""
         # print(query)
         mycursor.execute(query)
         result = mycursor.fetchone()
