@@ -91,6 +91,7 @@ function Home() {
             <div className="email">{email}</div>
           </div>
         </div>
+        <hr></hr>
 
         <div className="last-heading">
           <h4>Home</h4>

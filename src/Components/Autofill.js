@@ -144,24 +144,23 @@ function Autofill() {
       </div>
 
       <div style={{ marginBottom: "50px", width: "100%" }}>
-        <div id="top_navbar">
-          <div id="btns">
-            <Link to="/Home/Instructions" style={{ textDecoration: "none" }}>
-              <div id="inst_button1"> Instructions</div>
+      <div className="main-content">
+        <div className="top-navbar">
+          <div className="btns">
+            <Link to="/Home/Instructions" className="btn">
+              <div className="inst-button">Instructions</div>
             </Link>
-            <Link to="/Page1" style={{ textDecoration: "none" }}>
-              <div id="apply_button1"> Apply for Reimbursement</div>
+            <Link to="/Page1" className="btn">
+              <div className="apply-button">Apply for Reimbursement</div>
             </Link>
           </div>
           <div>
-            {/* <div id="profilepic1">
-              {" "}
-              <img src={currentUser.photoURL} alt=""></img>{" "}
-            </div>*/}
-            <div id="name1">Welcome</div>
-            <div id="email1">{email}</div>
+            <div className="name">Welcome</div>
+            <div className="email">{email}</div>
           </div>
         </div>
+        </div>
+        <hr></hr>
 
         <div class="heading" style={{ marginLeft: "30px" }}>
           <br />

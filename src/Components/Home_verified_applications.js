@@ -5,6 +5,7 @@ import {
   Link,
   Switch,
   useNavigate,
+  useParams,
 } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +15,7 @@ import "./Home.css";
 import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
 
 function Home_verified_applications() {
+  const { home_data } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState("id");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -59,21 +61,17 @@ function Home_verified_applications() {
     );
 
     let data2 = await res.json();
-      
+
     const jsonDataString = JSON.stringify(data2.result);
-    
-    
+
     const parsedData = JSON.parse(jsonDataString);
-    
-    
-    
-    for(let i=0;i<parsedData.length;i++){
-      
-      parsedData[i][4]=JSON.parse(parsedData[i][4])
+
+    for (let i = 0; i < parsedData.length; i++) {
+      parsedData[i][4] = JSON.parse(parsedData[i][4]);
     }
-            
-            console.log(parsedData)
-setData(parsedData)
+
+    console.log(parsedData);
+    setData(parsedData);
     // setresult_arr(data["result"]);
   };
   useEffect(() => {
@@ -93,42 +91,28 @@ setData(parsedData)
   };
 
   return (
-    <div>
-      <div id="top_navbar">
-        <Link to="/Page1" style={{ textDecoration: "none" }}>
-          <div id="apply_button"> Apply for Reimbursement</div>
-        </Link>
-
-        {/* <div id="profilepic">
-                    {" "}
-                    <img src={currentUser.photoURL} alt=""></img>{" "}
-                </div> */}
-        <div id="name">Welcome</div>
-        <div id="email">{email}</div>
-      </div>
+    <div style={{ display: "flex" }}>
       <div
-        id="sidebar"
+        id="sidebar1"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
-        <a href="#" class="text-white text-decoration-none">
-          <h2 class="text_center">Menu</h2>
-        </a>
+        <h2 class="text_center">Menu</h2>
+
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-          
-            <Link
-              id="link_to_other_pages"
-              to="/Home"
-              style={{ textDecoration: "none" }}
-            >
-              <li class="nav-item">
-                <a href="#" class="nav-link text-white">
-                  <i class="fa fa-home"></i>
-                  <span class="ms-2 font_size_18">Home </span>
-                </a>
-              </li>
-            </Link>
-          
+          <Link
+            id="link_to_other_pages"
+            to="/Home"
+            style={{ textDecoration: "none" }}
+          >
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-home"></i>
+                <span class="ms-2 font_size_18">Home </span>
+              </a>
+            </li>
+          </Link>
+
           <Link
             id="link_to_other_pages"
             to="/Autofill"
@@ -154,14 +138,6 @@ setData(parsedData)
               </a>
             </li>
           </Link>
-          {/* <li onClick={gotoForgotPassword}>
-                        <a href="#" class="nav-link text-white">
-                            <i class="fa fa-cog"></i>
-                            <span class="ms-2 font_size_18">
-                                Change Password
-                            </span>
-                        </a>
-                    </li> */}
           <li onClick={handleLogout}>
             <a href="#" class="nav-link text-white">
               <i class="fa fa-bookmark"></i>
@@ -170,63 +146,65 @@ setData(parsedData)
           </li>
         </ul>
       </div>
-      <div id="last_heading">
-        <h4>Approved applications </h4>
-        <h6>
-          (applications which are approved by all authority people will appear
-          here)
-        </h6>
-      </div>
-      <div className="application_list">
-          <div style = {{margin:"20px"}}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-bar"
-          />
-          </div>
 
-          <table class = "table">
+      <div className="main-content">
+        <div className="top-navbar">
+          <div className="btns">
+            <Link to="/Home/Instructions" className="btn">
+              <div className="inst-button">Instructions</div>
+            </Link>
+            <Link to="/Page1" className="btn">
+              <div className="apply-button">Apply for Reimbursement</div>
+            </Link>
+          </div>
+          <div>
+            <div className="name">Welcome</div>
+            <div className="email">{email}</div>
+          </div>
+        </div>
+        <hr></hr>
+        <div className="last-heading">
+          <h4>Approved applications </h4>
+          <h6>
+            (applications which are approved by all authority people will appear
+            here)
+          </h6>
+        </div>
+
+        <div className="application-list">
+          <table className="table">
             <thead>
               <tr>
-                <th scope="col">
-                  
-                  <button class = "thbtn" value="id" onClick={handleSortChange}>    
-                    ID               
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
-                  </button>
-                </th>
-                <th scope="col">
-                  <button class = "thbtn" value="amount" onClick={handleSortChange}>
-                    Amount Claimed
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
-                <th scope="col">
-                  <button class = "thbtn" value="date" onClick={handleSortChange}>
-                    Date of submission
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
+                <th>ID</th>
+                <th>Amount Claimed</th>
+                <th>Date of submission</th>
+                <th>Action</th> {/* Added Action column */}
               </tr>
             </thead>
             <tbody>
-              {sortedData.map((row) => (
-                <tr key={row[0]} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("/Home/ShowApplication/" + (row[0]));
-                }}>
+              {data.map((row, index) => (
+                <tr key={index}>
                   <td>{row[0]}</td>
                   <td>{row[4].user.amountClaimed}</td>
                   <td>{row[4].user.date}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        home_data === "Home"
+                          ? navigate("/ShowApplication/" + row[0])
+                          : navigate("/Home/ShowApplication/" + row[0]);
+                      }}
+                      className="btn btn-primary"
+                    >
+                      View Application
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <br />
-          <br />
         </div>
+      </div>
     </div>
   );
 }
