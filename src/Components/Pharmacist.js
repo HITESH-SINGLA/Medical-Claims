@@ -4,12 +4,11 @@ import {
   Route,
   Link,
   useNavigate,
-  useParams
+  useParams,
 } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Pharmacist.css";
-
 
 function Pharmacist() {
   const email = localStorage.getItem("email");
@@ -64,11 +63,15 @@ function Pharmacist() {
     const updateData = [];
     data2["result"].map((id1) => {
       console.log(id1[0]);
-      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date, status : id1[2]});            
+      updateData.push({
+        id: parseInt(id1[0]),
+        amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed),
+        date: JSON.parse(id1[1]).user.date,
+        status: id1[2],
+      });
       console.log(data.length);
     });
     setData(updateData);
-
   };
   useEffect(() => {
     getApplicationId();
@@ -83,16 +86,11 @@ function Pharmacist() {
     localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
-  
-  let { home_data } = useParams();
- 
-  return (
-    <div>
-      <div id="top_navbar">
-        <div id="name">Welcome</div>
-        <div id="email">{email}</div>
-      </div>
 
+  let { home_data } = useParams();
+
+  return (
+    <div style={{ display: "flex" }}>
       <div
         id="sidebar"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
@@ -131,64 +129,70 @@ function Pharmacist() {
           </li>
         </ul>
       </div>
-      <div id="last_heading">
-        <h4>Home </h4>
-        <h6>(applications which need your approval will appear here)</h6>
-      </div>
+      <div className="main-content">
+        <div className="top-navbar">
+          
 
-      <div className="application_list">
-          <div style = {{margin:"20px"}}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-bar"
-          />
+          <div className="welcome">
+            <div className="welcome-icon">
+              <i className="fas fa-user-circle"></i>{" "}
+              {/* Add margin to move the icon */}
+            </div>
+
+            <div className="welcome-text">
+              <div className="name">Pharmacist</div>{" "}
+              {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="email">
+                <i className="fas fa-envelope"></i> {email}{" "}
+                {/* You can use envelope icon for email */}
+              </div>
+            </div>
           </div>
-          <table class = "table" style = {{marginRight: "1000px" }}>
+        </div>
+        <hr></hr>
+        <div id="last_heading">
+          <h4>Home </h4>
+          <h6>(applications which need your approval will appear here)</h6>
+        </div>
+
+        <div className="application-list">
+          <table className="table">
             <thead>
               <tr>
-                <th scope="col">                  
-                  <button value="id" onClick={handleSortChange}>    
-                    Application ID               
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
-                  </button>
-                </th>
-                <th scope="col">
-                  <button value="amount" onClick={handleSortChange}>
-                    Net Amount Claimed
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
-                <th scope="col">
-                  <button value="date" onClick={handleSortChange}>
-                    Date of submission
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
-                <th scope="col">
-                  Status
-                </th>
+                <th>Application ID</th>
+                <th>Amount Claimed</th>
+                <th>Date of submission</th>
+                <th>Status</th>
+                <th>Action</th> {/* Added Action column */}
               </tr>
             </thead>
             <tbody>
-              {sortedData.map((row) => (
-                <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  home_data === "Pharmacist" ? navigate("ShowApplicationtoPharmaMed/" + (row.id)) : navigate("/Pharmacist/ShowApplicationtoPharmaMed/" + (row.id));
-                  
-                }}>
-                  <td>Application {row.id}</td>
+              {data.map((row, index) => (
+                <tr key={index}>
+                <td>Application {row.id}</td>
                   <td>{row.amount}</td>
                   <td>{row.date}</td>
                   <td>{row.status} </td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        home_data === "Pharmacist"
+                          ? navigate("ShowApplicationtoPharmaMed/" + row.id)
+                          : navigate(
+                              "/Pharmacist/ShowApplicationtoPharmaMed/" + row.id
+                            );
+                      }}
+                      className="btn btn-primary"
+                    >
+                      View Application
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <br />
-          <br />
         </div>
+      </div>
     </div>
   );
 }

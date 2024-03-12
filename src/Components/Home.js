@@ -15,18 +15,23 @@ function Home() {
 
     const getApplicationId = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:5000/getallApplicationIdForHome", {
-          method: "POST",
-          body: JSON.stringify({ email: getEmail }),
-          headers: { "Content-Type": "application/json" },
-        });
+        const res = await fetch(
+          "http://127.0.0.1:5000/getallApplicationIdForHome",
+          {
+            method: "POST",
+            body: JSON.stringify({ email: getEmail }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
         const data2 = await res.json();
         const parsedData = data2.result.map((item) => {
           item[4] = JSON.parse(item[4]);
           return item;
         });
-        parsedData.sort((a, b) => new Date(b[4].user.date) - new Date(a[4].user.date));
+        parsedData.sort(
+          (a, b) => new Date(b[4].user.date) - new Date(a[4].user.date)
+        );
 
         setData(parsedData);
       } catch (error) {
@@ -45,24 +50,24 @@ function Home() {
 
   return (
     <div style={{ display: "flex" }}>
-       <div
-        id="sidebar1"
+      <div
+        id="sidebar"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
         <h2 class="text_center">Menu</h2>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-        <Link
+          <Link
             id="link_to_other_pages"
             to="/Home"
             style={{ textDecoration: "none" }}
           >
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white active">
-              <i class="fa fa-home"></i>
-              <span class="ms-2 font_size_18">Home </span>
-            </a>
-          </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white active">
+                <i class="fa fa-home"></i>
+                <span class="ms-2 font_size_18">Home </span>
+              </a>
+            </li>
           </Link>
 
           <Link
@@ -71,7 +76,7 @@ function Home() {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <a href="#" class="nav-link text-white" >
+              <a href="#" class="nav-link text-white">
                 <i class="fa fa-first-order"></i>
                 <span class="ms-2 font_size_18">Auto Fill</span>
               </a>
@@ -84,10 +89,7 @@ function Home() {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <a
-                class="nav-link text-white"
-                href="#"
-              >
+              <a class="nav-link text-white" href="#">
                 <i class="fa fa-first-order"></i>
                 <span class="ms-2 font_size_18">Approved applications</span>
               </a>
@@ -114,22 +116,21 @@ function Home() {
             </Link>
           </div>
 
-
-          
           <div className="welcome">
-          <div className="welcome-icon">
-  <i className="fas fa-user-circle" ></i> {/* Add margin to move the icon */}
-</div>
+            <div className="welcome-icon">
+              <i className="fas fa-user-circle"></i>{" "}
+              {/* Add margin to move the icon */}
+            </div>
 
             <div className="welcome-text">
-
-              <div className="name">Mohit</div> {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="name">Mohit</div>{" "}
+              {/* Replace [Dummy Name] with "Mohit" */}
               <div className="email">
-                <i className="fas fa-envelope"></i> {email} {/* You can use envelope icon for email */}
+                <i className="fas fa-envelope"></i> {email}{" "}
+                {/* You can use envelope icon for email */}
               </div>
             </div>
           </div>
-
         </div>
         <hr></hr>
 
