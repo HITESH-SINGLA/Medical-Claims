@@ -269,7 +269,7 @@ def updateStatus():
         if (request_data == None):
             print('Error in request data')
 
-        # print(request_data)
+        print(request_data)
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 

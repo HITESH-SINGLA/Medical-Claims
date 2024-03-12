@@ -60,7 +60,11 @@ function Medical_officer_verified_applications() {
     const updateData = [];
     data2["result"].map((id1) => {
       console.log(id1[0]);
-      updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date});            
+      updateData.push({
+        id: parseInt(id1[0]),
+        amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed),
+        date: JSON.parse(id1[1]).user.date,
+      });
       console.log(data.length);
     });
     setData(updateData);
@@ -83,14 +87,9 @@ function Medical_officer_verified_applications() {
   };
 
   return (
-    <div>
-      <div id="top_navbar">
-        <div id="name">Welcome</div>
-        <div id="email">{email}</div>
-      </div>
-
+    <div style={{ display: "flex" }}>
       <div
-        id="sidebar"
+        id="sidebar1"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
         <a href="#" class="text-white text-decoration-none">
@@ -98,17 +97,17 @@ function Medical_officer_verified_applications() {
         </a>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-        <Link
+          <Link
             id="link_to_other_pages"
             to="/Medical_officer"
             style={{ textDecoration: "none" }}
           >
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-              <i class="fa fa-home"></i>
-              <span class="ms-2 font_size_18">Home </span>
-            </a>
-          </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-home"></i>
+                <span class="ms-2 font_size_18">Home </span>
+              </a>
+            </li>
           </Link>
 
           <li>
@@ -126,60 +125,62 @@ function Medical_officer_verified_applications() {
           </li>
         </ul>
       </div>
-      <div id="last_heading">
-        <h4>Verfied applications </h4>
-        <h6>(applications which are approved by you will appear here)</h6>
-      </div>
+      <div className="main-content">
+        <div className="top-navbar">
+          <div className="welcome">
+            <div className="welcome-icon">
+              <i className="fas fa-user-circle"></i>{" "}
+              {/* Add margin to move the icon */}
+            </div>
 
-      <div className="application_list">
-          <div style = {{margin:"20px"}}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-bar"
-          />
+            <div className="welcome-text">
+              <div className="name">Medical_officer</div>{" "}
+              {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="email">
+                <i className="fas fa-envelope"></i> {email}{" "}
+                {/* You can use envelope icon for email */}
+              </div>
+            </div>
           </div>
-          <table class = "table">
+        </div>
+        <hr></hr>
+        <div id="last_heading">
+          <h4>Verfied applications </h4>
+          <h6>(applications which are approved by you will appear here)</h6>
+        </div>
+
+        <div className="application-list">
+          <table className="table">
             <thead>
               <tr>
-                <th scope="col">
-                  
-                  <button value="id" onClick={handleSortChange}>    
-                    Application ID               
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
-                  </button>
-                </th>
-                <th scope="col">
-                  <button value="amount" onClick={handleSortChange}>
-                    Net Amount Claimed
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
-                <th scope="col">
-                  <button value="date" onClick={handleSortChange}>
-                    Date of submission
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
+                <th>Application ID</th>
+                <th>Amount Claimed</th>
+                <th>Date of submission</th>
+                <th>Action</th> {/* Added Action column */}
               </tr>
             </thead>
             <tbody>
-              {sortedData.map((row) => (
-                <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowApplicationtoPharmaMed/" + (row.id));
-                }}>
+              {data.map((row, index) => (
+                <tr key={index}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>
                   <td>{row.date}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        navigate("ShowApplicationtoPharmaMed/" + (row.id));
+                      }}
+                      className="btn btn-primary"
+                    >
+                      View Application
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <br />
-          <br />
         </div>
+      </div>
     </div>
   );
 }
