@@ -1,4 +1,4 @@
-![image](https://github.com/bhuriamohit/DEP-P17-2024/assets/117526106/752810e7-a798-4b85-9d15-1d3ac6bbe4d9)![image](https://github.com/bhuriamohit/DEP-P17-2024/assets/117526106/ae0bf0c0-ee27-47c4-8e2e-adebddd39bfb)# Medical Claim Reimbursement 
+# Medical Claim Reimbursement 
 
 The purpose of a medical claim website is to provide a platform for Stakeholders to efficiently manage the process of submitting, reviewing, and processing medical claims. The website aims to streamline the claims process, reduce administrative burdens, and improve communication between all parties involved in medical billing and reimbursement. By providing a user-friendly and secure platform for submitting and managing medical claims, the website aims to improve the overall healthcare experience for patients and providers alike.
 
