@@ -34,7 +34,7 @@ function DAorJAO_verified_applications() {
       updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date});            
       // console.log(data.length);
     });
-    setData(updateData);
+    setData(updateData.reverse());
   };
   useEffect(() => {
     getApplicationId();
@@ -85,14 +85,9 @@ function DAorJAO_verified_applications() {
   });
 
   return (
-    <div>
-      <div id="top_navbar">
-        <div id="name">Welcome</div>
-        <div id="email">{email}</div>
-      </div>
-
+    <div style={{ display: "flex" }}>
       <div
-        id="sidebar"
+        id="sidebar1"
         class="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
         <a href="#" class="text-white text-decoration-none">
@@ -128,58 +123,60 @@ function DAorJAO_verified_applications() {
           </li>
         </ul>
       </div>
+      <div className="main-content">
+        <div className="top-navbar">
+          <div className="welcome">
+            <div className="welcome-icon">
+              <i className="fas fa-user-circle"></i>{" "}
+              {/* Add margin to move the icon */}
+            </div>
+
+            <div className="welcome-text">
+              <div className="name">Junior_Acc</div>{" "}
+              {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="email">
+                <i className="fas fa-envelope"></i> {email}{" "}
+                {/* You can use envelope icon for email */}
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr></hr>
       <div id="last_heading">
         <h4>Verfied applications </h4>
         <h6>(applications which are approved by you will appear here)</h6>
       </div>
-      <div className="application_list">
-      <div style = {{margin:"20px"}}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-bar"
-          />
-          </div>
-          <table class = "table">
+      <div className="application-list">
+          <table className="table">
             <thead>
               <tr>
-                <th scope="col">
-                  
-                  <button value="id" onClick={handleSortChange}>    
-                    Application ID               
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>                   
-                  </button>
-                </th>
-                <th scope="col">
-                  <button value="amount" onClick={handleSortChange}>
-                    Net Amount Claimed
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
-                <th scope="col">
-                  <button value="date" onClick={handleSortChange}>
-                    Date of submission
-                    <i class="fa-solid fa-sort" style={{marginLeft:"4px"}}></i>     
-                  </button>
-                </th>
+                <th>Application ID</th>
+                <th>Amount Claimed</th>
+                <th>Date of submission</th>
+                <th>Action</th> {/* Added Action column */}
               </tr>
             </thead>
             <tbody>
-              {sortedData.map((row) => (
-                <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowAllApplication/" + (row.id));
-                }}>
+              {data.map((row, index) => (
+                <tr key={index}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>
                   <td>{row.date}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        navigate("ShowAllApplication/" + (row.id));
+                      }}
+                      className="btn btn-primary"
+                    >
+                      View Application
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <br />
-          <br />
+        </div>
       </div>
     </div>
   );

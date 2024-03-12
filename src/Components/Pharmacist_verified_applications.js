@@ -37,7 +37,8 @@ function Pharmacist_verified_applications() {
       });
       console.log(data.length);
     });
-    setData(updateData);
+
+    setData(updateData.reverse());
   };
   useEffect(() => {
     getApplicationId();

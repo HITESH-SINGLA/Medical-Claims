@@ -23,6 +23,13 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.top-navbar1 {
+  display: absolute;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 
 .btns {
   display: flex;
@@ -69,7 +76,8 @@
 
 .application-list tbody tr:nth-child(even) {
   background-color: #fffefe;
-}.welcome {
+}
+.welcome {
   display: flex;
   flex-direction: column;
   align-items: center; /* Align items to the center horizontally */

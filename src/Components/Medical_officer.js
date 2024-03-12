@@ -76,7 +76,7 @@ function Medical_officer() {
         status: id1[2],
       });
     });
-    setData(updateData);
+    setData(updateData.reverse());
   };
   useEffect(() => {
     getallApplicationIdFromPharmacist();

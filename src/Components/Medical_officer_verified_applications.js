@@ -67,7 +67,7 @@ function Medical_officer_verified_applications() {
       });
       console.log(data.length);
     });
-    setData(updateData);
+    setData(updateData.reverse());
   };
   useEffect(() => {
     getallApplicationIdFromPharmacist();

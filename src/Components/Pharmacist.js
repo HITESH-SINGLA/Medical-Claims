@@ -71,7 +71,8 @@ function Pharmacist() {
       });
       console.log(data.length);
     });
-    setData(updateData);
+   
+    setData(updateData.reverse());
   };
   useEffect(() => {
     getApplicationId();
@@ -130,9 +131,7 @@ function Pharmacist() {
         </ul>
       </div>
       <div className="main-content">
-        <div className="top-navbar">
-          
-
+        <div className="top-navbar" >
           <div className="welcome">
             <div className="welcome-icon">
               <i className="fas fa-user-circle"></i>{" "}
