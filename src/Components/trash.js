@@ -6,14 +6,21 @@ import {
   Switch,
   useHistory,
   useNavigate,
+  useParams
 } from "react-router-dom";
 
 import { Button, Form, FormGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { AuthContext } from "./Auth";
 import "./Home_authority.css";
+//import { signInWithGoogle } from "./firebase"
+import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
+import ShowApplication from "./ShowApplication";
 
-function AO_verified_applications() {
+import { auth } from "./firebase";
+import { signOut } from "firebase/auth";
+
+function Registrar() {
   const email = localStorage.getItem("email");
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,7 +61,7 @@ function AO_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApprovedApplicationIdFromAO",
+      "http://127.0.0.1:5000/getallApplicationIdForRegistrar",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -66,6 +73,7 @@ function AO_verified_applications() {
     console.log(data2["result"]);
 
     setresult_arr(data2["result"]);
+
     const updateData = [];
     data2["result"].map((id1) => {
       console.log(id1[0]);
@@ -77,8 +85,9 @@ function AO_verified_applications() {
       });
       console.log(data.length);
     });
-    setData(updateData.reverse());
+    setData(updateData);
   };
+
   useEffect(() => {
     getApplicationId();
   }, []);
@@ -86,19 +95,21 @@ function AO_verified_applications() {
   console.log(result_arr);
 
   let navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate(-1);
-  };
-
   const handleLogout = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
+  
+  let { param_data } = useParams();
 
   return (
     <div>
       <div id="top_navbar">
+        {/* <div id="profilepic">
+                    {" "}
+                    <img src={currentUser.photoURL} alt=""></img>{" "}
+                </div> */}
         <div id="name">Welcome</div>
         <div id="email">{email}</div>
       </div>
@@ -112,25 +123,26 @@ function AO_verified_applications() {
         </a>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-        <Link
-            id="link_to_other_pages"
-            to="/AO"
-            style={{ textDecoration: "none" }}
-          >
           <li class="nav-item">
-            <a href="#" class="nav-link text-white">
+            <a href="#" class="nav-link active" aria-current="page">
               <i class="fa fa-home"></i>
+
               <span class="ms-2 font_size_18">Home </span>
             </a>
           </li>
-          </Link>
 
-          <li>
-            <a href="#" class="nav-link active">
-              <i class="fa fa-first-order"></i>
-              <span class="ms-2 font_size_18">Verified Applications</span>
-            </a>
-          </li>
+          <Link
+            id="link_to_other_pages"
+            to="/Registrar/Registrar_verified_applications"
+            style={{ textDecoration: "none" }}
+          >
+            <li>
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-first-order"></i>
+                <span class="ms-2 font_size_18">Verified Applications</span>
+              </a>
+            </li>
+          </Link>
 
           <li onClick={handleLogout}>
             <a href="#" class="nav-link text-white">
@@ -141,8 +153,8 @@ function AO_verified_applications() {
         </ul>
       </div>
       <div id="last_heading">
-        <h4>Verfied applications </h4>
-        <h6>(applications which are approved by you will appear here)</h6>
+        <h4>Home </h4>
+        <h6>(applications which need your approval will appear here)</h6>
       </div>
       <div className="application_list">
       <div style = {{margin:"20px"}}>
@@ -184,7 +196,7 @@ function AO_verified_applications() {
             <tbody>
               {sortedData.map((row) => (
                 <tr key={row.id} className = "application_id1" style={{ cursor: "pointer" }} onClick={() => {
-                  navigate("ShowAllApplication/" + (row.id));
+                  param_data === "Registrar" ? navigate("ShowAllApplication/" + (row.id)) : navigate("/Registrar/ShowAllApplication/" + (row.id));
                 }}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>
@@ -201,4 +213,4 @@ function AO_verified_applications() {
   );
 }
 
-export default AO_verified_applications;
+export default Registrar;
