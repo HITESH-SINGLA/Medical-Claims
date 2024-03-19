@@ -13,7 +13,6 @@ import { Button, Form, FormGroup } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthContext } from "./Auth";
 import "./Home_authority.css";
-//import { signInWithGoogle } from "./firebase"
 import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
 import ShowApplication from "./ShowApplication";
 
@@ -189,7 +188,7 @@ function Director() {
                       onClick={() => {
                         param_data === "Director"
                           ? navigate("ShowAllApplication/" + row.id)
-                          : navigate("/AO/ShowAllApplication/" + row.id);
+                          : navigate("/Director/ShowAllApplication/" + row.id);
                       }}
                       className="btn btn-primary"
                     >

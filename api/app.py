@@ -276,10 +276,13 @@ def updateStatus():
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
         email_id = '\'' + request_data["authorityUser"]["email"] + '\''
         applicationStatus = '\'' + request_data["authorityUser"]["applicationStatus"] + '\''
-        remarks = '\''+ request_data["authorityUser"]["remarks"]+ '\''
+        remarks = '\''+request_data["authorityUser"]["remarks"]+ '\''
+        # print(request_data["authorityUser"])
+        print(request_data)
+        # remarks = request_data["authorityUser"]["remarks"] + '\'' # Get the value of "remarks" or '' if it doesn't exist or is None
 
         print('applicationStatus: ',applicationStatus)
-
+        print(remarks)
 
         if (email_id == '\''+'pharmacistxyz901@gmail.com'+ '\''):
             query = f"UPDATE application SET pharmacist = {applicationStatus} , pharmacist_remarks = {remarks} WHERE application_id  = {id}"
@@ -295,12 +298,13 @@ def updateStatus():
             query = f"""UPDATE application SET "AO" = {applicationStatus} , "AO_remarks" = {remarks} WHERE application_id  = {id}"""
 
         elif (email_id  == '\''+'senior.audit.901@gmail.com'+'\''):
-            query = f"""UPDATE application SET Sr_AO = {applicationStatus} , Sr_AO_remarks = {remarks} WHERE application_id  = {id}"""
+            query = f"""UPDATE application SET "Sr_AO" = {applicationStatus} , "Sr_AO_remarks" = {remarks} WHERE application_id  = {id}"""
 
         elif (email_id  == '\''+'registrar.officer.901@gmail.com'+'\''):
-            query = f"UPDATE application SET registrar = {applicationStatus} , registrar_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"""UPDATE application SET "registrar" = {applicationStatus} , "registrar_remarks" = {remarks} WHERE application_id  = {id}"""
+        
         elif (email_id  == '\''+'directorxyz@gmail.com'+'\''):
-            query = f"UPDATE application SET director = {applicationStatus} , director_remarks = {remarks} WHERE application_id  = {id}"
+            query = f"""UPDATE application SET "director" = {applicationStatus} , "director_remarks" = {remarks} WHERE application_id  = {id}"""
 
         print("\nQUERY:=>\n")
         print(query)
@@ -997,39 +1001,25 @@ def getallApprovedApplicationIdFromRegistrar():
 @app.route('/getallApplicationIdForDirector', methods=['GET', 'POST'])
 @cross_origin()
 def getallApplicationIdForDirector():
-    if request.method == 'POST':
+    if (request.method == 'POST'):
         request_data = request.get_json()
-        if request_data is None:
+        if (request_data == None):
             print('Error in reading request data')
-            return {"status": "Error in reading request data"}
+            return
 
         conn = database.get_database(user_name, password)
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = """SELECT application_id FROM application WHERE "registrar"='approved' AND "director"<>'approved' ORDER BY application_id ASC"""
+        query = f"""select * from application where "registrar"='approved' and "director" <> 'approved' order by application_id asc """
+
         mycursor.execute(query)
         result = mycursor.fetchall()
-
-        query = """SELECT "application_id","table_data" FROM data"""
-        mycursor.execute(query)
-        result_data = mycursor.fetchall()
-
         result_arr = []
         for item in result:
-            p = item[0]
-            for data in result_data:
-                if data[0] == p:
-                    try:
-                        ajso = json.loads(data[1])
-                        amntt = int(ajso.get("total2", "0"))  # Use get() to handle missing key gracefully
-                        result_arr.append([str(p), amntt])
-                    except KeyError:
-                        print(f"KeyError: 'total2' not found in JSON data for application_id {p}")
-                        continue
-                    break
+            result_arr.append([str(item[0]), item[4], item[12]])
 
-        return {"status": "ok", "result": result_arr}
+        return {"status": "ok","result": result_arr}
 
     return {"status": "getallApplicationIdForDirector working"}
 
@@ -1048,14 +1038,15 @@ def getallApprovedApplicationIdFromDirector():
         mycursor = conn.cursor()
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        query = f"""select application_id from application where "director"='approved' order by application_id asc;"""
+        query = f"""select * from application where "director"='approved' order by application_id asc """
 
         mycursor.execute(query)
         result = mycursor.fetchall()
-        print(result)
-       
+        result_arr = []
+        for item in result:
+            result_arr.append([str(item[0]), item[4], item[12]])
 
-        return {"status": "ok","result": result}
+        return {"status": "ok","result": result_arr}
 
     return {"status": "getallApprovedApplicationIdFromDirector working"}
 
@@ -1227,7 +1218,8 @@ def showApplicationIdStatus(id):
         result = mycursor.fetchone()
         mycursor.execute(query_for_remarks)
         result1 = mycursor.fetchone()
-
+        print("dir\n")
+        print(result1)
         if (result[0] == "approved"):
             authority = "Director has approved your application."
             authority_remarks = result1[0]
