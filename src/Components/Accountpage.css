@@ -68,3 +68,211 @@ table td input {
     margin-bottom: -15px;
     font-weight: bold;
 }
+/* Custom Form Styles */
+.form-row .form-control {
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  
+  .form-row .btn-primary {
+    padding: 8px 24px;
+    margin-bottom: 8px;
+  }
+  
+  /* Custom Table Styles */
+  .table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .thead-dark th {
+    background-color: #1072d5;
+    color: #fff;
+  }
+  
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #dee2e6;
+  }
+  
+  /* Adjustments for responsive design */
+  @media (max-width: 768px) {
+    .form-row .col-auto {
+      width: 100%;
+    }
+  
+    .form-row .form-control, .form-row .btn-primary {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+  
+
+  /* Custom Form Input and Button Styles */
+.custom-input {
+    border: 2px solid #007bff; /* Bright border color */
+    border-radius: 0.25rem;
+    height: 45px; /* Larger input fields */
+  }
+  
+  .custom-button {
+    background-color: #28a745; /* Vibrant button color */
+    border: none;
+    padding: 10px 20px;
+    color: #ffffff;
+    border-radius: 0.25rem;
+    font-size: 16px; /* Larger font size */
+    cursor: pointer;
+  }
+  
+  .custom-button:hover {
+    background-color: #218838; /* Darker on hover */
+  }
+  
+  /* Custom Table Styles */
+  .custom-table {
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Space between rows */
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .custom-table thead tr {
+    background-color: #007bff; /* Header background */
+    color: #ffffff; /* Header text color */
+    text-align: left;
+  }
+  
+  .custom-table tbody tr {
+    background-color: #ffffff; /* Row background */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Add shadow for depth */
+    border-radius: 0.25rem;
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 15px; /* Larger padding for table cells */
+  }
+  
+  .custom-table tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2; /* Alternating row colors */
+  }
+  
+  .custom-table tbody tr:hover {
+    background-color: #e9ecef; /* Hover state */
+  }
+  
+
+  /* Form Styles */
+.medicine-form{
+    margin: 10%;
+}
+
+.medicine-form .form-control {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .medicine-form .btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    margin-right: 5px;
+  }
+  
+  /* Table Styles */
+  .medicine-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ddd;
+  }
+  
+  .medicine-table th, .medicine-table td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .medicine-table th {
+    background-color: #81ecda;
+  }
+  
+  .medicine-table tr:hover {
+    background-color: #e8f0fe;
+  }
+  
+  /* Button Styles */
+  .edit-button, .delete-button, .save-button, .cancel-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .edit-button {
+    background-color: #ffa500;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+  }
+  
+  .save-button {
+    background-color: #4CAF50;
+  }
+  
+  .cancel-button {
+    background-color: #757575;
+  }
+  
+  /* Input Styles for Editing Rows */
+  .medicine-table .form-control {
+    padding: 4px;
+    margin: 0;
+    border-radius: 5px;
+    border: 1px solid #120101;
+  }
+  
+  .bottom-insert-form {
+    margin-top: 20px; /* Space from the table */
+  }
+  
+  .insert-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .insert-col {
+    flex: 1;
+    margin-right: 10px; /* Space between inputs */
+  }
+  
+  .insert-col-auto {
+    flex-basis: auto;
+  }
+  
+  .insert-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensure padding doesn't increase the size */
+  }
+  
+  .insert-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .insert-button:hover {
+    background-color: #218838;
+  }
+  
