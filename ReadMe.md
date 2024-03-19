@@ -14,9 +14,39 @@ The purpose of a medical claim website is to provide a platform for Stakeholders
 
 ## Technology Stack
 
-### Database
+### Database Interaction Documentation**
+The database stores essential information related to user login credentials, facilitating secure access to the website's features.
+#### Key Components:
 
-Our medical claims project utilizes PostgreSQL (psql) as our database, aptly named Elephant. Leveraging its robust features, Elephant efficiently manages medical data, ensuring secure storage and retrieval. With streamlined querying and manipulation, we optimize claim processing and analysis. PostgreSQL's reliability and scalability form the foundation for our project's success in medical claims management.
+1. **ElephantSQL PostgreSQL Database:**
+   - The website utilizes ElephantSQL as a managed PostgreSQL database service.
+   - PostgreSQL is a powerful, open-source relational database management system known for its reliability and robust feature set.
+
+2. **Database Connectivity (database.py):**
+   - The `get_database` function establishes a connection to the ElephantSQL-hosted PostgreSQL database using the provided username and password.
+   - The `psycopg2` library serves as the PostgreSQL adapter for Python, enabling seamless interaction between the website and the database.
+
+3. **Executing SQL Queries:**
+   - Upon establishing a connection, SQL queries are executed using a cursor object obtained from the database connection.
+   - The website executes SQL queries to retrieve, insert, update, or delete data stored in the PostgreSQL database.
+
+4. **Fetching Results:**
+   - After executing a query, the website fetches the results using methods like `fetchall` or `fetchone`, enabling data retrieval for further processing.
+   - Results obtained from the database queries are processed and utilized within the website's functionalities, such as user authentication and data retrieval.
+
+5. **Transaction Management:**
+   - If the website performs data modification operations (e.g., INSERT, UPDATE, DELETE), it commits the transaction using the `commit` method to ensure changes are persisted to the database.
+   - Proper transaction management helps maintain data integrity and consistency within the PostgreSQL database.
+
+6. **Resource Cleanup:**
+   - Once database interactions are completed, the website closes the cursor and database connection using the `close` method to release resources and prevent memory leaks.
+
+**Functionality Overview:**
+
+- **User Authentication:** The website verifies user login credentials by querying the PostgreSQL database for matching username-password combinations.
+- **Data Retrieval:** Essential information, such as user details and application data, is retrieved from the database to populate web pages and facilitate user interactions.
+- **Data Modification:** Authorized users can modify data stored in the database, such as updating application details or recording remarks, through secure interactions facilitated by the website.
+
 
 ### Frontend
 
