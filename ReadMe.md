@@ -222,5 +222,4 @@ To set up and run the application just follow this link: https://medical-claims-
 
 ## Conclusion
 
-In conclusion, the development of a medical reimbursement website aims to streamline the claims process, reduce administrative burdens, and improve communication between patients and healthcare providers. With features such as claim submission and tracking,  the website will enhance the overall healthcare experience and improve the efficiency of medical claim management.
-
+The medical claims website is a comprehensive platform designed to facilitate the submission, verification, and approval of medical claims submitted by students. Through a hierarchical approval process involving various administrative roles such as pharmacists, medical officers, and other authorities, the website ensures thorough evaluation and verification of each claim. With role-based access control and streamlined workflows, the website enhances efficiency, transparency, and accountability in the medical claim approval process. Overall, the project demonstrates a commitment to optimizing the management of medical claims while prioritizing accuracy, compliance, and user satisfaction."
