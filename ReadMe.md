@@ -14,7 +14,7 @@ The purpose of a medical claim website is to provide a platform for Stakeholders
 
 ## Technology Stack
 
-### Database Interaction Documentation**
+### Database
 The database stores essential information related to user login credentials, facilitating secure access to the website's features.
 #### Key Components:
 
