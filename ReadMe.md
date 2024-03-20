@@ -193,24 +193,36 @@ The Medical Claims website comprises several key components, each serving a spec
    - **\***: Redirects users to an error page if they attempt to access an undefined route.
 
 
+
+## Visually representation through a flowchart.   
+"We've developed a comprehensive flowchart on our website, showcasing the entire process of medical claims submission, approval, and subsequent actions. This flowchart illustrates who can apply, the sequential approval process involving different administrators, post-approval actions, and protocols for applications placed on hold. It serves as a visual roadmap, encapsulating the complete functionality of our website."
+
+
+
+### Meaning of different color lines 
+1. Orange Color Line: In the flowchart, the orange-colored line symbolizes the process wherein a user attempts to log in. Our system promptly verifies whether the login data already exists in our database. If a matching record is found, an OTP (One-Time Password) is dispatched for verification. However, if the data is not found, an error message is displayed, prompting the user to register first before proceeding.
+
+2. Black Color Line: In the flowchart, the black-colored line symbolizes the login process for various users, including students, pharmacists, doctors, junior accountants, assessing officers, registrars, and directors. Each user accesses their respective portal by logging in with their unique email IDs, which are pre-existing in our database. Upon successful login, each user is directed to their designated portal.
+
+3. Yellow Color Line: In the flowchart, the yellow line signifies the administrative process of reviewing applications submitted by students. Each administrator evaluates the applications within their jurisdiction. Following deliberation, they decide whether to approve the application or place it on hold, accompanied by any remarks if necessary.
+
+4. Blue Color Line: In the flowchart, the blue line denotes the hierarchical passing of applications from one administrator to another after initial approval. This indicates a sequential flow wherein the application progresses through different levels of authority for further assessment or approval. For instance, the application may first be approved by a pharmacist, then forwarded to a doctor, and subsequently to other administrators as per the established hierarchy.
+
+5. Green Color Line: In the flowchart, the green-colored line represents a two-way process involving the resolution of application issues. When an administrator identifies missing information or requires additional details, they place the application on hold and provide remarks detailing the necessary updates. Subsequently, the status update is communicated to the student portal. The student then addresses the remarks by providing the required information, allowing the application to continue from where it was placed on hold, rather than starting the process anew. This two-way interaction streamlines the application process and ensures efficient resolution of issues.
+
+### Flowchart
+![WhatsApp Image 2024-03-20 at 5 21 24 PM](https://github.com/bhuriamohit/DEP-P17-2024/assets/117526106/b016c76f-6bf8-45a3-9403-46baf6660853)
+ 
+
+                     
 ## User Interfaces
 
 Every user who interacts with the system will have the same user interface. The single central interface for interacting with the application will be the web application. This will be a highly visual interface involving a minimal, easy-to-navigate UI. The interface would be primarily useful to users to view the analytics of their applications. The interface will be designed to be intuitive and easy to use. The interface will be designed to be responsive and work on all devices. The interface will be designed to be compatible with all major browsers.
-          Our landing page offers comprehensive information about medical staff and colleges, providing users with valuable insights. Additionally, we feature intuitive signup and login pages for user authentication. During signup, essential data is collected, enhancing user experience through autofill functionality. This seamless integration streamlines the user journey, ensuring efficient data utilization for enhanced convenience.
+Our landing page offers comprehensive information about medical staff and colleges, providing users with valuable insights. Additionally, we feature intuitive signup and login pages for user authentication. During signup, essential data is collected, enhancing user experience through autofill functionality. This seamless integration streamlines the user journey, ensuring efficient data utilization for enhanced convenience.
 
-### Landing Page(a)
-
-![image](https://github.com/bhuriamohit/DEP-P17-2024/assets/117526106/16666d39-ac36-4404-938a-f10050101ad6)
+### Landing Page
 On the landing page, users will directly encounter the website's interface. This section not only furnishes essential details about the website but also includes information about the medical staff. Additionally, there are dedicated sign-up and login buttons for users to register or log in to their accounts.
-
-### Landing Page(b)
-
-![image](https://github.com/bhuriamohit/DEP-P17-2024/assets/117526106/c53c0699-76fd-497d-b8b3-56e860e3dd50)
 In this landing page, we've incorporated information about the medical staff, providing details about the doctors along with their respective working hours on the landing page. Users can now access comprehensive Information about healthcare professionals, fostering transparency and convenience.
-
-### Landing Page(c)
-
-![image](https://github.com/bhuriamohit/DEP-P17-2024/assets/117526106/55dcce93-fc77-4f43-834e-b8cde311848c)
 Furthermore, a footer has been introduced to the landing page, offering information about our college. This section includes essential details about the institution along with links to our social media profiles. Additionally, contact Information is provided for users to reach out for any inquiries or assistance.
 
 
