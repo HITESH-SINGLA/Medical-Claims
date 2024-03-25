@@ -4,6 +4,12 @@ from flask_mail import Mail, Message
 import random
 import secrets
 import database
+from flask import Flask
+from flask_caching import Cache
+
+app = Flask(__name__)
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+
 user_name = 'aditya1024'
 password = 'onepieceisreal'
 
