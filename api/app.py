@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify,json
+from flask import Flask, request, jsonify,json,g
 from flask_cors import CORS, cross_origin
 from flask_mail import Mail, Message
 import random
@@ -13,8 +13,6 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 user_name = 'aditya1024'
 password = 'onepieceisreal'
 
-app = Flask(__name__)
-CORS(app)
 
 app.secret_key = secrets.token_hex(16)
 
@@ -30,6 +28,47 @@ mail = Mail(app)
 @app.route('/')
 def home():
     return "onepieceisreal"
+
+
+app = Flask(__name__)
+
+@app.before_request
+def before_request():
+    """Get a database connection before each request and store it in Flask's g"""
+    g.db_conn = database.DatabasePool.get_connection()
+    g.db_cursor = g.db_conn.cursor()
+
+@app.after_request
+def after_request(response):
+    """Close the database cursor and return the connection to the pool after each request"""
+    g.db_cursor.close()
+    database.DatabasePool.return_connection(g.db_conn)
+    return response
+
+@app.route('/basicDetails', methods=['GET', 'POST'])
+def basicDetails():
+    if request.method == 'POST':
+        request_data = request.get_json()
+        if request_data is None:
+            return jsonify({"status": "error", "message": "No request data"}), 400
+        
+        email_id = request_data["user"]["email"]
+        data = json.dumps(request_data)
+
+        g.db_cursor.execute("SELECT count(*) FROM basicdetails WHERE user_id = %s", (email_id,))
+        is_exist = g.db_cursor.fetchone()[0]
+
+        if is_exist == 0:
+            g.db_cursor.execute("INSERT INTO basicdetails(user_id, data) VALUES (%s, %s)", (email_id, data))
+        else:
+            g.db_cursor.execute("UPDATE basicdetails SET data = %s WHERE user_id = %s", (data, email_id))
+
+        g.db_conn.commit()
+        return jsonify({"status": "ok", "result": "Basic details updated"})
+
+    return jsonify({"status": "basicDetails working"})
+
+
 
 @app.route('/login', methods=['POST'])
 @cross_origin()
@@ -125,84 +164,74 @@ def sendotp():
 
 
 
-@app.route('/basicDetails', methods=['GET', 'POST'])
-@cross_origin()
-def basicDetails():
-    if (request.method == 'POST'):
-        request_data = request.get_json()
-        if (request_data == None):
-            print('Error in reading request data')
-            return
+# @app.route('/basicDetails', methods=['GET', 'POST'])
+# @cross_origin()
+# def basicDetails():
+#     if (request.method == 'POST'):
+#         request_data = request.get_json()
+#         if (request_data == None):
+#             print('Error in reading request data')
+#             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+#         conn = database.get_database(user_name, password)
+#         mycursor = conn.cursor()
 
-        email_id = '\'' + request_data["user"]["email"] + '\''
-        data = '\'' + json.dumps(request_data) + '\''
-        print('email: ', email_id)
+#         email_id = '\'' + request_data["user"]["email"] + '\''
+#         data = '\'' + json.dumps(request_data) + '\''
+#         print('email: ', email_id)
 
-        q1= f"Select count(*) from basicdetails where user_id = {email_id}"
+#         q1= f"Select count(*) from basicdetails where user_id = {email_id}"
 
-        mycursor.execute(q1)
-        isexist = mycursor.fetchone()
-        # print('isexist', isexist[0])
+#         mycursor.execute(q1)
+#         isexist = mycursor.fetchone()
+#         # print('isexist', isexist[0])
 
-        if(isexist[0] == 0):
-            query = f"INSERT INTO basicdetails(user_id, data) VALUES({email_id}, {data})"
-            print('inside if')
-        else:
-            query = f"UPDATE basicdetails SET data ={data} WHERE user_id = {email_id} "
-            print('inside else')
+#         if(isexist[0] == 0):
+#             query = f"INSERT INTO basicdetails(user_id, data) VALUES({email_id}, {data})"
+#             print('inside if')
+#         else:
+#             query = f"UPDATE basicdetails SET data ={data} WHERE user_id = {email_id} "
+#             print('inside else')
 
-        mycursor.execute(query)
+#         mycursor.execute(query)
 
-        conn.commit()
+#         conn.commit()
 
-        mycursor.close()
-        conn.close()
+#         mycursor.close()
+#         conn.close()
 
-        return {"status": "ok","result": "basic details updated"}
+#         return {"status": "ok","result": "basic details updated"}
 
-    return {"status": "basicDetails working"}
+#     return {"status": "basicDetails working"}
 
 
 @app.route('/getbasicDetails', methods=['GET', 'POST'])
 @cross_origin()
 def getbasicDetails():
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         request_data = request.get_json()
-        if (request_data == None):
-            print('Error in reading request data')
-            return
+        if request_data is None:
+            return jsonify({"status": "error", "message": "No request data"}), 400
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        email_id = request_data["user"]["email"]
 
-        email_id = '\'' + request_data["user"]["email"] + '\''
+        g.db_cursor.execute("SELECT count(*) FROM basicdetails WHERE user_id = %s", (email_id,))
+        is_exist = g.db_cursor.fetchone()[0]
 
-        print('email: ', email_id)
-
-        q1 = f"Select count(*) from basicdetails where user_id = {email_id}"
-
-        mycursor.execute(q1)
-        isexist = mycursor.fetchone()
-        print('isexist', isexist[0])
-
-        if (isexist[0] == 1):
-            query= f"Select data from basicdetails where user_id = {email_id}"
-            mycursor.execute(query)
-            result = mycursor.fetchone()
+        if is_exist == 1:
+            g.db_cursor.execute("SELECT data FROM basicdetails WHERE user_id = %s", (email_id,))
+            result = g.db_cursor.fetchone()
+            # Ensure result is not None before accessing it
+            if result:
+                user_data = json.loads(result[0])
+            else:
+                user_data = {"user": {"address": "", "email": "", "employee_code_no": "", "martial_status": "", "name": "", "partner_place": "", "pay": ""}}
         else:
-            result = ('{"user": {"address": "", "email": "", "employee_code_no": "", "martial_status": "", "name": "", "partner_place": "", "pay": ""}}',)
-        # print('result line 82',result)
-        # print(json.loads(result[0]))
+            user_data = {"user": {"address": "", "email": "", "employee_code_no": "", "martial_status": "", "name": "", "partner_place": "", "pay": ""}}
 
-        mycursor.close()
-        conn.close()
+        return jsonify({"status": "ok", "result": user_data})
 
-        return {"status": "ok","result": json.loads(result[0])}
-
-    return {"status": "basicDetails working"}
+    return jsonify({"status": "basicDetails working"})
 
 
 @app.route('/check_user', methods=['GET', 'POST'])
@@ -608,16 +637,15 @@ def get_all_application_id_for_home():
     email = request_data.get("email")
     if not email:
         return jsonify({"status": "error", "message": "Email not provided in request"})
-
-    conn = database.get_database(user_name, password)
-    if not conn:
-        return jsonify({"status": "error", "message": "Failed to connect to the database"})
-
+    
+   
     try:
-        mycursor = conn.cursor()
+        
         query = f"SELECT * FROM application WHERE user_id ='{email}'"
-        mycursor.execute(query, (email,))
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
+        
+        
 
         result_arr = []
         for item in result:
@@ -629,8 +657,8 @@ def get_all_application_id_for_home():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
-    finally:
-        conn.close()
+ 
+
 
 
 @app.route('/getallApprovedApplicationId', methods=['GET', 'POST'])
@@ -1416,5 +1444,5 @@ def getRemarks(id):
 
 
 if __name__ == "__main__":
-    app.debug = True
+    app.debug = False
     app.run()
