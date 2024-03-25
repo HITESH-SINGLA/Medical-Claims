@@ -71,7 +71,7 @@ function Pharmacist() {
       });
       console.log(data.length);
     });
-   
+
     setData(updateData.reverse());
   };
   useEffect(() => {
@@ -131,7 +131,7 @@ function Pharmacist() {
         </ul>
       </div>
       <div className="main-content">
-        <div className="top-navbar" >
+        <div className="top-navbar">
           <div className="welcome">
             <div className="welcome-icon">
               <i className="fas fa-user-circle"></i>{" "}
@@ -168,7 +168,7 @@ function Pharmacist() {
             <tbody>
               {data.map((row, index) => (
                 <tr key={index}>
-                <td>Application {row.id}</td>
+                  <td>Application {row.id}</td>
                   <td>{row.amount}</td>
                   <td>{row.date}</td>
                   <td>{row.status} </td>

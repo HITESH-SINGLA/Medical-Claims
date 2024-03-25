@@ -168,7 +168,7 @@ function Medical_officer_verified_applications() {
                   <td>
                     <button
                       onClick={() => {
-                        navigate("ShowApplicationtoPharmaMed/" + (row.id));
+                        navigate("ShowAllApplication/" + (row.id));
                       }}
                       className="btn btn-primary"
                     >
