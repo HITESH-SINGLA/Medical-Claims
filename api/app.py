@@ -80,11 +80,11 @@ def login():
     isexist = 1  # Assuming user exists
     print(email)
     print(otp)
-    conn = database.get_database(user_name, password)
-    mycursor = conn.cursor()
-    q1= f"select count(*) from login where email = '{email}'"
-    mycursor.execute(q1)
-    isexist = mycursor.fetchone()[0]
+    # conn = database.get_database(user_name, password)
+    # mycursor = conn.cursor()
+    # q1= f"select count(*) from login where email = '{email}'"
+    # g.db_cursor.execute(q1)
+    # isexist = g.db_cursor.fetchone()[0]
     isexist = 1  # Assuming user exists
     if isexist == 0:
         return jsonify({'message': 'User does not exist.'}), 200  # Return 200 for not found
@@ -113,8 +113,8 @@ def login():
 #     conn = database.get_database(user_name, password)
 #     mycursor = conn.cursor()
 #     q1= f"select count(*) from login where email = '{email}'"
-#     mycursor.execute(q1)
-#     isexist = mycursor.fetchone()[0]
+#     g.db_cursor.execute(q1)
+#     isexist = g.db_cursor.fetchone()[0]
 #     isexist = 1  # Assuming user exists
 #     if isexist == 0:
 #         return jsonify({'message': 'User does not exist.'}), 200  # Return 200 for not found
@@ -137,8 +137,8 @@ def userexist():
     conn = database.get_database(user_name, password)
     mycursor = conn.cursor()
     q1= f"select count(*) from login where email = '{email}'"
-    mycursor.execute(q1)
-    isexist = mycursor.fetchone()[0]
+    g.db_cursor.execute(q1)
+    isexist = g.db_cursor.fetchone()[0]
     # isexist=1
     print(isexist)
     response = {
@@ -182,8 +182,8 @@ def sendotp():
 
 #         q1= f"Select count(*) from basicdetails where user_id = {email_id}"
 
-#         mycursor.execute(q1)
-#         isexist = mycursor.fetchone()
+#         g.db_cursor.execute(q1)
+#         isexist = g.db_cursor.fetchone()
 #         # print('isexist', isexist[0])
 
 #         if(isexist[0] == 0):
@@ -193,12 +193,12 @@ def sendotp():
 #             query = f"UPDATE basicdetails SET data ={data} WHERE user_id = {email_id} "
 #             print('inside else')
 
-#         mycursor.execute(query)
+#         g.db_cursor.execute(query)
 
-#         conn.commit()
+#         
 
-#         mycursor.close()
-#         conn.close()
+#         
+#         
 
 #         return {"status": "ok","result": "basic details updated"}
 
@@ -244,8 +244,7 @@ def check_user():
             print('user is null')
 
         # print(request_data)
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         if (request_data["user"]["page_no"] == 1):
             page1 = '\'' + json.dumps(request_data) + '\''
@@ -263,13 +262,13 @@ def check_user():
             print("\nQUERY:=>\n")
             print(query)
 
-            mycursor.execute(query)
-            # result = mycursor.fetchone()
-            conn.commit()
+            g.db_cursor.execute(query)
+            # result = g.db_cursor.fetchone()
+            
             # print(type(result))
             # print(result[0])
-            mycursor.close()
-            conn.close()
+            
+            g.db_conn.commit()
 
         else:
             pg = "page" + str(request_data["user"]["page_no"])
@@ -278,8 +277,8 @@ def check_user():
             print(request_data["user"]["email"])
 
             id_query = f"select application_id from application where user_id = {email} order by application_id DESC"
-            mycursor.execute(id_query)
-            id_result = mycursor.fetchall()
+            g.db_cursor.execute(id_query)
+            id_result = g.db_cursor.fetchall()
             print('id result = ', id_result)
             recent_id = id_result[0][0]
             print('recentid = ', recent_id)
@@ -289,10 +288,10 @@ def check_user():
             print("\nQUERY:=>\n")
             print(query)
 
-            mycursor.execute(query)
-            conn.commit()
-            mycursor.close()
-            conn.close()
+            g.db_cursor.execute(query)
+            g.db_conn.commit()
+            
+            
 
     return {"status": "this is get request"}
 
@@ -305,8 +304,7 @@ def updateStatus():
             print('Error in request data')
 
         print(request_data)
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
         email_id = '\'' + request_data["authorityUser"]["email"] + '\''
@@ -344,10 +342,10 @@ def updateStatus():
         print("\nQUERY:=>\n")
         print(query)
 
-        mycursor.execute(query)
-        conn.commit()
-        mycursor.close()
-        conn.close()
+        g.db_cursor.execute(query)
+        
+        g.db_conn.commit()
+        
 
     return {"status": "this is updateStatus get request"}
 
@@ -361,8 +359,7 @@ def getData():
             print('user is null')
 
         # print(request_data)
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
 
@@ -372,16 +369,16 @@ def getData():
         print("\nQUERY:=>\n")
         print(query)
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         # print(type(result))
         # print(json.loads(result[-1][2]))
         # print(json.loads(result[-1][3]))
         # print(json.loads(result[-1][4]))
         # print(json.loads(result[-1][5]))
         # print(type(result[-1][4]))
-        mycursor.close()
-        conn.close()
+        
+        
 
         return {"status": "ok" , "page1": json.loads(result[-1][2]), "page2":json.loads(result[-1][3]) ,"page3":json.loads(result[-1][4]) , "page4":json.loads(result[-1][5])}
 
@@ -399,14 +396,13 @@ def getApplicationId():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
         email=request_data["currentUser"]["email"]
         email_id = '\'' + request_data["currentUser"]["email"] + '\''
         print('email: ', email_id)
         query = f"select application_id from application where user_id = '{email}' order by application_id asc"
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -424,8 +420,7 @@ def getallApplicationIdFromPharmacist():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         #print("qresult")
@@ -433,9 +428,9 @@ def getallApplicationIdFromPharmacist():
         #print("sresult")
         query = f"""select application_id from application where "pharmacist" = 'approved' """
         #print("wresult")
-        mycursor.execute(query)
+        g.db_cursor.execute(query)
         #print("wresult")
-        result = mycursor.fetchall()
+        result = g.db_cursor.fetchall()
         result_arr = []
         #print("result")
         # print(result)
@@ -457,13 +452,12 @@ def getallApplicationIdFromMedicalOff():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where medical_officer='approved' "
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -482,14 +476,13 @@ def getallApplicationIdFromAccSec():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select application_id from application where accountsection='approved' "
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -509,14 +502,13 @@ def getallApplicationIdFromDAorJAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "DA_JAO"='approved' """
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -536,14 +528,13 @@ def getallApplicationIdFromAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where AO='approved' "
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -562,14 +553,13 @@ def getallApplicationIdFromSrAo():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where Sr_AO='approved' "
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]),item[4]])
@@ -588,12 +578,11 @@ def showApplicationId(id):
             return
        
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
         query = f"select * from application where application_id = {id} and user_id = {email_id}"
         print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
         # print('showapplication result',result)
         return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
@@ -610,13 +599,12 @@ def getallApplicationId():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where pharmacist <> 'approved' order by application_id asc"
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[6]])
@@ -670,24 +658,24 @@ def getallApprovedApplicationId():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["email"] + '\''
         print('email: ', email_id)
         query = f"select * from application where user_id = {email_id} and director='approved' order by application_id asc"
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         # result_arr = []
         # for item in result:
         #     result_arr.append([str(item[0]), item[4]])
 
         # query = f"""select * from application where user_id = {email_id} and "registrar"='approved' and director<>'approved' order by application_id asc"""
-        # mycursor.execute(query)
-        # result = mycursor.fetchall()
+        # g.db_cursor.execute(query)
+        # result = g.db_cursor.fetchall()
         # query = f"select application_id,table_data from data"
-        # mycursor.execute(query)
-        # result_meta = mycursor.fetchall()
+        # g.db_cursor.execute(query)
+        # result_meta = g.db_cursor.fetchall()
         # leng = len(result_meta)
         # letsdic = {}
         # for i in range(leng):
@@ -716,8 +704,7 @@ def getallApprovedApplicationIdFromPharmacist():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         #print("qresult")
@@ -725,9 +712,9 @@ def getallApprovedApplicationIdFromPharmacist():
         #print("sresult")
         query = f"select * from application where pharmacist = 'approved' order by application_id asc"
         #print("wresult")
-        mycursor.execute(query)
+        g.db_cursor.execute(query)
         #print("wresult")
-        result = mycursor.fetchall()
+        result = g.db_cursor.fetchall()
         result_arr = []
         #print("result")
         # print(result)
@@ -749,14 +736,13 @@ def getallApplicationIdForMedicalOff():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         print('email: ', email_id)
         query = f"select * from application where pharmacist = 'approved' and medical_officer <> 'approved' order by application_id asc "
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         # print(result)
         for item in result:
@@ -777,13 +763,12 @@ def getallApprovedApplicationIdFromMedicalOff():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where medical_officer='approved' order by application_id asc "
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -802,14 +787,13 @@ def getallApplicationIdForDAorJAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""SELECT * FROM application WHERE medical_officer = 'approved' AND "DA_JAO" <> 'approved' ORDER BY application_id ASC;"""
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[10]])
@@ -828,14 +812,13 @@ def getallApprovedApplicationIdFromDAorJAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "DA_JAO" = 'approved' order by application_id asc """
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[10]])
@@ -854,14 +837,13 @@ def getallApplicationIdForAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "DA_JAO"='approved' and "AO" <> 'approved' order by application_id asc """
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[12]])
@@ -880,14 +862,13 @@ def getallApprovedApplicationIdFromAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "AO"='approved' order by application_id asc """
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[12]])
@@ -906,13 +887,12 @@ def getallApplicationIdForSrAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "AO"='approved' and "Sr_AO" <> 'approved' order by application_id asc"""
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         leng=len(result)
         for i in range(leng):
@@ -938,14 +918,13 @@ def getallApprovedApplicationIdFromSrAO():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"select * from application where Sr_AO='approved' order by application_id asc "
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4]])
@@ -965,8 +944,7 @@ def getallApplicationIdForRegistrar():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         # amnt=int(amnt)
@@ -974,8 +952,8 @@ def getallApplicationIdForRegistrar():
         query = f"""select * from application where "AO"='approved' and registrar<>'approved' order by application_id asc"""
         #else:
         #    query = f"select application_id from application where AO='approved'"
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         #else:
         #    query = f"select application_id from application where AO='approved'"
 
@@ -990,8 +968,8 @@ def getallApplicationIdForRegistrar():
             if(amntt<50000):
                 result_arr.append([result[i][0],result[i][4], result[i][16]])
         query = f"""select * from application where "Sr_AO"='approved'and registrar<>'approved' order by application_id asc"""
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         leng=len(result)
         for i in range(leng):
             ajso=json.loads(result[i][4])
@@ -1015,14 +993,13 @@ def getallApprovedApplicationIdFromRegistrar():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "registrar"='approved' order by application_id asc"""
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[16]])
@@ -1041,14 +1018,13 @@ def getallApplicationIdForDirector():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "registrar"='approved' and "director" <> 'approved' order by application_id asc """
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[12]])
@@ -1068,14 +1044,13 @@ def getallApprovedApplicationIdFromDirector():
             print('Error in reading request data')
             return
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         email_id = '\'' + request_data["user_data"]["email"] + '\''
         query = f"""select * from application where "director"='approved' order by application_id asc """
 
-        mycursor.execute(query)
-        result = mycursor.fetchall()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[12]])
@@ -1095,12 +1070,11 @@ def showallApplicationId(id):
             return
         #id = '\'' + str(id) + '\''
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
         query = f"select * from application where application_id = {id}"
         print('line864',query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
         # print('line 867 result',result)
         return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
@@ -1118,18 +1092,17 @@ def showApplicationIdStatus(id):
             return
         # id = '\'' + str(id) + '\''
         email_id = '\'' + request_data["user_data"]["email"] + '\''
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
         authority="Pharmacist approval is still pending"
         authority_remarks=""
         isHold = "no"
         query = f"select pharmacist from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select pharmacist_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         print(result[0])
         print("remarks:",result1[0])
         if(result[0]=="approved"):
@@ -1148,10 +1121,10 @@ def showApplicationIdStatus(id):
         query = f"select medical_officer from application where application_id = {id} and user_id = {email_id}"
         query_for_remarks = f"select medical_officer_remarks from application where application_id= {id} and user_id = {email_id}"
         print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         if(result[0]=="approved"):
             authority="Medical Officer has approved your application."
             authority_remarks=result1[0]
@@ -1168,10 +1141,10 @@ def showApplicationIdStatus(id):
         query = f"""select "DA_JAO" from application where application_id = {id} and user_id = {email_id}"""
         query_for_remarks = f"""select "DA_JAO_remarks" from application where application_id= {id} and user_id = {email_id}"""
         print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         if (result[0] == "approved"):
             authority = "D.A./JAO has approved your application."
             authority_remarks = result1[0]
@@ -1188,10 +1161,10 @@ def showApplicationIdStatus(id):
         query = f"""select "AO" from application where application_id = {id} and user_id = {email_id}"""
         query_for_remarks = f"""select "AO_remarks" from application where application_id= {id} and user_id = {email_id}"""
         print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         if (result[0] == "approved"):
             authority = "A.O. has approved your application."
             authority_remarks = result1[0]
@@ -1208,10 +1181,10 @@ def showApplicationIdStatus(id):
         query = f"""select "Sr_AO" from application where application_id = {id} and user_id = {email_id}"""
         query_for_remarks = f"""select "Sr_AO_remarks" from application where application_id= {id} and user_id = {email_id}"""
         print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         if (result[0] == "approved"):
             authority = "Sr.A.O.(Audit) has approved your application."
             authority_remarks = result1[0]
@@ -1228,10 +1201,10 @@ def showApplicationIdStatus(id):
         query = f"""select "registrar" from application where application_id = {id} and user_id = {email_id}"""
         query_for_remarks = f"""select "registrar_remarks" from application where application_id= {id} and user_id = {email_id}"""
         # print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         if (result[0] == "approved"):
             authority = "Registrar has approved your application."
             authority_remarks = result1[0]
@@ -1248,10 +1221,10 @@ def showApplicationIdStatus(id):
         query = f"""select "director" from application where application_id = {id} and user_id = {email_id}"""
         query_for_remarks = f"""select "director_remarks" from application where application_id= {id} and user_id = {email_id}"""
         # print(query)
-        mycursor.execute(query)
-        result = mycursor.fetchone()
-        mycursor.execute(query_for_remarks)
-        result1 = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
+        g.db_cursor.execute(query_for_remarks)
+        result1 = g.db_cursor.fetchone()
         print("dir\n")
         print(result1)
         if (result[0] == "approved"):
@@ -1291,9 +1264,9 @@ def update_data_from_accountsection():
             table_data= '\''+ json.dumps(request_data["user"]) +'\''
 
             query1 =f"select count(*) from data where application_id ={id}"
-            mycursor.execute(query1)
-            result = mycursor.fetchone()
-            conn.commit()
+            g.db_cursor.execute(query1)
+            result = g.db_cursor.fetchone()
+            
             if(result[0]== 0):
                 query = f"INSERT INTO data (application_id , table_data) values ({id},{table_data})"
             else:
@@ -1301,10 +1274,10 @@ def update_data_from_accountsection():
             print("query:=>\n")
             print(query)
 
-            mycursor.execute(query)
-            conn.commit()
-            mycursor.close()
-            conn.close()
+            g.db_cursor.execute(query)
+            g.db_conn.commit()
+            
+            
         return{"status":"update_data_from_accountsection worked fine"}
 
 
@@ -1317,8 +1290,7 @@ def getData_from_accounttable(id):
             print('user is null')
 
         print(request_data)
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         #email_id = '\'' + request_data["user"]["email"] + '\''
         id = '\'' + str(id) + '\''
@@ -1326,13 +1298,13 @@ def getData_from_accounttable(id):
         print("\nQUERY:=>\n")
         print(query)
 
-        mycursor.execute(query)
-        result = mycursor.fetchone()
+        g.db_cursor.execute(query)
+        result = g.db_cursor.fetchone()
         # print("line 140",result)
         # print(type(result[1]))
         # print(json.loads(result[1]))
-        mycursor.close()
-        conn.close()
+        
+        
 
         return {"status": "ok" , "user": json.loads(result[1]) }
 
@@ -1350,8 +1322,7 @@ def resubmitApplication():
             print('Error in request data')
 
         # print(request_data)
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         application_id = request_data["application_id"]
         page1 = '\'' + json.dumps(request_data["page1"]) + '\''
@@ -1366,10 +1337,10 @@ def resubmitApplication():
         print("\nQUERY:=>\n")
         print(query)
 
-        mycursor.execute(query)
-        conn.commit()
-        mycursor.close()
-        conn.close()
+        g.db_cursor.execute(query)
+        g.db_conn.commit()
+        
+        
 
         return {"status": "ok", "resubmit":"successful"}
 
@@ -1387,18 +1358,17 @@ def get_application_id():
         request_data = request.get_json()
         email = '\'' + request_data["email1"] + '\''
 
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
 
         id_query = f"select application_id from application where user_id = {email} order by application_id DESC"
-        mycursor.execute(id_query)
-        id_result = mycursor.fetchall()
+        g.db_cursor.execute(id_query)
+        id_result = g.db_cursor.fetchall()
         print('id result = ', id_result)
         recent_id = id_result[0][0]
         print('recentid = ', recent_id)
 
-        mycursor.close()
-        conn.close()
+        
+        
 
     return {"status": "ok", "id": str(recent_id)}
 
@@ -1416,8 +1386,7 @@ def getRemarks(id):
         email_id =request_data["authorityUser"]["email"]
         print(type(email_id),"\n")
         print("email:", email_id , "\n")
-        conn = database.get_database(user_name, password)
-        mycursor = conn.cursor()
+        
         if(email_id == 'pharmacistxyz901@gmail.com'):
             query = f"select pharmacist_remarks from application where application_id = {id}"
         elif(email_id == 'medical.officer.901@gmail.com'):
@@ -1433,11 +1402,11 @@ def getRemarks(id):
         elif(email_id == 'directorxyz@gmail.com'):
             query = f"select director_remarks from application where application_id = {id}"
         print("line 990:",query)
-        mycursor.execute(query)
-        authority_remarks = mycursor.fetchone()
-        conn.commit()
-        mycursor.close()
-        conn.close()
+        g.db_cursor.execute(query)
+        authority_remarks = g.db_cursor.fetchone()
+        g.db_conn.commit()
+        
+        
         return {"status": "ok","current_auth_remarks":authority_remarks}
 
     return {"status": "ok", "result": "getRemarks is working"}
