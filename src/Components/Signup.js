@@ -14,7 +14,7 @@ function SignupPage() {
   const [generatedOTP, setGeneratedOTP] = useState("");
   const generateOTP = () => {
     return Math.floor(1000 + Math.random() * 9000);
-}
+  };
   const handleGetOTP = async (event) => {
     if (!/^\d+$/.test(mobile)) {
       alert("Invalid mobile number. Please enter only digits.");
@@ -27,68 +27,43 @@ function SignupPage() {
       return;
     }
     if (email.endsWith("@iitrpr.ac.in")) {
-    
-
       // Show the OTP field
-      
     } else {
       // Alert the user if the email is not valid
       alert("Invalid email. Please use an email ending with @iitrpr.ac.in");
       return;
     }
 
-
-
     event.preventDefault();
     try {
       const response = await axios.post("http://127.0.0.1:5000/userexist", {
         email,
       });
-      console.log(email)
-console.log(response.data)
-      if(response.data.isexist===1){
-        alert("User Exist Already. Please Login")
-        navigate("/LoginForm")
-        return
-      }
-      else{
+      console.log(email);
+      console.log(response.data);
+      if (response.data.isexist === 1) {
+        alert("User Exist Already. Please Login");
+        navigate("/LoginForm");
+        return;
+      } else {
+        let gotp = generateOTP();
+        setGeneratedOTP(gotp);
 
+        //write a route for sending thr otp by mail only
 
-let gotp=generateOTP()
-setGeneratedOTP(gotp);
-
-     //write a route for sending thr otp by mail only 
-
-
-
-     try{
-      const response = await axios.post("http://127.0.0.1:5000/sendotp", {
-        "email":email,
-        "otp":gotp
-      });
-     }
-     catch(error){
-
-     }
-     console.log(gotp);
-
+        try {
+          const response = await axios.post("http://127.0.0.1:5000/sendotp", {
+            email: email,
+            otp: gotp,
+          });
+        } catch (error) {}
+        console.log(gotp);
 
         setShowOtpField(true);
-       
-       
-
-
-
-
       }
-
-
-
-
     } catch (error) {
       alert("Failed to send OTP. Please try again later.");
     }
-
   };
 
   const handleValidateOTP = () => {
@@ -96,7 +71,6 @@ setGeneratedOTP(gotp);
 
     if (trimmedEnteredOTP === generatedOTP.toString()) {
       console.log("OTP validated successfully!");
-
 
       //send the details by route to enter in table  signuproute
       alert("Signed up sucessfully.Please Login now");
@@ -127,11 +101,12 @@ setGeneratedOTP(gotp);
                 height="80"
               />
             </a>
-            <div className="d-flex">
-              <h1 id="iit_ropar">
-                <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
-              </h1>
-            </div>
+
+            <h2 id="iit_roparland">
+              <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
+            </h2>
+
+            <div className="d-flex"></div>
           </div>
         </nav>
       </div>

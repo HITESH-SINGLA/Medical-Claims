@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
@@ -27,10 +27,9 @@ const LoginForm = () => {
       });
 
       if (response.status === 200) {
-        
         if (response.data.message === "User does not exist.") {
           alert("User does not exist. Please sign up first.");
-          navigate("/signup")
+          navigate("/signup");
         } else {
           setSentOtp(response.data.otp);
           console.log(response.data.otp);
@@ -64,18 +63,18 @@ const LoginForm = () => {
       isPharmacist
         ? navigate("/Pharmacist")
         : isMediOffi
-          ? navigate("/Medical_officer")
-          : isDirector
-            ? navigate("/Director")
-            : isDAorJAOO
-              ? navigate("/DAorJAO")
-              : isAO
-                ? navigate("/AO")
-                : isSrAO
-                  ? navigate("/SrAO")
-                  : isRegistrar
-                    ? navigate("/Registrar")
-                    : navigate("/Home");
+        ? navigate("/Medical_officer")
+        : isDirector
+        ? navigate("/Director")
+        : isDAorJAOO
+        ? navigate("/DAorJAO")
+        : isAO
+        ? navigate("/AO")
+        : isSrAO
+        ? navigate("/SrAO")
+        : isRegistrar
+        ? navigate("/Registrar")
+        : navigate("/Home");
     } else {
       alert("Invalid OTP. Please try again.");
     }
@@ -95,61 +94,62 @@ const LoginForm = () => {
                   height="80"
                 />
               </a>
-              <div className="d-flex">
-                <h1 id="iit_ropar">
-                  <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
-                </h1>
-              </div>
+
+              <h2 id="iit_roparland">
+                <b>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</b>
+              </h2>
+
+              <div className="d-flex"></div>
             </div>
           </nav>
         </div>
 
         <div id="center">
-          
           {buttonText === "Send OTP" && (
             <div className="ccc">
-            <form id="fm" onSubmit={handleSubmit}>
-              <div className="form-group">
-              <h4>Login to your account</h4>
-                <label htmlFor="email" style={{ margin:3 ,fontSize:20 }}>Email</label>
-                <span style={{ color: "red" }}>*</span>
-                <input
-                  type="email"
-                  id="email2"
-                  placeholder="enter email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  className="signup-input-field"
-                  required
-                />
-              </div>
-              <Button type="submit" className="signup-button">
-                {buttonText}
-              </Button>
-            
-            </form>
+              <form id="fm" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <h4>Login to your account</h4>
+                  <label htmlFor="email" style={{ margin: 3, fontSize: 20 }}>
+                    Email
+                  </label>
+                  <span style={{ color: "red" }}>*</span>
+                  <input
+                    type="email"
+                    id="email2"
+                    placeholder="enter email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    className="signup-input-field"
+                    required
+                  />
+                </div>
+                <Button type="submit" className="signup-button">
+                  {buttonText}
+                </Button>
+              </form>
             </div>
           )}
           {buttonText === "Validate OTP" && (
-             <div className="ccc">
-            <form id="fm" onSubmit={handleValidate}>
-              <div className="form-group">
-                <label htmlFor="otp">OTP</label>
-                <span style={{ color: "red" }}>*</span>
-                <input
-                  type="text"
-                  id="otp"
-                  placeholder="enter otp"
-                  value={otp}
-                  onChange={handleOtpChange}
-                  className="signup-input-field"
-                  required
-                />
-              </div>
-              <Button type="submit" className="signup-button">
-                Validate
-              </Button>
-            </form>
+            <div className="ccc">
+              <form id="fm" onSubmit={handleValidate}>
+                <div className="form-group">
+                  <label htmlFor="otp">OTP</label>
+                  <span style={{ color: "red" }}>*</span>
+                  <input
+                    type="text"
+                    id="otp"
+                    placeholder="enter otp"
+                    value={otp}
+                    onChange={handleOtpChange}
+                    className="signup-input-field"
+                    required
+                  />
+                </div>
+                <Button type="submit" className="signup-button">
+                  Validate
+                </Button>
+              </form>
             </div>
           )}
         </div>
@@ -225,4 +225,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

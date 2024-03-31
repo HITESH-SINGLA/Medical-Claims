@@ -71,7 +71,7 @@ function Home_verified_applications() {
     }
 
     console.log(parsedData);
-    setData(parsedData);
+    setData(parsedData.reverse());
     // setresult_arr(data["result"]);
   };
   useEffect(() => {
