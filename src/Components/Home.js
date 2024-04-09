@@ -4,9 +4,12 @@ import "./Home.css";
 import "./Autofill.css";
 
 function Home() {
-  let { home_data } = useParams();
+  const { home_data } = useParams();
   const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
+  const [sortBy, setSortBy] = useState("id"); // Default sorting by ID
+  const [sortOrder, setSortOrder] = useState("desc"); // Default sorting order
+  const [searchQuery, setSearchQuery] = useState(""); // State variable for search query
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,9 +32,9 @@ function Home() {
           item[4] = JSON.parse(item[4]);
           return item;
         });
-        parsedData.sort(
-          (a, b) => new Date(b[4].user.date) - new Date(a[4].user.date)
-        );
+
+        // Sort the data initially based on default sorting criteria
+        sortData(parsedData, sortBy, sortOrder);
 
         setData(parsedData);
       } catch (error) {
@@ -40,7 +43,38 @@ function Home() {
     };
 
     getApplicationId();
-  }, []);
+  }, [sortBy, sortOrder]);
+
+  const sortData = (data, sortBy, sortOrder) => {
+    data.sort((a, b) => {
+      let comparison = 0;
+      switch (sortBy) {
+        case "id":
+          comparison = a[0] - b[0];
+          break;
+        case "date":
+          comparison = new Date(a[4].user.date) - new Date(b[4].user.date);
+          break;
+        case "amount":
+          comparison = a[4].user.amountClaimed - b[4].user.amountClaimed;
+          break;
+        default:
+          break;
+      }
+      return sortOrder === "desc" ? -comparison : comparison;
+    });
+  };
+
+  const handleSortChange = (selectedSortBy) => {
+    // If the same criteria is selected, toggle the order
+    if (selectedSortBy === sortBy) {
+      setSortOrder(sortOrder === "desc" ? "asc" : "desc");
+    } else {
+      // If a different criteria is selected, set it as the new sorting criteria
+      setSortBy(selectedSortBy);
+      setSortOrder("desc"); // Reset order to ascending
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -48,24 +82,39 @@ function Home() {
     navigate("/");
   };
 
+  // Filter data based on search query
+  const filteredData = data.filter((row) => {
+    const searchString = searchQuery.toLowerCase();
+
+    // Check if the search query matches any of the fields (ID, amount, or date)
+    return (
+      row[0].toString().toLowerCase().includes(searchString) || // ID
+      row[4].user.amountClaimed
+        .toString()
+        .toLowerCase()
+        .includes(searchString) || // Amount
+      row[4].user.date.toLowerCase().includes(searchString) // Date
+    );
+  });
+
   return (
     <div style={{ display: "flex" }}>
       <div
         id="sidebar1"
-        class="d-flex flex-column  flex-shrink-0 p-3 text-white"
+        className="d-flex flex-column  flex-shrink-0 p-3 text-white"
       >
-        <h2 class="text_center">Menu</h2>
+        <h2 className="text_center">Menu</h2>
         <br />
-        <ul class="nav nav-pills flex-column mb-auto">
+        <ul className="nav nav-pills flex-column mb-auto">
           <Link
             id="link_to_other_pages"
             to="/Home"
             style={{ textDecoration: "none" }}
           >
-            <li class="nav-item">
-              <a href="#" class="nav-link text-white active">
-                <i class="fa fa-home"></i>
-                <span class="ms-2 font_size_18">Home </span>
+            <li className="nav-item">
+              <a href="#" className="nav-link text-white active">
+                <i className="fa fa-home"></i>
+                <span className="ms-2 font_size_18">Home </span>
               </a>
             </li>
           </Link>
@@ -76,9 +125,9 @@ function Home() {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <a href="#" class="nav-link text-white">
-                <i class="fa fa-first-order"></i>
-                <span class="ms-2 font_size_18">Auto Fill</span>
+              <a href="#" className="nav-link text-white">
+                <i className="fa fa-first-order"></i>
+                <span className="ms-2 font_size_18">Auto Fill</span>
               </a>
             </li>
           </Link>
@@ -89,17 +138,17 @@ function Home() {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <a class="nav-link text-white" href="#">
-                <i class="fa fa-first-order"></i>
-                <span class="ms-2 font_size_18">Approved applications</span>
+              <a className="nav-link text-white" href="#">
+                <i className="fa fa-first-order"></i>
+                <span className="ms-2 font_size_18">Approved applications</span>
               </a>
             </li>
           </Link>
 
           <li onClick={handleLogout}>
-            <a href="/" class="nav-link text-white">
-              <i class="fa fa-bookmark"></i>
-              <span class="ms-2 font_size_18">Logout</span>
+            <a href="/" className="nav-link text-white">
+              <i className="fa fa-bookmark"></i>
+              <span className="ms-2 font_size_18">Logout</span>
             </a>
           </li>
         </ul>
@@ -139,6 +188,33 @@ function Home() {
           {/* <h6>(applications which are yet to be approved by all authority people will appear here)</h6> */}
         </div>
 
+        <div className="search-bar">
+          {/* Search input field */}
+          <input
+            type="text"
+            placeholder="Search applications..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div className="sort-options">
+          {/* Sorting options UI */}
+          <label htmlFor="sortOptions">Sort by:</label>
+          <select
+            id="sortOptions"
+            value={sortBy}
+            onChange={(e) => handleSortChange(e.target.value)}
+          >
+            <option value="id">ID</option>
+            <option value="amount">Amount Claimed</option>
+            <option value="date">Date of Submission</option>
+          </select>
+          <button onClick={() => handleSortChange(sortBy)}>
+            {sortOrder === "desc" ? "Descending" : "Ascending"}
+          </button>
+        </div>
+
         <div className="application-list">
           <table className="table">
             <thead>
@@ -154,7 +230,7 @@ function Home() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index}>
                   <td>{row[0]}</td>
                   <td>{row[4].user.amountClaimed}</td>

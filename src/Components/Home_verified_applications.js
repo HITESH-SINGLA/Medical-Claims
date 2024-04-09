@@ -18,34 +18,12 @@ function Home_verified_applications() {
   const { home_data } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortColumn, setSortColumn] = useState("id");
+  const [sortBy, setSortBy] = useState("id"); // Default sorting by ID
+  const [sortOrder, setSortOrder] = useState("desc"); // Default sorting order
+  const [searchQuery, setSearchQuery] = useState(""); // State variable for search query
   const [sortDirection, setSortDirection] = useState("asc");
   const [data, setData] = useState([]);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSortChange = (event) => {
-    setSortColumn(event.target.value);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-  };
-
-  const filteredData = data.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  const sortedData = filteredData.sort((a, b) => {
-    const isAsc = sortDirection === "asc";
-    if (a[sortColumn] < b[sortColumn]) {
-      return isAsc ? -1 : 1;
-    } else if (a[sortColumn] > b[sortColumn]) {
-      return isAsc ? 1 : -1;
-    } else {
-      return 0;
-    }
-  });
   const email = localStorage.getItem("email");
 
   const [result_arr, setresult_arr] = useState([]);
@@ -69,15 +47,61 @@ function Home_verified_applications() {
     for (let i = 0; i < parsedData.length; i++) {
       parsedData[i][4] = JSON.parse(parsedData[i][4]);
     }
-
+    // Sort the data initially based on default sorting criteria
+    sortData(parsedData, sortBy, sortOrder);
     console.log(parsedData);
-    setData(parsedData.reverse());
+    setData(parsedData);
     // setresult_arr(data["result"]);
   };
   useEffect(() => {
     getApplicationId();
-  }, []);
+  }, [sortBy, sortOrder]);
 
+  const sortData = (data, sortBy, sortOrder) => {
+    data.sort((a, b) => {
+      let comparison = 0;
+      switch (sortBy) {
+        case "id":
+          comparison = a[0] - b[0];
+          break;
+        case "date":
+          comparison = new Date(a[4].user.date) - new Date(b[4].user.date);
+          break;
+        case "amount":
+          comparison = a[4].user.amountClaimed - b[4].user.amountClaimed;
+          break;
+        default:
+          break;
+      }
+      return sortOrder === "desc" ? -comparison : comparison;
+    });
+  };
+
+  const handleSortChange = (selectedSortBy) => {
+    // If the same criteria is selected, toggle the order
+    if (selectedSortBy === sortBy) {
+      setSortOrder(sortOrder === "desc" ? "asc" : "desc");
+    } else {
+      // If a different criteria is selected, set it as the new sorting criteria
+      setSortBy(selectedSortBy);
+      setSortOrder("desc"); // Reset order to ascending
+    }
+  };
+
+  // Filter data based on search query
+  const filteredData = data.filter((row) => {
+    const searchString = searchQuery.toLowerCase();
+
+    // Check if the search query matches any of the fields (ID, amount, or date)
+    return (
+      row[0].toString().toLowerCase().includes(searchString) || // ID
+      row[4].user.amountClaimed
+        .toString()
+        .toLowerCase()
+        .includes(searchString) || // Amount
+      row[4].user.date.toLowerCase().includes(searchString) // Date
+    );
+  });
   console.log(result_arr);
 
   let navigate = useNavigate();
@@ -158,15 +182,17 @@ function Home_verified_applications() {
             </Link>
           </div>
           <div className="welcome">
-          <div className="welcome-icon">
-  <i className="fas fa-user-circle" ></i> {/* Add margin to move the icon */}
-</div>
+            <div className="welcome-icon">
+              <i className="fas fa-user-circle"></i>{" "}
+              {/* Add margin to move the icon */}
+            </div>
 
             <div className="welcome-text">
-
-              <div className="name">Mohit</div> {/* Replace [Dummy Name] with "Mohit" */}
+              <div className="name">Mohit</div>{" "}
+              {/* Replace [Dummy Name] with "Mohit" */}
               <div className="email">
-                <i className="fas fa-envelope"></i> {email} {/* You can use envelope icon for email */}
+                <i className="fas fa-envelope"></i> {email}{" "}
+                {/* You can use envelope icon for email */}
               </div>
             </div>
           </div>
@@ -180,6 +206,33 @@ function Home_verified_applications() {
           </h6>
         </div>
 
+        <div className="search-bar">
+          {/* Search input field */}
+          <input
+            type="text"
+            placeholder="Search applications..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div className="sort-options">
+          {/* Sorting options UI */}
+          <label htmlFor="sortOptions">Sort by:</label>
+          <select
+            id="sortOptions"
+            value={sortBy}
+            onChange={(e) => handleSortChange(e.target.value)}
+          >
+            <option value="id">ID</option>
+            <option value="amount">Amount Claimed</option>
+            <option value="date">Date of Submission</option>
+          </select>
+          <button onClick={() => handleSortChange(sortBy)}>
+            {sortOrder === "desc" ? "Descending" : "Ascending"}
+          </button>
+        </div>
+
         <div className="application-list">
           <table className="table">
             <thead>
@@ -191,7 +244,7 @@ function Home_verified_applications() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index}>
                   <td>{row[0]}</td>
                   <td>{row[4].user.amountClaimed}</td>
