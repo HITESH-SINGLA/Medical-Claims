@@ -106,6 +106,19 @@ const Page1 = () => {
     }
   };
 
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.target.form;
+      const index = Array.prototype.indexOf.call(form, e.target);
+      form.elements[index + 1].focus();
+    }
+  };
+
+
+
+
   return (
     <div class="d-flex flex-row">
       <div
@@ -201,6 +214,7 @@ const Page1 = () => {
                   name="user[name]"
                   defaultValue={user.name}
                   onChange={(e) => setUser({ ...user, name: e.target.value })}
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Col>
@@ -222,6 +236,7 @@ const Page1 = () => {
                       martial_status: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Col>
@@ -243,6 +258,7 @@ const Page1 = () => {
                       partner_place: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Col>
@@ -257,9 +273,11 @@ const Page1 = () => {
                   country={"in"}
                   value={user.Mobile_number}
                   onChange={(e) => setUser({ ...user, Mobile_number: e })}
+                  
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Col>
+              
             </Form.Group>
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
@@ -278,6 +296,7 @@ const Page1 = () => {
                       employee_code_no: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Form.Label>
@@ -295,6 +314,7 @@ const Page1 = () => {
                   name="user[pay]"
                   defaultValue={user.pay}
                   onChange={(e) => setUser({ ...user, pay: e.target.value })}
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Form.Label>
@@ -315,6 +335,7 @@ const Page1 = () => {
                       address: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Form.Label>
@@ -338,6 +359,7 @@ const Page1 = () => {
                       relation: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Form.Label>
@@ -359,6 +381,7 @@ const Page1 = () => {
                       place_fell_ill: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Form.Label>
@@ -380,6 +403,7 @@ const Page1 = () => {
                       ammount_details: e.target.value,
                     })
                   }
+                  
                 />
                 {/* {user.errors.name && <p>{user.errors.name}</p>} */}
               </Form.Label>
