@@ -207,9 +207,25 @@ const deleteRow2 = (index) => {
     user["page_no"] = 4;
     user["imgs"] = urls;
 
-    if (urls.length == 0 && !alrt) {
+   // Check if the checkbox is not checked
+   if (!document.getElementById("checkbox1").checked||!document.getElementById("checkbox2").checked) {
+    return alert("Please tick the checkboxes.");
+  }
+
+
+    if(!user.date){
+      return alert("Please enter date.");
+    }
+    if(!user.medicines){
+      return alert("You have not mentioned any medicines. In case of no medicines, kindly make an NA entry.");
+    }
+
+    if(!user.test){
+      return alert("You have not mentioned any tests. In case of no tests, kindly make an NA entry.");
+    }
+    if (urls.length == 0 ) {
       alert(
-        "You have not uploaded any images for medical bills, are you sure you want to go to the next page?"
+        "You have not uploaded any images for medical bills."
       );
       setAlert(true);
       return;
@@ -383,6 +399,7 @@ const deleteRow2 = (index) => {
             <br />
             <Form.Group>
               <Form.Check
+              id="checkbox1"
                 type="checkbox"
                 label="I am solely responsible for any discrepancy if found in the incurred bill or if the statement is found to be incorrect in respect of following medicines/ tests:-"
               />
@@ -620,6 +637,7 @@ const deleteRow2 = (index) => {
             </Form.Label>
             <Form.Group>
               <Form.Check
+              id="checkbox2"
                 type="checkbox"
                 label="It is certified that the patient has purchased the medicines as per the prescription of the treating doctor."
               />
