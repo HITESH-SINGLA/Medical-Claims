@@ -25,15 +25,45 @@ function Page3() {
     lstOfEncl: "",
     date: "",
   });
+
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.target.form;
+      const index = Array.prototype.indexOf.call(form, e.target);
+      form.elements[index + 1]?.focus();
+    }
+  };
+
   const saveit = async (e) => {
     e.preventDefault();
     user["email"] = email;
     user["page_no"] = 3;
 
-    if (!user.amountClaimed || !user.netAmntClaimed) {
+
+    // Check if the checkbox is not checked
+  if (!document.getElementById("certifyCheckbox").checked) {
+    return alert("Please tick the checkbox.");
+  }
+
+
+    if (
+      
+      //!user.amountClaimed || !user.netAmntClaimed
+      !user.name||
+        !user.numDateCon||
+      !user.amountClaimed||
+      !user.lessAdvTaken||
+      !user.netAmntClaimed||
+      !user.lstOfEncl||
+      !user.date
+    
+    ) {
       alert(
         "Fields which are marked as 'required' are compulsory to fill.\nMake sure you fill them all."
       );
+      return;
     } else {
       const res = await fetch(
         "http://127.0.0.1:5000/check_user",
@@ -145,6 +175,7 @@ function Page3() {
               <Form.Label column sm="5">
                 (a) the name & designation of the Specialist or Medical Officer
                 consulted and the hospital to which attached
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
@@ -158,6 +189,7 @@ function Page3() {
                       name: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
               </Col>
             </Form.Group>
@@ -166,6 +198,7 @@ function Page3() {
               <Form.Label column sm="5">
                 (b) Number & dates of consultation and the fees paid for each
                 consultation
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
@@ -179,6 +212,7 @@ function Page3() {
                       numDateCon: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
               </Col>
             </Form.Group>
@@ -199,6 +233,7 @@ function Page3() {
                       amountClaimed: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
               </Col>
             </Form.Group>
@@ -206,6 +241,7 @@ function Page3() {
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
                 Less advance taken
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
@@ -219,6 +255,7 @@ function Page3() {
                       lessAdvTaken: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
               </Col>
             </Form.Group>
@@ -239,6 +276,7 @@ function Page3() {
                       netAmntClaimed: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
               </Col>
             </Form.Group>
@@ -246,6 +284,7 @@ function Page3() {
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
                 List of enclosures
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
@@ -259,6 +298,7 @@ function Page3() {
                       lstOfEncl: e.target.value,
                     })
                   }
+                  onKeyPress={handleKeyPress}
                 />
               </Col>
             </Form.Group>
@@ -266,6 +306,7 @@ function Page3() {
             <Form.Group as={Row} className="mb-3">
               <Form.Label column sm="5">
                 Date
+                <span style={{ color: "red" }}>*</span>
               </Form.Label>
               <Col sm="7">
                 <Form.Control
@@ -285,13 +326,16 @@ function Page3() {
             </Form.Group>
 
             <Form.Group>
+              
               <Form.Check
-                type="checkbox"
+               id="certifyCheckbox" 
+              type="checkbox"
                 label="It is certified that, I am employed at IIT Ropar and I am not availing the medical facilities or financial / medical allowances
                           in lieu thereof either of myself / of the members of my family from any (other) source. I hereby declare that the statements in 
                           the application are true to the best of my knowledge and belief and that the person for whom medical expenses were incurred is 
                           wholly dependent upon me. I will be solely responsible for this."
               />
+              
             </Form.Group>
 
             <br />
