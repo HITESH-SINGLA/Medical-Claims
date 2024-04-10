@@ -138,16 +138,16 @@ function Accountpage1() {
 
   const handleSubmit1 = (e) => {
     e.preventDefault();
-    responses1.push(row1);
+  if(row1.medicine!="" && row1.price1!=""){  responses1.push(row1);
     setResponses1(responses1);
-    setRow1({ medicine: "", price1: "" });
+    setRow1({ medicine: "", price1: "" });}
   };
 
   const handleSubmit2 = (e) => {
     e.preventDefault();
-    responses2.push(row2);
+  if(row2.test!="" && row2.price2!=""){  responses2.push(row2);
     setResponses2(responses2);
-    setRow2({ test: "", price2: "" });
+    setRow2({ test: "", price2: "" });}
   };
 
 

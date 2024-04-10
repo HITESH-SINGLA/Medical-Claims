@@ -15,7 +15,7 @@ import {
     useParams,
 } from "react-router-dom"
 import { AuthContext } from "./Auth"
-
+import "./Application.css"
 import { useDropzone } from "react-dropzone"
 import { storage } from "./firebase"
 import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
@@ -23,10 +23,10 @@ import { getDownloadURL } from "firebase/storage"
 
 import { Button, Form, FormGroup } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Container, Row, Col} from "react-bootstrap"
-import "./Application.css"
+import { Container, Row, Col } from "react-bootstrap"
+
 import logo from "./logo.png"
-// import "./ShowApplication.css"
+
 
 const baseStyle = {
     flex: 1,
@@ -207,7 +207,7 @@ function ShowApplication() {
     const getStatus = async () => {
         const res2 = await fetch(
             "http://127.0.0.1:5000/showApplicationIdStatus/" +
-                id,
+            id,
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -445,7 +445,7 @@ function ShowApplication() {
                         <img id="logo" src={logo}></img>
                     </div>
                     <div>
-                        <br />
+                       
                         <h5>भारतीय प्रौद्योगिकी संस्थान रोपड़</h5>
                         <h5>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</h5>
                         <h6>रूपनगर, पंजाब-140001, Rupnagar, Punjab-140001</h6>
@@ -457,7 +457,7 @@ function ShowApplication() {
                 </div>
 
                 <h5>
-                    ------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------
                 </h5>
                 <div className="page1">
                     <h6>
@@ -471,11 +471,17 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         1. Name & Designation of Govt. Servant
-                                        (In Block Letters) - <span style={{color:"red"}}>*</span>
+                                        (In Block Letters) - <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user.name
                                             }
@@ -502,11 +508,17 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         (i) Whether married or unmarried -
-                                        <span style={{color:"red"}}>*</span>
+                                        <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user
                                                     .martial_status
@@ -534,11 +546,18 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         (ii) If married, the place where wife /
-                                        husband is employed - <span style={{color:"red"}}>*</span>
+                                        husband is employed - <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                border:"none",
+                                                backgroundColor: "white",
+                                                borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user
                                                     .partner_place
@@ -565,11 +584,18 @@ function ShowApplication() {
                             <Form.Group as={Row} className="mb-3">
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
-                                        2. Mobile number <span style={{color:"red"}}>*</span>
+                                        2. Mobile number <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                               
+                                                backgroundColor: "white",
+                                                border:"none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user
                                                     .Mobile_number
@@ -598,11 +624,17 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         3. Employees Code No., Deptt/ Section -
-                                        <span style={{color:"red"}}>*</span>
+                                        <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user
                                                     .employee_code_no
@@ -630,11 +662,17 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         4. Pay of Gvt. Servant(Band Pay &
-                                        Grade Pay)<span style={{color:"red"}}>*</span>
+                                        Grade Pay)<span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user.pay
                                             }
@@ -659,11 +697,17 @@ function ShowApplication() {
                             <Form.Group as={Row} className="mb-3">
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
-                                        5. Residential address - <span style={{color:"red"}}>*</span>
+                                        5. Residential address - <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user.address
                                             }
@@ -692,11 +736,17 @@ function ShowApplication() {
                                         6. Name of the patient & his /her
                                         relationship with the Government Servant
                                         (in case of Children state age also) -
-                                        <span style={{color:"red"}}>*</span>
+                                        <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user.relation
                                             }
@@ -723,11 +773,17 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         7. Place at which the patient fell ill -
-                                        <span style={{color:"red"}}>*</span>
+                                        <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user
                                                     .place_fell_ill
@@ -755,11 +811,17 @@ function ShowApplication() {
                                 <div id="line">
                                     <Form.Label id="form_line" column sm="4">
                                         8. Details of the amount claimed -
-                                        <span style={{color:"red"}}>*</span>
+                                        <span style={{ color: "red" }}>*</span>
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page1.user
                                                     .ammount_details
@@ -805,7 +867,13 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page2.user.name
                                             }
@@ -837,7 +905,13 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page2.user
                                                     .numDatesFeeCon
@@ -870,7 +944,13 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page2.user
                                                     .numDatesFeeInj
@@ -913,7 +993,13 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page2.user
                                                     .hospitalName
@@ -948,7 +1034,13 @@ function ShowApplication() {
                                     </Form.Label>
                                     <Col id="text" sm="5">
                                         <Form.Control
-                                            type="text" style={{padding:"12px"}}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
+
                                             defaultValue={
                                                 result_json.page2.user
                                                     .costMedicine
@@ -994,7 +1086,13 @@ function ShowApplication() {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        type="text" style={{padding:"12px"}}
+                                        type="text" style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user.name
                                         }
@@ -1025,7 +1123,13 @@ function ShowApplication() {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        type="text" style={{padding:"12px"}}
+                                        type="text" style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user.numDateCon
                                         }
@@ -1052,11 +1156,18 @@ function ShowApplication() {
                         <Form.Group as={Row} className="mb-3">
                             <div id="line">
                                 <Form.Label id="form_line" column sm="5">
-                                    Total amount claimed <span style={{color:"red"}}>*</span>
+                                    Total amount claimed <span style={{ color: "red" }}>*</span>
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
+                                        style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user.amountClaimed
                                         }
@@ -1088,6 +1199,13 @@ function ShowApplication() {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
+                                        style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user.lessAdvTaken
                                         }
@@ -1114,11 +1232,18 @@ function ShowApplication() {
                         <Form.Group as={Row} className="mb-3">
                             <div id="line">
                                 <Form.Label id="form_line" column sm="5">
-                                    Net amount claimed <span style={{color:"red"}}>*</span>
+                                    Net amount claimed <span style={{ color: "red" }}>*</span>
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="number"
+                                        style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user
                                                 .netAmntClaimed
@@ -1151,6 +1276,13 @@ function ShowApplication() {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
+                                        style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user.lstOfEncl
                                         }
@@ -1182,6 +1314,13 @@ function ShowApplication() {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="Date"
+                                        style={{
+                                            padding: "12px",
+                                            backgroundColor: "white",
+                                            border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                            borderRadius: "0", // This ensures edges are not rounded
+                                        }}
+
                                         defaultValue={
                                             result_json.page3.user.date
                                         }
@@ -1204,20 +1343,9 @@ function ShowApplication() {
                             </div>
                         </Form.Group>
 
-                        <Form.Group>
-                            <Form.Check
-                                type="checkbox"
-                                label="It is certified that, I am employed at IIT Ropar and I am not availing the medical facilities or financial / medical allowances
-                          in lieu thereof either of myself / of the members of my family from any (other) source. I hereby declare that the statements in 
-                          the application are true to the best of my knowledge and belief and that the person for whom medical expenses were incurred is 
-                          wholly dependent upon me. I will be solely responsible for this. "
-                                checked
-                                readonly
-                            />
-                        </Form.Group>
                         <br />
-                        <br></br>
-                        <br></br>
+                       
+                     
                         <br />
                         <br />
 

@@ -68,21 +68,35 @@
 
 
 @media print {
+    @page {
+      margin: 5mm; /* Adjust as necessary */
+    }
+  
     body {
-      font-size: 12pt;
+      /* font-size: 12pt;
       line-height: 1.5;
-      margin-bottom: 50px;
+      */
+     
+      margin-right: 45%; 
     }
-    h2, h5, h4, h3{
-        font-size: 20px;
+
+    h2, h5, h4, h3 {
+      font-size: 20px;
+   
     }
-    .form-control{
-        border: 0px;
-        border-bottom: 1px solid black;
-        
-        width: 80%;
+
+ 
+  
+    .form-control {
+      border: 0;
+      border-bottom: 1px solid black;
+      width: 100%;
     }
-    .btn{
-        display: none;
+
+  
+    .btn {
+      display: none;
     }
-}
+   
+  }
+  
