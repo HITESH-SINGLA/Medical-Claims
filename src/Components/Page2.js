@@ -38,6 +38,23 @@ function Page2() {
     user["email"] = email;
     user["page_no"] = 2;
 
+
+    // Check if any compulsory field is left empty
+    if (
+      !user.name ||
+      !user.numDatesFeeCon ||
+      !user.numDatesFeeInj ||
+     !user.hospitalName ||
+      !user.costMedicine
+    ) {
+     alert(
+        "Fields marked with '*' are compulsory. Please fill in all the required fields."
+     );
+     return;
+    }
+
+
+
     const res = await fetch(
       "http://127.0.0.1:5000/check_user",
       {
@@ -68,6 +85,19 @@ function Page2() {
     localStorage.removeItem("isLoggedIn");
     navigate("/");
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.target.form;
+      const index = Array.prototype.indexOf.call(form, e.target);
+      form.elements[index + 1].focus();
+    }
+  };
+
+
+
+
 
   return (
     <div class="d-flex flex-row">
@@ -144,7 +174,8 @@ function Page2() {
                   <Form.Label column sm="5">
                     (a) the name & designation of the Medical Officer consulted
                     and hospital or dispensary to which attached
-                  </Form.Label>
+                   <span style={{ color: "red" }}>*</span>
+                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
                       type="text"
@@ -157,6 +188,7 @@ function Page2() {
                           name: e.target.value,
                         })
                       }
+                      onKeyPress={handleKeyPress}
                     />
                   </Col>
                 </Form.Group>
@@ -164,7 +196,8 @@ function Page2() {
                   <Form.Label column sm="5">
                     (b) the number and dates of consultation and the fee paid
                     for each consultation
-                  </Form.Label>
+                   <span style={{ color: "red" }}>*</span>
+                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
                       type="text"
@@ -177,6 +210,7 @@ function Page2() {
                           numDatesFeeCon: e.target.value,
                         })
                       }
+                      onKeyPress={handleKeyPress}
                     />
                   </Col>
                 </Form.Group>
@@ -184,7 +218,8 @@ function Page2() {
                   <Form.Label column sm="5">
                     (c) the number & dates of injection & the fee paid for each
                     injection
-                  </Form.Label>
+                   <span style={{ color: "red" }}>*</span>
+                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
                       type="text"
@@ -214,7 +249,8 @@ function Page2() {
                   <Form.Label column sm="5">
                     (a) Name of the hospital or laboratory where any
                     radiological tests were undertaken
-                  </Form.Label>
+                   <span style={{ color: "red" }}>*</span>
+                   </Form.Label>
                   <Col sm="7">
                     <Form.Control
                       type="text"
@@ -235,8 +271,12 @@ function Page2() {
             <Form>
               <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="5">
-                  <h5>(iii) Cost of medicines purchased from the market</h5>
-                </Form.Label>
+                  <h5>(iii) Cost of medicines purchased from the market
+                  <span style={{ color: "red" }}>*</span>
+
+                  </h5>
+                
+                 </Form.Label>
                 <Col sm="7">
                   <Form.Control
                     type="number"
