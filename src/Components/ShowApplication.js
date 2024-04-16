@@ -192,7 +192,7 @@ function ShowApplication() {
             "http://127.0.0.1:5000/get_medical_attendance",
             {
                 method: "POST",
-                body: JSON.stringify({ "application_id": localStorage.getItem("application_id") }),
+                body: JSON.stringify({ "application_id": id }),
                 headers: { "Content-Type": "application/json" },
             }
         );
