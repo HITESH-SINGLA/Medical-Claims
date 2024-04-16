@@ -39,17 +39,14 @@ function Pharmacist() {
 
     const updateData = [];
     data2["result"].map((id1) => {
-      console.log(id1[1]); // Log the value of id1[1]
-      // Check if id1[1] is not empty before parsing it as JSON
-      if (id1[1]) {
-        const parsedData = JSON.parse(id1[1]);
-        updateData.push({
-          id: parseInt(id1[0]),
-          amount: parseInt(parsedData.user.netAmntClaimed),
-          date: parsedData.user.date,
-          status: id1[2],
-        });
-      }
+      console.log(id1[0]);
+      updateData.push({
+        id: parseInt(id1[0]),
+        amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed),
+        date: JSON.parse(id1[1]).user.date,
+        status: id1[2],
+      });
+      console.log(data.length);
     });
 
     sortData(updateData, sortBy, sortOrder);

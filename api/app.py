@@ -31,7 +31,7 @@ def home():
 
 
 app = Flask(__name__)
-
+CORS(app)
 @app.before_request
 def before_request():
     """Get a database connection before each request and store it in Flask's g"""
@@ -44,6 +44,78 @@ def after_request(response):
     g.db_cursor.close()
     database.DatabasePool.return_connection(g.db_conn)
     return response
+
+@app.route('/save_form', methods=['POST'])
+def save_form():
+    if request.method == 'POST':
+        request_data = request.get_json()
+        email = '\'' + request_data["email"] + '\''
+        
+        id_query = f"select application_id from application where user_id = {email} order by application_id DESC"
+        g.db_cursor.execute(id_query)
+        id_result = g.db_cursor.fetchall()
+        print('id result = ', id_result)
+        recent_id = id_result[0][0]
+        
+        
+        
+        
+        application_id=recent_id
+        # Extract application ID and remove it from the data
+        request_data.pop("email", None)
+       
+      
+
+        if application_id is None:
+            return jsonify({"status": "error", "message": "No application ID provided"}), 400
+        
+        # Convert data to JSON string
+        data_string = json.dumps(request_data)
+        # print(request_data)
+        print(data_string)
+        # Check if application ID exists in the database
+        g.db_cursor.execute("""SELECT * FROM medical_attendance WHERE application_id = %s""", (application_id,))
+        is_exist = g.db_cursor.fetchall()
+        is_exist=len(is_exist)
+        print(is_exist)
+        if is_exist==0:
+            # If application ID does not exist, insert new record
+            print(1)
+            g.db_cursor.execute("""INSERT INTO medical_attendance(application_id, text_data) VALUES (%s, %s)""", (application_id, data_string))
+            
+        else:
+            # If application ID exists, update existing record
+            g.db_cursor.execute("""UPDATE medical_attendance SET text_data = %s WHERE application_id = %s""", (data_string, application_id))
+
+
+        g.db_conn.commit()
+        return jsonify({"status": "ok", "result": "Form data saved", "application_id":application_id})
+
+    return jsonify({"status": "200", "application_id":application_id})
+
+
+
+@app.route('/get_medical_attendance', methods=['POST'])
+def get_medical_attendance():
+    if request.method == 'POST':
+        application_id = request.json['application_id']
+        
+        # Check if application ID exists in the database
+        g.db_cursor.execute("""SELECT text_data FROM medical_attendance WHERE application_id = %s""", (application_id,))
+        result = g.db_cursor.fetchone()
+        
+        if result is None:
+            return jsonify({"status": "error", "message": "No data found for the provided application ID"}), 400
+        
+        text_data = result[0]
+        
+        return jsonify({"status": "ok", "text_data": text_data})
+
+    return jsonify({"status": "200"})
+
+
+
+
 
 @app.route('/basicDetails', methods=['GET', 'POST'])
 def basicDetails():
@@ -302,16 +374,16 @@ def updateStatus():
         request_data = request.get_json()
         if (request_data == None):
             print('Error in request data')
-
+        print("\nREQUEST DATA:=>\n")
         print(request_data)
         
 
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
         email_id = '\'' + request_data["authorityUser"]["email"] + '\''
         applicationStatus = '\'' + request_data["authorityUser"]["applicationStatus"] + '\''
-        remarks = '\''+request_data["authorityUser"]["remarks"]+ '\''
+        remarks = '\''+request_data["authorityUser"]["current_auth_remarks"][0]+ '\''
         # print(request_data["authorityUser"])
-        print(request_data)
+        
         # remarks = request_data["authorityUser"]["remarks"] + '\'' # Get the value of "remarks" or '' if it doesn't exist or is None
 
         print('applicationStatus: ',applicationStatus)
@@ -371,16 +443,16 @@ def getData():
 
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchall()
-        # print(type(result))
-        # print(json.loads(result[-1][2]))
+        print(type(result))
+        print(json.loads(result[-1][2]))
         # print(json.loads(result[-1][3]))
-        # print(json.loads(result[-1][4]))
-        # print(json.loads(result[-1][5]))
-        # print(type(result[-1][4]))
+        print(json.loads(result[-1][4]))
+        print(json.loads(result[-1][5]))
+        print(type(result[-1][4]))
         
         
 
-        return {"status": "ok" , "page1": json.loads(result[-1][2]), "page2":json.loads(result[-1][3]) ,"page3":json.loads(result[-1][4]) , "page4":json.loads(result[-1][5])}
+        return {"status": "ok" , "page1": json.loads(result[-1][2]),"page3":json.loads(result[-1][4]) , "page4":json.loads(result[-1][5])}
 
 
 
@@ -584,7 +656,7 @@ def showApplicationId(id):
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchone()
         # print('showapplication result',result)
-        return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
+        return {"status": "ok", "page1": json.loads(result[2]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
 
     return {"status": "ok", "result": "showApplication is working"}
@@ -605,10 +677,13 @@ def getallApplicationId():
         query = f"select * from application where pharmacist <> 'approved' order by application_id asc"
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchall()
+       
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[6]])
-
+            
+            
+        print(result_arr)
         return {"status": "ok", "result": result_arr}
 
     return {"status": "getallapplicationId working"}
@@ -1076,7 +1151,7 @@ def showallApplicationId(id):
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchone()
         # print('line 867 result',result)
-        return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
+        return {"status": "ok", "page1": json.loads(result[2]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
 
     return {"status": "ok", "result": "showallapplication is working"}
@@ -1413,5 +1488,5 @@ def getRemarks(id):
 
 
 if __name__ == "__main__":
-    app.debug = False
+    app.debug = True
     app.run()
