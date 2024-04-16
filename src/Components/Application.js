@@ -81,6 +81,37 @@ const Application = () => {
         },
     })
 
+
+
+    const [result_json2, setResultJson2] = useState({
+        0: {
+            costMedicine: "-",
+            hospitalName: "-",
+            name: "-",
+            numDatesFeeCon: "-",
+            numDatesFeeInj: "-"
+        },
+
+    });
+
+    const getData2 = async () => {
+        const res2 = await fetch(
+            "http://127.0.0.1:5000/get_medical_attendance",
+            {
+                method: "POST",
+                body: JSON.stringify({ "application_id": localStorage.getItem("application_id") }),
+                headers: { "Content-Type": "application/json" },
+            }
+        );
+
+        let result_json2 = await res2.json();
+        result_json2 = JSON.parse(result_json2.text_data);
+        setResultJson2(result_json2);
+        console.log(result_json2);
+
+    }
+
+
     const getData = async () => {
         const res = await fetch(
             "http://127.0.0.1:5000/getData",
@@ -93,20 +124,21 @@ const Application = () => {
 
         const result_json = await res.json()
         setresult_json(result_json)
-        console.log(result_json)
+       
     }
     useEffect(() => {
         getData()
+        getData2();
     }, [])
 
-    console.log(result_json)
+
 
     return (
         <div className="parent">
             <Container>
                 <div className="App-header">
                     <div id="logo_part">
-                        <img id="logo" src={logo} alt = ""></img>
+                        <img id="logo" src={logo} alt=""></img>
                     </div>
                     <div id="heading">
                         <br />
@@ -139,14 +171,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "name"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["name"]
+                                                    "user"
+                                                    ]["name"]
                                                     : "-"
                                             }
                                             readOnly
@@ -161,14 +193,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "martial_status"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["martial_status"]
+                                                    "user"
+                                                    ]["martial_status"]
                                                     : "-"
                                             }
                                             readOnly
@@ -184,14 +216,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "partner_place"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["partner_place"]
+                                                    "user"
+                                                    ]["partner_place"]
                                                     : "-"
                                             }
                                             readOnly
@@ -206,14 +238,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "Mobile_number"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["Mobile_number"]
+                                                    "user"
+                                                    ]["Mobile_number"]
                                                     : "-"
                                             }
                                             readOnly
@@ -229,14 +261,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "employee_code_no"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["employee_code_no"]
+                                                    "user"
+                                                    ]["employee_code_no"]
                                                     : "-"
                                             }
                                             readOnly
@@ -252,14 +284,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "pay"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["pay"]
+                                                    "user"
+                                                    ]["pay"]
                                                     : "-"
                                             }
                                             readOnly
@@ -274,14 +306,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "address"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["address"]
+                                                    "user"
+                                                    ]["address"]
                                                     : "-"
                                             }
                                             readOnly
@@ -298,14 +330,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "relation"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["relation"]
+                                                    "user"
+                                                    ]["relation"]
                                                     : "-"
                                             }
                                             readOnly
@@ -320,14 +352,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "place_fell_ill"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["place_fell_ill"]
+                                                    "user"
+                                                    ]["place_fell_ill"]
                                                     : "-"
                                             }
                                             readOnly
@@ -342,14 +374,14 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{padding:"14px"}}
+                                            type="text" style={{ padding: "14px" }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "ammount_details"
                                                 ]
                                                     ? result_json["page1"][
-                                                          "user"
-                                                      ]["ammount_details"]
+                                                    "user"
+                                                    ]["ammount_details"]
                                                     : "-"
                                             }
                                             readOnly
@@ -361,150 +393,135 @@ const Application = () => {
                     </Container>
                 </div>
             </Container>
+
 
             <Container>
-                <div className="Page2">
-                    <h2>(I) Medical Attendance</h2>
+    <div className="Page2">
+        <h2>(I) Medical Attendance</h2>
 
-                    <h5>(i) Fee for consultation indicating - </h5>
-                    <Container>
-                        <Form>
-                            <Form.Group as={Row} className="mb-3">
-                                <div id="line">
-                                    <Form.Label id="form_line" column sm="5">
-                                        (a) the name & designation of the
-                                        Medical Officer consulted and hospital
-                                        or dispensary to which attached
-                                    </Form.Label>
-                                    <Col id="text" sm="5">
-                                        <Form.Control
-                                            type="text" style={{padding:"14px"}}
-                                            placeholder={
-                                                result_json["page2"]["user"][
-                                                    "name"
-                                                ]
-                                                    ? result_json["page2"][
-                                                          "user"
-                                                      ]["name"]
-                                                    : "-"
-                                            }
-                                            readOnly
-                                        />
-                                    </Col>
-                                </div>
-                            </Form.Group>
+        {Object.keys(result_json2).map((key, index) => (
+            <div key={index}>
+                <h3>Medical Attendance {1+index}</h3>
+                <h5>(i) Fee for consultation indicating {1}</h5>
+                <Container>
+                    <Form>
+                        <Form.Group as={Row} className="mb-3">
+                            <div id="line">
+                                <Form.Label id="form_line" column sm="5">
+                                    (a) the name & designation of the
+                                    Medical Officer consulted and hospital
+                                    or dispensary to which attached
+                                </Form.Label>
+                                <Col id="text" sm="5">
+                                    <Form.Control
+                                        type="text"
+                                        style={{ padding: "14px" }}
+                                        placeholder={
+                                            result_json2[key]["name"] || "-"
+                                        }
+                                        readOnly
+                                    />
+                                </Col>
+                            </div>
+                        </Form.Group>
 
-                            <Form.Group as={Row} className="mb-3">
-                                <div id="line">
-                                    <Form.Label id="form_line" column sm="5">
-                                        (b) the number and dates of consultation
-                                        and the fee paid for each consultation
-                                    </Form.Label>
-                                    <Col id="text" sm="5">
-                                        <Form.Control
-                                            type="text" style={{padding:"14px"}}
-                                            placeholder={
-                                                result_json["page2"]["user"][
-                                                    "numDatesFeeCon"
-                                                ]
-                                                    ? result_json["page2"][
-                                                          "user"
-                                                      ]["numDatesFeeCon"]
-                                                    : "-"
-                                            }
-                                            readOnly
-                                        />
-                                    </Col>
-                                </div>
-                            </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <div id="line">
+                                <Form.Label id="form_line" column sm="5">
+                                    (b) the number and dates of consultation
+                                    and the fee paid for each consultation
+                                </Form.Label>
+                                <Col id="text" sm="5">
+                                    <Form.Control
+                                        type="text"
+                                        style={{ padding: "14px" }}
+                                        placeholder={
+                                            result_json2[key]["numDatesFeeCon"] ||
+                                            "-"
+                                        }
+                                        readOnly
+                                    />
+                                </Col>
+                            </div>
+                        </Form.Group>
 
-                            <Form.Group as={Row} className="mb-3">
-                                <div id="line">
-                                    <Form.Label id="form_line" column sm="5">
-                                        (c) the number & dates of injection &
-                                        the fee paid for each injection
-                                    </Form.Label>
-                                    <Col id="text" sm="5">
-                                        <Form.Control
-                                            type="text" style={{padding:"14px"}}
-                                            placeholder={
-                                                result_json["page2"]["user"][
-                                                    "numDatesFeeInj"
-                                                ]
-                                                    ? result_json["page2"][
-                                                          "user"
-                                                      ]["numDatesFeeInj"]
-                                                    : "-"
-                                            }
-                                            readOnly
-                                        />
-                                    </Col>
-                                </div>
-                            </Form.Group>
-                        </Form>
-                    </Container>
+                        <Form.Group as={Row} className="mb-3">
+                            <div id="line">
+                                <Form.Label id="form_line" column sm="5">
+                                    (c) the number & dates of injection &
+                                    the fee paid for each injection
+                                </Form.Label>
+                                <Col id="text" sm="5">
+                                    <Form.Control
+                                        type="text"
+                                        style={{ padding: "14px" }}
+                                        placeholder={
+                                            result_json2[key]["numDatesFeeInj"] ||
+                                            "-"
+                                        }
+                                        readOnly
+                                    />
+                                </Col>
+                            </div>
+                        </Form.Group>
+                    </Form>
+                </Container>
 
-                    <h5>
-                        (ii) Charges for pathological, Radiological or other
-                        similar tests undertaken during diagnosis indicating the
-                        test name and the charges incurred
-                    </h5>
-                    <Container>
-                        <Form>
-                            <Form.Group as={Row} className="mb-3">
-                                <div id="line">
-                                    <Form.Label id="form_line" column sm="5">
-                                        (a) Name of the hospital or laboratory
-                                        where any radiological tests were
-                                        undertaken
-                                    </Form.Label>
-                                    <Col id="text" sm="5">
-                                        <Form.Control
-                                            type="text" style={{padding:"14px"}}
-                                            placeholder={
-                                                result_json["page2"]["user"][
-                                                    "hospitalName"
-                                                ]
-                                                    ? result_json["page2"][
-                                                          "user"
-                                                      ]["hospitalName"]
-                                                    : "-"
-                                            }
-                                            readOnly
-                                        />
-                                    </Col>
-                                </div>
-                            </Form.Group>
+                <h5>
+                    (ii) Charges for pathological, Radiological or other
+                    similar tests undertaken during diagnosis indicating the
+                    test name and the charges incurred
+                </h5>
+                <Container>
+                    <Form>
+                        <Form.Group as={Row} className="mb-3">
+                            <div id="line">
+                                <Form.Label id="form_line" column sm="5">
+                                    (a) Name of the hospital or laboratory
+                                    where any radiological tests were
+                                    undertaken
+                                </Form.Label>
+                                <Col id="text" sm="5">
+                                    <Form.Control
+                                        type="text"
+                                        style={{ padding: "14px" }}
+                                        placeholder={
+                                            result_json2[key]["hospitalName"] ||
+                                            "-"
+                                        }
+                                        readOnly
+                                    />
+                                </Col>
+                            </div>
+                        </Form.Group>
 
-                            <Form.Group as={Row} className="mb-3">
-                                <div id="line">
-                                    <Form.Label id="form_line" column sm="5">
-                                        <h5>
-                                            (iii) Cost of medicines purchased
-                                            from the market :
-                                        </h5>
-                                    </Form.Label>
-                                    <Col id="text" sm="5">
-                                        <Form.Control
-                                            type="text" style={{padding:"14px"}}
-                                            placeholder={
-                                                result_json["page2"]["user"][
-                                                    "costMedicine"
-                                                ]
-                                                    ? result_json["page2"][
-                                                          "user"
-                                                      ]["costMedicine"]
-                                                    : "-"
-                                            }
-                                            readOnly
-                                        />
-                                    </Col>
-                                </div>
-                            </Form.Group>
-                        </Form>
-                    </Container>
-                </div>
-            </Container>
+                        <Form.Group as={Row} className="mb-3">
+                            <div id="line">
+                                <Form.Label id="form_line" column sm="5">
+                                    <h5>
+                                        (iii) Cost of medicines purchased
+                                        from the market :
+                                    </h5>
+                                </Form.Label>
+                                <Col id="text" sm="5">
+                                    <Form.Control
+                                        type="text"
+                                        style={{ padding: "14px" }}
+                                        placeholder={
+                                            result_json2[key]["costMedicine"] ||
+                                            "-"
+                                        }
+                                        readOnly
+                                    />
+                                </Col>
+                            </div>
+                        </Form.Group>
+                    </Form>
+                </Container>
+            </div>
+        ))}
+    </div>
+</Container>
 
             <Container>
                 <h2>(II) Consultation with Specialist</h2>
@@ -523,12 +540,12 @@ const Application = () => {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        type="text" style={{padding:"14px"}}
+                                        type="text" style={{ padding: "14px" }}
                                         placeholder={
                                             result_json["page3"]["user"]["name"]
                                                 ? result_json["page3"]["user"][
-                                                      "name"
-                                                  ]
+                                                "name"
+                                                ]
                                                 : "-"
                                         }
                                         readOnly
@@ -545,14 +562,14 @@ const Application = () => {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        type="text" style={{padding:"14px"}}
+                                        type="text" style={{ padding: "14px" }}
                                         placeholder={
                                             result_json["page3"]["user"][
                                                 "numDateCon"
                                             ]
                                                 ? result_json["page3"]["user"][
-                                                      "numDateCon"
-                                                  ]
+                                                "numDateCon"
+                                                ]
                                                 : "-"
                                         }
                                         readOnly
@@ -574,8 +591,8 @@ const Application = () => {
                                                 "amountClaimed"
                                             ]
                                                 ? result_json["page3"]["user"][
-                                                      "amountClaimed"
-                                                  ]
+                                                "amountClaimed"
+                                                ]
                                                 : "-"
                                         }
                                         readOnly
@@ -597,8 +614,8 @@ const Application = () => {
                                                 "lessAdvTaken"
                                             ]
                                                 ? result_json["page3"]["user"][
-                                                      "lessAdvTaken"
-                                                  ]
+                                                "lessAdvTaken"
+                                                ]
                                                 : "-"
                                         }
                                         readOnly
@@ -617,7 +634,7 @@ const Application = () => {
                                         type="number"
                                         placeholder={
                                             result_json["page3"]["user"][
-                                                "netAmntClaimed"
+                                            "netAmntClaimed"
                                             ]
                                         }
                                         readOnly
@@ -640,8 +657,8 @@ const Application = () => {
                                                 "lstOfEncl"
                                             ]
                                                 ? result_json["page3"]["user"][
-                                                      "lstOfEncl"
-                                                  ]
+                                                "lstOfEncl"
+                                                ]
                                                 : "-"
                                         }
                                         readOnly
@@ -726,7 +743,7 @@ const Application = () => {
                         <br></br>
                         {result_json["page4"]["user"]["imgs"].map((img) => (
                             <figure style={{ textAlign: "center" }}>
-                                <img alt = "" src={img.url} class="figure-img img-fluid rounded"></img>
+                                <img alt="" src={img.url} class="figure-img img-fluid rounded"></img>
                                 <figcaption style={{ color: "black" }} class="figure-caption" >
                                     <b>
                                         <i>{img.name}</i>
