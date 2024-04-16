@@ -62,7 +62,7 @@ function Pharmacist() {
 
     const updateData = [];
     data2["result"].map((id1) => {
-      console.log(id1[0]);
+      console.log(result_arr);
       updateData.push({
         id: parseInt(id1[0]),
         amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed),

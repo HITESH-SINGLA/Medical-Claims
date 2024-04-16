@@ -374,16 +374,16 @@ def updateStatus():
         request_data = request.get_json()
         if (request_data == None):
             print('Error in request data')
-
+        print("\nREQUEST DATA:=>\n")
         print(request_data)
         
 
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
         email_id = '\'' + request_data["authorityUser"]["email"] + '\''
         applicationStatus = '\'' + request_data["authorityUser"]["applicationStatus"] + '\''
-        remarks = '\''+request_data["authorityUser"]["remarks"]+ '\''
+        remarks = '\''+request_data["authorityUser"]["current_auth_remarks"][0]+ '\''
         # print(request_data["authorityUser"])
-        print(request_data)
+        
         # remarks = request_data["authorityUser"]["remarks"] + '\'' # Get the value of "remarks" or '' if it doesn't exist or is None
 
         print('applicationStatus: ',applicationStatus)
@@ -677,10 +677,13 @@ def getallApplicationId():
         query = f"select * from application where pharmacist <> 'approved' order by application_id asc"
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchall()
+       
         result_arr = []
         for item in result:
             result_arr.append([str(item[0]), item[4], item[6]])
-
+            
+            
+        print(result_arr)
         return {"status": "ok", "result": result_arr}
 
     return {"status": "getallapplicationId working"}
@@ -1148,7 +1151,7 @@ def showallApplicationId(id):
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchone()
         # print('line 867 result',result)
-        return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
+        return {"status": "ok", "page1": json.loads(result[2]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
 
     return {"status": "ok", "result": "showallapplication is working"}
