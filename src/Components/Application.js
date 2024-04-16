@@ -171,7 +171,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "name"
@@ -193,7 +198,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "martial_status"
@@ -216,7 +226,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "partner_place"
@@ -238,7 +253,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "Mobile_number"
@@ -261,7 +281,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "employee_code_no"
@@ -284,7 +309,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "pay"
@@ -306,7 +336,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "address"
@@ -330,7 +365,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "relation"
@@ -352,7 +392,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "place_fell_ill"
@@ -374,7 +419,12 @@ const Application = () => {
                                     </Form.Label>
                                     <Col id="text" sm="3">
                                         <Form.Control
-                                            type="text" style={{ padding: "14px" }}
+                                            type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                             placeholder={
                                                 result_json["page1"]["user"][
                                                     "ammount_details"
@@ -415,7 +465,12 @@ const Application = () => {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
-                                        style={{ padding: "14px" }}
+                                        style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json2[key]["name"] || "-"
                                         }
@@ -434,7 +489,12 @@ const Application = () => {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
-                                        style={{ padding: "14px" }}
+                                        style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json2[key]["numDatesFeeCon"] ||
                                             "-"
@@ -454,7 +514,12 @@ const Application = () => {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
-                                        style={{ padding: "14px" }}
+                                        style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json2[key]["numDatesFeeInj"] ||
                                             "-"
@@ -484,7 +549,12 @@ const Application = () => {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
-                                        style={{ padding: "14px" }}
+                                        style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json2[key]["hospitalName"] ||
                                             "-"
@@ -506,7 +576,12 @@ const Application = () => {
                                 <Col id="text" sm="5">
                                     <Form.Control
                                         type="text"
-                                        style={{ padding: "14px" }}
+                                        style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json2[key]["costMedicine"] ||
                                             "-"
@@ -540,7 +615,12 @@ const Application = () => {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        type="text" style={{ padding: "14px" }}
+                                        type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json["page3"]["user"]["name"]
                                                 ? result_json["page3"]["user"][
@@ -562,7 +642,12 @@ const Application = () => {
                                 </Form.Label>
                                 <Col id="text" sm="5">
                                     <Form.Control
-                                        type="text" style={{ padding: "14px" }}
+                                        type="text" style={{
+                                                padding: "12px",
+                                                backgroundColor: "white",
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                borderRadius: "0", // This ensures edges are not rounded
+                                            }}
                                         placeholder={
                                             result_json["page3"]["user"][
                                                 "numDateCon"

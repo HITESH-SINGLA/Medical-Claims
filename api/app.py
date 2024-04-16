@@ -656,7 +656,7 @@ def showApplicationId(id):
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchone()
         # print('showapplication result',result)
-        return {"status": "ok", "page1": json.loads(result[2]), "page2": json.loads(result[3]),
+        return {"status": "ok", "page1": json.loads(result[2]),
                 "page3": json.loads(result[4]), "page4": json.loads(result[5])}
 
     return {"status": "ok", "result": "showApplication is working"}
