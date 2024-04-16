@@ -7,12 +7,16 @@ import "./Home_authority.css";
 
 function DAorJAO_verified_applications() {
   const email = localStorage.getItem("email");
+  const [sortBy, setSortBy] = useState("id"); // Default sorting by ID
+  const [sortOrder, setSortOrder] = useState("desc"); // Default sorting order
+  const [searchQuery, setSearchQuery] = useState("");
+  const [result_arr, setresult_arr] = useState([]);
 
   let user_data = {
     email: email,
   };
-  const [result_arr, setresult_arr] = useState([]);
 
+  const [data, setData] = useState([]); // C
   const getApplicationId = async () => {
     const res = await fetch(
       "http://127.0.0.1:5000/getallApprovedApplicationIdFromDAorJAO",
@@ -34,11 +38,14 @@ function DAorJAO_verified_applications() {
       updateData.push({id: parseInt(id1[0]), amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed), date: JSON.parse(id1[1]).user.date});            
       // console.log(data.length);
     });
-    setData(updateData.reverse());
+    sortData(updateData, sortBy, sortOrder);
+
+    setData(updateData);
   };
+
   useEffect(() => {
     getApplicationId();
-  }, []);
+  }, [sortBy, sortOrder]);
 
   console.log(result_arr);
 
@@ -53,35 +60,47 @@ function DAorJAO_verified_applications() {
     navigate("/");
   };
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortColumn, setSortColumn] = useState("id");
-  const [sortDirection, setSortDirection] = useState("asc");
-  const [data, setData] = useState([]);
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  const sortData = (data, sortBy, sortOrder) => {
+    data.sort((a, b) => {
+      let comparison = 0;
+      switch (sortBy) {
+        case "id":
+          comparison = a.id - b.id;
+          break;
+        case "date":
+          comparison = new Date(a.date) - new Date(b.date);
+          break;
+        case "amount":
+          comparison = a.amount - b.amount;
+          break;
+        default:
+          break;
+      }
+      return sortOrder === "desc" ? -comparison : comparison;
+    });
   };
 
-  const handleSortChange = (event) => {
-    setSortColumn(event.target.value);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-  };
-
-  const filteredData = data.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  const sortedData = filteredData.sort((a, b) => {
-    const isAsc = sortDirection === "asc";
-    if (a[sortColumn] < b[sortColumn]) {
-      return isAsc ? -1 : 1;
-    } else if (a[sortColumn] > b[sortColumn]) {
-      return isAsc ? 1 : -1;
+  const handleSortChange = (selectedSortBy) => {
+    // If the same criteria is selected, toggle the order
+    if (selectedSortBy === sortBy) {
+      setSortOrder(sortOrder === "desc" ? "asc" : "desc");
     } else {
-      return 0;
+      // If a different criteria is selected, set it as the new sorting criteria
+      setSortBy(selectedSortBy);
+      setSortOrder("desc"); // Reset order to ascending
     }
+  };
+
+  // Filter data based on search query
+  const filteredData = data.filter((row) => {
+    const searchString = searchQuery.toLowerCase();
+
+    // Check if the search query matches any of the fields (ID, amount, or date)
+    return (
+      row.id.toString().toLowerCase().includes(searchString) || // ID
+      row.amount.toString().toLowerCase().includes(searchString) || // Amount
+      row.date.toLowerCase().includes(searchString) // Date
+    );
   });
 
   return (
@@ -146,6 +165,32 @@ function DAorJAO_verified_applications() {
         <h4>Verfied applications </h4>
         <h6>(applications which are approved by you will appear here)</h6>
       </div>
+      <div className="search-bar">
+          {/* Search input field */}
+          <input
+            type="text"
+            placeholder="Search applications..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div className="sort-options">
+          {/* Sorting options UI */}
+          <label htmlFor="sortOptions">Sort by:</label>
+          <select
+            id="sortOptions"
+            value={sortBy}
+            onChange={(e) => handleSortChange(e.target.value)}
+          >
+            <option value="id">ID</option>
+            <option value="amount">Amount Claimed</option>
+            <option value="date">Date of Submission</option>
+          </select>
+          <button onClick={() => handleSortChange(sortBy)}>
+            {sortOrder === "desc" ? "Descending" : "Ascending"}
+          </button>
+        </div>
       <div className="application-list">
           <table className="table">
             <thead>
@@ -157,7 +202,7 @@ function DAorJAO_verified_applications() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>

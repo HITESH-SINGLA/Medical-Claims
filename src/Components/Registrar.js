@@ -23,37 +23,13 @@ import { signOut } from "firebase/auth";
 function Registrar() {
   const email = localStorage.getItem("email");
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortColumn, setSortColumn] = useState("id");
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortBy, setSortBy] = useState("id"); // Default sorting by ID
+  const [sortOrder, setSortOrder] = useState("desc"); // Default sorting order
+  const [searchQuery, setSearchQuery] = useState(""); //
   const [data, setData] = useState([]);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
-  const handleSortChange = (event) => {
-    setSortColumn(event.target.value);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-  };
-
-  const filteredData = data.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  const sortedData = filteredData.sort((a, b) => {
-    const isAsc = sortDirection === "asc";
-    if (a[sortColumn] < b[sortColumn]) {
-      return isAsc ? -1 : 1;
-    } else if (a[sortColumn] > b[sortColumn]) {
-      return isAsc ? 1 : -1;
-    } else {
-      return 0;
-    }
-  });
-
+  
   let user_data = {
     email: email,
   };
@@ -85,12 +61,51 @@ function Registrar() {
       });
       console.log(data.length);
     });
-    setData(updateData.reverse());
+    sortData(updateData, sortBy, sortOrder);
+    setData(updateData);
   };
-
   useEffect(() => {
     getApplicationId();
-  }, []);
+  }, [sortBy, sortOrder]);
+  const sortData = (data, sortBy, sortOrder) => {
+    data.sort((a, b) => {
+      let comparison = 0;
+      switch (sortBy) {
+        case "id":
+          comparison = a[0] - b[0];
+          break;
+        case "date":
+          comparison = new Date(a[4].user.date) - new Date(b[4].user.date);
+          break;
+        case "amount":
+          comparison = a[4].user.amountClaimed - b[4].user.amountClaimed;
+          break;
+        default:
+          break;
+      }
+      return sortOrder === "desc" ? -comparison : comparison;
+    });
+  };
+
+  const handleSortChange = (selectedSortBy) => {
+    // If the same criteria is selected, toggle the order
+    if (selectedSortBy === sortBy) {
+      setSortOrder(sortOrder === "desc" ? "asc" : "desc");
+    } else {
+      // If a different criteria is selected, set it as the new sorting criteria
+      setSortBy(selectedSortBy);
+      setSortOrder("desc"); // Reset order to ascending
+    }
+  };
+  const filteredData = data.filter((row) => {
+    const searchString = searchQuery.toLowerCase();
+    return (
+      row.id.toString().toLowerCase().includes(searchString) ||
+      row.amount.toString().toLowerCase().includes(searchString) ||
+      row.date.toLowerCase().includes(searchString) ||
+      row.status.toLowerCase().includes(searchString)
+    );
+  });
 
   console.log(result_arr);
 
@@ -167,6 +182,32 @@ function Registrar() {
           <h4>Home </h4>
           <h6>(applications which need your approval will appear here)</h6>
         </div>
+        <div className="search-bar">
+          {/* Search input field */}
+          <input
+            type="text"
+            placeholder="Search applications..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div className="sort-options">
+          {/* Sorting options UI */}
+          <label htmlFor="sortOptions">Sort by:</label>
+          <select
+            id="sortOptions"
+            value={sortBy}
+            onChange={(e) => handleSortChange(e.target.value)}
+          >
+            <option value="id">ID</option>
+            <option value="amount">Amount Claimed</option>
+            <option value="date">Date of Submission</option>
+          </select>
+          <button onClick={() => handleSortChange(sortBy)}>
+            {sortOrder === "desc" ? "Descending" : "Ascending"}
+          </button>
+        </div>
         <div className="application-list">
           <table className="table">
             <thead>
@@ -179,7 +220,7 @@ function Registrar() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>

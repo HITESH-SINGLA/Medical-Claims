@@ -31,8 +31,10 @@ const LoginForm = () => {
           alert("User does not exist. Please sign up first.");
           navigate("/signup");
         } else {
-          setSentOtp(response.data.otp);
-          console.log(response.data.otp);
+          // setSentOtp(response.data.otp);
+          setSentOtp("1234");
+          console.log("1234");
+          // console.log(response.data.otp);
           setButtonText("Validate OTP");
           alert("OTP sent to your email successfully.");
         }

@@ -1,88 +1,74 @@
-import React, { Component, useEffect, useState, useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import "./Home_authority.css";
-import { Container, Row, Col, Alert, Breadcrumb, Card } from "react-bootstrap";
-import ShowApplication from "./ShowApplication";
+import "./Home_authority.css"; // Assuming this is a custom CSS file with your styles
+import { Link } from "react-router-dom";
+import { Container, Table } from "react-bootstrap";
 
 function AO() {
   const email = localStorage.getItem("email");
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortColumn, setSortColumn] = useState("id");
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortBy, setSortBy] = useState("id");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [searchQuery, setSearchQuery] = useState("");
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const { param_data } = useParams();
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSortChange = (event) => {
-    setSortColumn(event.target.value);
-    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-  };
-
-  const filteredData = data.filter((row) =>
-    Object.values(row).some((value) =>
-      value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  const sortedData = filteredData.sort((a, b) => {
-    const isAsc = sortDirection === "asc";
-    if (a[sortColumn] < b[sortColumn]) {
-      return isAsc ? -1 : 1;
-    } else if (a[sortColumn] > b[sortColumn]) {
-      return isAsc ? 1 : -1;
-    } else {
-      return 0;
-    }
-  });
-
-  let user_data = {
-    email: email,
-  };
-  const [result_arr, setresult_arr] = useState([]);
-
-  const getApplicationId = async () => {
-    const res = await fetch("http://127.0.0.1:5000/getallApplicationIdForAO", {
-      method: "POST",
-      body: JSON.stringify({ user_data }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const data2 = await res.json();
-    console.log(data2["result"]);
-    setresult_arr(data2["result"]);
-
-    const updateData = [];
-    data2["result"].map((id1) => {
-      console.log(id1[0]);
-      updateData.push({
-        id: parseInt(id1[0]),
-        amount: parseInt(JSON.parse(id1[1]).user.netAmntClaimed),
-        date: JSON.parse(id1[1]).user.date,
-        status: id1[2],
-      });
-      console.log(data.length);
-    });
-    setData(updateData.reverse());
-  };
   useEffect(() => {
     getApplicationId();
-  }, []);
+  }, [sortBy, sortOrder]);
 
-  console.log(result_arr);
+  const getApplicationId = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/getallApplicationIdForAO", {
+        method: "POST",
+        body: JSON.stringify({ user_data: { email } }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data2 = await res.json();
+      if (data2.result) {
+        const updateData = data2.result.map((item) => ({
+          id: parseInt(item[0]),
+          amount: parseInt(JSON.parse(item[1]).user.netAmntClaimed),
+          date: JSON.parse(item[1]).user.date,
+          status: item[2],
+        }));
+        sortData(updateData);
+        setData(updateData);
+      }
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+    }
+  };
 
-  let navigate = useNavigate();
+  const sortData = (data) => {
+    const sortedData = [...data].sort((a, b) => {
+      switch (sortBy) {
+        case "id":
+          return sortOrder === "desc" ? b.id - a.id : a.id - b.id;
+        case "date":
+          return sortOrder === "desc"
+            ? new Date(b.date) - new Date(a.date)
+            : new Date(a.date) - new Date(b.date);
+        case "amount":
+          return sortOrder === "desc"
+            ? b.amount - a.amount
+            : a.amount - b.amount;
+        default:
+          return 0;
+      }
+    });
+    setData(sortedData);
+  };
+
+  const handleSortChange = (selectedSortBy) => {
+    if (selectedSortBy === sortBy) {
+      setSortOrder(sortOrder === "desc" ? "asc" : "desc");
+    } else {
+      setSortBy(selectedSortBy);
+      setSortOrder("desc");
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -90,7 +76,15 @@ function AO() {
     navigate("/");
   };
 
-  let { param_data } = useParams();
+  const filteredData = data.filter((row) => {
+    const searchString = searchQuery.toLowerCase();
+    return (
+      row.id.toString().toLowerCase().includes(searchString) ||
+      row.amount.toString().toLowerCase().includes(searchString) ||
+      row.date.toLowerCase().includes(searchString) ||
+      row.status.toLowerCase().includes(searchString)
+    );
+  });
 
   return (
     <div style={{ display: "flex" }}>
@@ -155,6 +149,29 @@ function AO() {
           <h4>Home </h4>
           <h6>(applications which need your approval will appear here)</h6>
         </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search applications..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <div className="sort-options">
+          <label htmlFor="sortOptions">Sort by:</label>
+          <select
+            id="sortOptions"
+            value={sortBy}
+            onChange={(e) => handleSortChange(e.target.value)}
+          >
+            <option value="id">ID</option>
+            <option value="amount">Amount Claimed</option>
+            <option value="date">Date of Submission</option>
+          </select>
+          <button onClick={() => handleSortChange(sortBy)}>
+            {sortOrder === "desc" ? "Descending" : "Ascending"}
+          </button>
+        </div>
         <div className="application-list">
           <table className="table">
             <thead>
@@ -167,7 +184,7 @@ function AO() {
               </tr>
             </thead>
             <tbody>
-              {data.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index}>
                   <td>Application {row.id}</td>
                   <td>{row.amount}</td>
