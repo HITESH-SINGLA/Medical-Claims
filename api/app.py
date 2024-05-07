@@ -712,10 +712,12 @@ def get_all_application_id_for_home():
 
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4], item[6], item[8], item[10], item[16]])
+           
+            if(item[4]!=""):
+             result_arr.append([str(item[0]), item[4], item[6], item[8], item[12], item[16]])
             
         print(result_arr)
-        return jsonify({"status": "ok", "result": result})
+        return jsonify({"status": "ok", "result": result_arr})
     
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})

@@ -28,14 +28,15 @@ function Home() {
         );
 
         const data2 = await res.json();
+        console.log(data2);
         const parsedData = data2.result.map((item) => {
-          item[4] = JSON.parse(item[4]);
+          item[1] = JSON.parse(item[1]);
           return item;
         });
 
         // Sort the data initially based on default sorting criteria
         sortData(parsedData, sortBy, sortOrder);
-
+        console.log(parsedData)
         setData(parsedData);
       } catch (error) {
         console.error("Error fetching application data:", error);
@@ -53,10 +54,10 @@ function Home() {
           comparison = a[0] - b[0];
           break;
         case "date":
-          comparison = new Date(a[4].user.date) - new Date(b[4].user.date);
+          comparison = new Date(a[1].user.date) - new Date(b[1].user.date);
           break;
         case "amount":
-          comparison = a[4].user.amountClaimed - b[4].user.amountClaimed;
+          comparison = a[1].user.amountClaimed - b[1].user.amountClaimed;
           break;
         default:
           break;
@@ -89,11 +90,11 @@ function Home() {
     // Check if the search query matches any of the fields (ID, amount, or date)
     return (
       row[0].toString().toLowerCase().includes(searchString) || // ID
-      row[4].user.amountClaimed
+      row[1].user.amountClaimed
         .toString()
         .toLowerCase()
         .includes(searchString) || // Amount
-      row[4].user.date.toLowerCase().includes(searchString) // Date
+      row[1].user.date.toLowerCase().includes(searchString) // Date
     );
   });
 
@@ -233,12 +234,12 @@ function Home() {
               {filteredData.map((row, index) => (
                 <tr key={index}>
                   <td>{row[0]}</td>
-                  <td>{row[4].user.amountClaimed}</td>
-                  <td>{row[4].user.date}</td>
-                  <td>{row[6]}</td>
-                  <td>{row[8]}</td>
-                  <td>{row[12]}</td>
-                  <td>{row[16]}</td>
+                  <td>{row[1].user.amountClaimed}</td>
+                  <td>{row[1].user.date}</td>
+                  <td>{row[2]}</td>
+                  <td>{row[3]}</td>
+                  <td>{row[4]}</td>
+                  <td>{row[5]}</td>
                   <td>
                     <button
                       onClick={() => {

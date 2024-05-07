@@ -81,9 +81,9 @@ const navigate=useNavigate();
             <ListItem><ListItemText primary="2. Medical Officer" classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
             <ListItem><ListItemText primary="3. Account Section / DA / JAO" classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
             <ListItem><ListItemText primary="4. AO / AR" classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
-            <ListItem><ListItemText primary="5. Sr AO (Senior Accounts Officer): Required only if the claimed amount is greater than or equal to 50,000." classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
-            <ListItem><ListItemText primary="6. Registrar" classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
-            <ListItem><ListItemText primary="7. Director: Necessary only if the allowed amount is greater than or equal to 2,00,000." classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
+            {/* <ListItem><ListItemText primary="5. Sr AO (Senior Accounts Officer): Required only if the claimed amount is greater than or equal to 50,000." classes={{ primary: classes.listItemTextPrimary }} /></ListItem> */}
+            <ListItem><ListItemText primary="5. Registrar" classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
+            <ListItem><ListItemText primary="6. Director" classes={{ primary: classes.listItemTextPrimary }} /></ListItem>
           </List>
 
           <Typography id="modal-modal-title" variant="h6" component="h2" className={classes.heading} style={{marginTop: '20px'}}>
