@@ -40,14 +40,13 @@ const Landingpage = () => {
                 >
                   Login
                 </button>
-
-                <button
+                { <button
                   className="btn btn-outline-success"
                   type="submit"
                   onClick={handleSignup}
                 >
                   Signup
-                </button>
+                </button>}
               </div>
             </div>
           </nav>

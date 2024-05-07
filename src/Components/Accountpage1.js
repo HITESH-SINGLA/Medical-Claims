@@ -132,63 +132,63 @@ function Accountpage1() {
     const name = e.target.name;
     const value = e.target.value;
     setRow2({ ...row2, [name]: value });
-    console.log(name,value);
+    console.log(name, value);
   };
-
 
   const handleSubmit1 = (e) => {
     e.preventDefault();
-  if(row1.medicine!="" && row1.price1!=""){  responses1.push(row1);
-    setResponses1(responses1);
-    setRow1({ medicine: "", price1: "" });}
+    if (row1.medicine != "" && row1.price1 != "") {
+      responses1.push(row1);
+      setResponses1(responses1);
+      setRow1({ medicine: "", price1: "" });
+    }
   };
 
   const handleSubmit2 = (e) => {
     e.preventDefault();
-  if(row2.test!="" && row2.price2!=""){  responses2.push(row2);
-    setResponses2(responses2);
-    setRow2({ test: "", price2: "" });}
+    if (row2.test != "" && row2.price2 != "") {
+      responses2.push(row2);
+      setResponses2(responses2);
+      setRow2({ test: "", price2: "" });
+    }
   };
 
+  const handleChangeInRow = (e, index) => {
+    const { name, value } = e.target;
+    const newResponses = [...responses1];
+    newResponses[index] = { ...newResponses[index], [name]: value };
+    setResponses1(newResponses);
+  };
+  const handleChangeInRow2 = (e, index) => {
+    const { name, value } = e.target;
+    const newResponses = [...responses2];
+    newResponses[index] = { ...newResponses[index], [name]: value };
+    setResponses2(newResponses);
+  };
 
-const handleChangeInRow = (e, index) => {
-  const { name, value } = e.target;
-  const newResponses = [...(responses1 )];
-  newResponses[index] = { ...newResponses[index], [name]: value };
-  setResponses1(newResponses) ;
-};
-const handleChangeInRow2 = (e, index) => {
-  const { name, value } = e.target;
-  const newResponses = [...(responses2 )];
-  newResponses[index] = { ...newResponses[index], [name]: value };
-  setResponses2(newResponses) ;
-};
+  const saveEdit = (index) => {
+    setEditingIndex(null);
+  };
+  const saveEdit2 = (index) => {
+    setEditingIndex2(null);
+  };
+  // Adjust deleteRow to handle both tables
+  const deleteRow = (index) => {
+    const newResponses = [...responses1].filter((_, i) => i !== index);
+    setResponses1(newResponses);
+    if (index === editingIndex) {
+      setEditingIndex(null); // Reset if the currently edited row is deleted
+    }
+  };
 
-const saveEdit = (index) => {
-  setEditingIndex(null); 
-  
-};
-const saveEdit2 = (index) => {
-  setEditingIndex2(null); 
-  
-};
-// Adjust deleteRow to handle both tables
-const deleteRow = (index) => {
-  const newResponses = [...(responses1)].filter((_, i) => i !== index);
- setResponses1(newResponses) 
-  if (index === editingIndex) {
-    setEditingIndex(null); // Reset if the currently edited row is deleted
-  }
-};
+  const deleteRow2 = (index) => {
+    const newResponses = [...responses2].filter((_, i) => i !== index);
+    setResponses2(newResponses);
+    if (index === editingIndex) {
+      setEditingIndex2(null); // Reset if the currently edited row is deleted
+    }
+  };
 
-const deleteRow2 = (index) => {
-  const newResponses = [...(responses2)].filter((_, i) => i !== index);
- setResponses2(newResponses) 
-  if (index === editingIndex) {
-    setEditingIndex2(null); // Reset if the currently edited row is deleted
-  }
-};
-  
   const saveit = async (e) => {
     e.preventDefault();
 
@@ -207,26 +207,34 @@ const deleteRow2 = (index) => {
     user["page_no"] = 4;
     user["imgs"] = urls;
 
-   // Check if the checkbox is not checked
-   if (!document.getElementById("checkbox1").checked||!document.getElementById("checkbox2").checked) {
-    return alert("Please tick the checkboxes.");
-  }
+    // Check if the checkbox is not checked
+    if (
+      !document.getElementById("checkbox1").checked ||
+      !document.getElementById("checkbox2").checked
+    ) {
+      return alert("Please tick the checkboxes.");
+    }
 
-
-    if(!user.date){
+    if (!user.date) {
       return alert("Please enter date.");
     }
-    if(!user.medicines){
-      return alert("You have not mentioned any medicines. In case of no medicines, kindly make an NA entry.");
+    if (!date) {
+      alert("Please enter the date.");
+      return;
+    }
+    if (!user.medicines) {
+      return alert(
+        "You have not mentioned any medicines. In case of no medicines, kindly make an NA entry."
+      );
     }
 
-    if(!user.test){
-      return alert("You have not mentioned any tests. In case of no tests, kindly make an NA entry.");
-    }
-    if (urls.length == 0 ) {
-      alert(
-        "You have not uploaded any images for medical bills."
+    if (!user.test) {
+      return alert(
+        "You have not mentioned any tests. In case of no tests, kindly make an NA entry."
       );
+    }
+    if (urls.length == 0) {
+      alert("You have not uploaded any images for medical bills.");
       setAlert(true);
       return;
     }
@@ -235,28 +243,22 @@ const deleteRow2 = (index) => {
     setResponses1([]);
     setResponses2([]);
 
-    const res = await fetch(
-      "http://127.0.0.1:5000/check_user",
-      {
-        method: "POST",
-        body: JSON.stringify({ user }),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const res = await fetch("http://127.0.0.1:5000/check_user", {
+      method: "POST",
+      body: JSON.stringify({ user }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     navigate("./Application");
   };
 
   const handleupload = async () => {
     const email1 = email;
-    const id = await fetch(
-      "http://127.0.0.1:5000/get_application_id",
-      {
-        method: "POST",
-        body: JSON.stringify({ email1 }),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const id = await fetch("http://127.0.0.1:5000/get_application_id", {
+      method: "POST",
+      body: JSON.stringify({ email1 }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     const result_json = await id.json();
 
@@ -305,15 +307,12 @@ const deleteRow2 = (index) => {
   const day = currentDate.getDate().toString().padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
 
-
   const toggleEdit = (index) => {
     setEditingIndex(index);
   };
   const toggleEdit2 = (index) => {
     setEditingIndex2(index);
   };
-  
-
 
   return (
     <div class="d-flex flex-row">
@@ -399,195 +398,227 @@ const deleteRow2 = (index) => {
             <br />
             <Form.Group>
               <Form.Check
-              id="checkbox1"
+                id="checkbox1"
                 type="checkbox"
                 label="I am solely responsible for any discrepancy if found in the incurred bill or if the statement is found to be incorrect in respect of following medicines/ tests:-"
               />
             </Form.Group>
             <br></br>
             <h4>Medicine Table</h4>
-
-
-<table className="medicine-table">
-  <thead>
-    <tr>
-      <th scope="col">S.NO</th>
-      <th scope="col">Name of Medicine(s)</th>
-      <th scope="col">Price(Rs.)</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {responses1.map((response, index) => (
-      <tr key={index}>
-        <td>{index + 1}</td>
-        <td>
-          {editingIndex === index ? (
-            <input
-              type="text"
-              name="medicine"
-              className="form-control"
-              value={response.medicine}
-              onChange={(e) => handleChangeInRow(e, index)}
-            />
-          ) : (
-            response.medicine
-          )}
-        </td>
-        <td>
-          {editingIndex === index ? (
-            <input
-              type="text"
-              name="price1"
-              className="form-control"
-              value={response.price1}
-              onChange={(e) => handleChangeInRow(e, index)}
-            />
-          ) : (
-            response.price1
-          )}
-        </td>
-        <td>
-          {editingIndex === index ? (
-            <>
-              <button className="save-button" onClick={saveEdit}>Save</button>
-              <button className="delete-button" onClick={() => deleteRow(index)}>Delete</button>
-            </>
-          ) : (
-            <>
-              <button className="edit-button" onClick={() => toggleEdit(index)}>Edit</button>
-              <button className="delete-button" onClick={() => deleteRow(index)}>Delete</button>
-            </>
-          )}
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-
-<form className="bottom-insert-form">
-  <div className="insert-row">
-    <div className="insert-col">
-      <input
-        type="text"
-        className="insert-input"
-        placeholder="Medicine Name"
-        name="medicine"
-        value={row1.medicine}
-        onChange={handleChange1}
-      />
-    </div>
-    <div className="insert-col">
-      <input
-        type="text"
-        className="insert-input"
-        placeholder="Price"
-        name="price1"
-        value={row1.price1}
-        onChange={handleChange1}
-      />
-    </div>
-    <div className="insert-col-auto">
-      <button type="submit" className="insert-button" onClick={handleSubmit1}>
-        Insert row
-      </button>
-    </div>
-  </div>
-</form>
-
-
-<h4>Test Table</h4>
-
-<table className="medicine-table">
-  <thead>
-    <tr>
-      <th scope="col">S.NO</th>
-      <th scope="col">Name of Test(s)</th>
-      <th scope="col">Price(Rs.)</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {responses2.map((response, index) => (
-      <tr key={index}>
-        <td>{index + 1}</td>
-        <td>
-          {editingIndex2 === index ? (
-            <input
-              type="text"
-              name="test"
-              className="form-control"
-              value={response.test}
-              onChange={(e) => handleChangeInRow2(e, index)}
-            />
-          ) : (
-            response.test
-          )}
-        </td>
-        <td>
-          {editingIndex2 === index ? (
-            <input
-              type="text"
-              name="price2"
-              className="form-control"
-              value={response.price2}
-              onChange={(e) => handleChangeInRow2(e, index)}
-            />
-          ) : (
-            response.price2
-          )}
-        </td>
-        <td>
-          {editingIndex2 === index ? (
-            <>
-              <button className="save-button" onClick={() => saveEdit2(index)}>Save</button>
-              <button className="cancel-button" onClick={() => toggleEdit2(index)}>Cancel</button>
-            </>
-          ) : (
-            <>
-              <button className="edit-button" onClick={() => toggleEdit2(index)}>Edit</button>
-              <button className="delete-button" onClick={() => deleteRow2(index)}>Delete</button>
-            </>
-          )}
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-
-
-
-<form className="bottom-insert-form" onSubmit={handleSubmit2}> {/* Use onSubmit to properly handle form submission */}
-  <div className="insert-row">
-    <div className="insert-col">
-      <input
-        type="text"
-        className="insert-input"
-        placeholder="Test Name"
-        name="test"
-        value={row2.test}
-        onChange={handleChange2}
-      />
-    </div>
-    <div className="insert-col">
-      <input
-        type="text"
-        className="insert-input"
-        placeholder="Price"
-        name="price2"
-        value={row2.price2}
-        onChange={handleChange2}
-      />
-    </div>
-    <div className="insert-col-auto">
-      <button type="submit" className="insert-button">
-        Insert row
-      </button>
-    </div>
-  </div>
-</form>
-
-
+            <table className="medicine-table">
+              <thead>
+                <tr>
+                  <th scope="col">S.NO</th>
+                  <th scope="col">Name of Medicine(s)</th>
+                  <th scope="col">Price(Rs.)</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {responses1.map((response, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      {editingIndex === index ? (
+                        <input
+                          type="text"
+                          name="medicine"
+                          className="form-control"
+                          value={response.medicine}
+                          onChange={(e) => handleChangeInRow(e, index)}
+                        />
+                      ) : (
+                        response.medicine
+                      )}
+                    </td>
+                    <td>
+                      {editingIndex === index ? (
+                        <input
+                          type="text"
+                          name="price1"
+                          className="form-control"
+                          value={response.price1}
+                          onChange={(e) => handleChangeInRow(e, index)}
+                        />
+                      ) : (
+                        response.price1
+                      )}
+                    </td>
+                    <td>
+                      {editingIndex === index ? (
+                        <>
+                          <button className="save-button" onClick={saveEdit}>
+                            Save
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => deleteRow(index)}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="edit-button"
+                            onClick={() => toggleEdit(index)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => deleteRow(index)}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <form className="bottom-insert-form">
+              <div className="insert-row">
+                <div className="insert-col">
+                  <input
+                    type="text"
+                    className="insert-input"
+                    placeholder="Medicine Name"
+                    name="medicine"
+                    value={row1.medicine}
+                    onChange={handleChange1}
+                  />
+                </div>
+                <div className="insert-col">
+                  <input
+                    type="text"
+                    className="insert-input"
+                    placeholder="Price"
+                    name="price1"
+                    value={row1.price1}
+                    onChange={handleChange1}
+                  />
+                </div>
+                <div className="insert-col-auto">
+                  <button
+                    type="submit"
+                    className="insert-button"
+                    onClick={handleSubmit1}
+                  >
+                    Insert row
+                  </button>
+                </div>
+              </div>
+            </form>
+            <h4>Test Table</h4>
+            <table className="medicine-table">
+              <thead>
+                <tr>
+                  <th scope="col">S.NO</th>
+                  <th scope="col">Name of Test(s)</th>
+                  <th scope="col">Price(Rs.)</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {responses2.map((response, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      {editingIndex2 === index ? (
+                        <input
+                          type="text"
+                          name="test"
+                          className="form-control"
+                          value={response.test}
+                          onChange={(e) => handleChangeInRow2(e, index)}
+                        />
+                      ) : (
+                        response.test
+                      )}
+                    </td>
+                    <td>
+                      {editingIndex2 === index ? (
+                        <input
+                          type="text"
+                          name="price2"
+                          className="form-control"
+                          value={response.price2}
+                          onChange={(e) => handleChangeInRow2(e, index)}
+                        />
+                      ) : (
+                        response.price2
+                      )}
+                    </td>
+                    <td>
+                      {editingIndex2 === index ? (
+                        <>
+                          <button
+                            className="save-button"
+                            onClick={() => saveEdit2(index)}
+                          >
+                            Save
+                          </button>
+                          <button
+                            className="cancel-button"
+                            onClick={() => toggleEdit2(index)}
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="edit-button"
+                            onClick={() => toggleEdit2(index)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => deleteRow2(index)}
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <form className="bottom-insert-form" onSubmit={handleSubmit2}>
+              {" "}
+              {/* Use onSubmit to properly handle form submission */}
+              <div className="insert-row">
+                <div className="insert-col">
+                  <input
+                    type="text"
+                    className="insert-input"
+                    placeholder="Test Name"
+                    name="test"
+                    value={row2.test}
+                    onChange={handleChange2}
+                  />
+                </div>
+                <div className="insert-col">
+                  <input
+                    type="text"
+                    className="insert-input"
+                    placeholder="Price"
+                    name="price2"
+                    value={row2.price2}
+                    onChange={handleChange2}
+                  />
+                </div>
+                <div className="insert-col-auto">
+                  <button type="submit" className="insert-button">
+                    Insert row
+                  </button>
+                </div>
+              </div>
+            </form>
             <h2
               style={{
                 display: "flex",
@@ -597,11 +628,13 @@ const deleteRow2 = (index) => {
             >
               (PART B- For Indoor Patients, IPD)
             </h2>
-            Please download and fill the form provided below and attach it with the bills (in
-            jpg or jpeg format).
+            Please download and fill the form provided below and attach it with
+            the bills (in jpg or jpeg format).
             <br />
             <a href={ExampleDoc} download="IPD Form" target="_blank">
-              <Button style={{padding:"4px", marginTop:"10px"}}>Download IPD Form</Button>
+              <Button style={{ padding: "4px", marginTop: "10px" }}>
+                Download IPD Form
+              </Button>
             </a>
             <br></br>
             <br></br>
@@ -620,9 +653,7 @@ const deleteRow2 = (index) => {
                 <ul>{acceptedFileItems}</ul>
                 <h4>Rejected files</h4>
                 <ul>{fileRejectionItems}</ul>
-                <Button onClick={handleupload}>
-                  Upload
-                </Button>
+                <Button onClick={handleupload}>Upload</Button>
               </aside>
             </div>
             <br></br>
@@ -637,7 +668,7 @@ const deleteRow2 = (index) => {
             </Form.Label>
             <Form.Group>
               <Form.Check
-              id="checkbox2"
+                id="checkbox2"
                 type="checkbox"
                 label="It is certified that the patient has purchased the medicines as per the prescription of the treating doctor."
               />
