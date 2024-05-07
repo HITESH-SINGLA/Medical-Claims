@@ -473,7 +473,7 @@ function ShowApplication() {
                         <img id="logo" src={logo}></img>
                     </div>
                     <div>
-                       
+
                         <h5>भारतीय प्रौद्योगिकी संस्थान रोपड़</h5>
                         <h5>INDIAN INSTITUTE OF TECHNOLOGY ROPAR</h5>
                         <h6>रूपनगर, पंजाब-140001, Rupnagar, Punjab-140001</h6>
@@ -483,16 +483,18 @@ function ShowApplication() {
                         </h6>
                     </div>
                 </div>
-
-                <h5>
-    -----------------------------------------------------------------------------
-                </h5>
-                <div className="page1">
+                <div className="rrr">
+                    <h5>
+                        ------------------------------------------------------------------------------------------------------------------------------------------
+                    </h5>
                     <h6>
                         Form of application claiming reimbursement of medical
                         expenses incurred in connection with medical attendance
                         and/or treatment for self and family members/dependents.
                     </h6>
+                </div>
+                <div className="page1">
+
                     <Container>
                         <Form>
                             <Form.Group as={Row} className="mb-3">
@@ -580,7 +582,7 @@ function ShowApplication() {
                                         <Form.Control
                                             type="text" style={{
                                                 padding: "12px",
-                                                border:"none",
+                                                border: "none",
                                                 backgroundColor: "white",
                                                 borderBottom: "2px solid black", // Adjust thickness and color as needed
                                                 borderRadius: "0", // This ensures edges are not rounded
@@ -618,9 +620,9 @@ function ShowApplication() {
                                         <Form.Control
                                             type="text" style={{
                                                 padding: "12px",
-                                               
+
                                                 backgroundColor: "white",
-                                                border:"none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
                                                 borderRadius: "0", // This ensures edges are not rounded
                                             }}
 
@@ -879,157 +881,157 @@ function ShowApplication() {
             </Container>
 
             <Container>
-    <div className="Page2">
-        <h2>(I) Medical Attendance</h2>
+                <div className="Page2">
+                    <h2>(I) Medical Attendance</h2>
 
-        {Object.keys(result_json2).map((key, index) => (
-            <div key={index}>
-                <h3>Medical Attendance {1+index}</h3>
-                <h5>(i) Fee for consultation indicating {1}</h5>
-                <Container>
-                    <Form>
-                        <Form.Group as={Row} className="mb-3">
-                            <div id="line">
-                                <Form.Label id="form_line" column sm="5">
-                                    (a) the name & designation of the
-                                    Medical Officer consulted and hospital
-                                    or dispensary to which attached
-                                </Form.Label>
-                                <Col id="text" sm="5">
-                                    <Form.Control
-                                        type="text"
-                                        style={{
-                                                padding: "12px",
-                                                backgroundColor: "white",
-                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
-                                                borderRadius: "0", // This ensures edges are not rounded
-                                            }}
-                                        placeholder={
-                                            result_json2[key]["name"] || "-"
-                                        }
-                                        readOnly
-                                    />
-                                </Col>
-                            </div>
-                        </Form.Group>
+                    {Object.keys(result_json2).map((key, index) => (
+                        <div key={index}>
+                            <h3>Medical Attendance {1 + index}</h3>
+                            <h5>(i) Fee for consultation indicating {1}</h5>
+                            <Container>
+                                <Form>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <div id="line">
+                                            <Form.Label id="form_line" column sm="5">
+                                                (a) the name & designation of the
+                                                Medical Officer consulted and hospital
+                                                or dispensary to which attached
+                                            </Form.Label>
+                                            <Col id="text" sm="5">
+                                                <Form.Control
+                                                    type="text"
+                                                    style={{
+                                                        padding: "12px",
+                                                        backgroundColor: "white",
+                                                        border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                        borderRadius: "0", // This ensures edges are not rounded
+                                                    }}
+                                                    placeholder={
+                                                        result_json2[key]["name"] || "-"
+                                                    }
+                                                    readOnly
+                                                />
+                                            </Col>
+                                        </div>
+                                    </Form.Group>
 
-                        <Form.Group as={Row} className="mb-3">
-                            <div id="line">
-                                <Form.Label id="form_line" column sm="5">
-                                    (b) the number and dates of consultation
-                                    and the fee paid for each consultation
-                                </Form.Label>
-                                <Col id="text" sm="5">
-                                    <Form.Control
-                                        type="text"
-                                        style={{
-                                                padding: "12px",
-                                                backgroundColor: "white",
-                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
-                                                borderRadius: "0", // This ensures edges are not rounded
-                                            }}
-                                        placeholder={
-                                            result_json2[key]["numDatesFeeCon"] ||
-                                            "-"
-                                        }
-                                        readOnly
-                                    />
-                                </Col>
-                            </div>
-                        </Form.Group>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <div id="line">
+                                            <Form.Label id="form_line" column sm="5">
+                                                (b) the number and dates of consultation
+                                                and the fee paid for each consultation
+                                            </Form.Label>
+                                            <Col id="text" sm="5">
+                                                <Form.Control
+                                                    type="text"
+                                                    style={{
+                                                        padding: "12px",
+                                                        backgroundColor: "white",
+                                                        border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                        borderRadius: "0", // This ensures edges are not rounded
+                                                    }}
+                                                    placeholder={
+                                                        result_json2[key]["numDatesFeeCon"] ||
+                                                        "-"
+                                                    }
+                                                    readOnly
+                                                />
+                                            </Col>
+                                        </div>
+                                    </Form.Group>
 
-                        <Form.Group as={Row} className="mb-3">
-                            <div id="line">
-                                <Form.Label id="form_line" column sm="5">
-                                    (c) the number & dates of injection &
-                                    the fee paid for each injection
-                                </Form.Label>
-                                <Col id="text" sm="5">
-                                    <Form.Control
-                                        type="text"
-                                        style={{
-                                                padding: "12px",
-                                                backgroundColor: "white",
-                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
-                                                borderRadius: "0", // This ensures edges are not rounded
-                                            }}
-                                        placeholder={
-                                            result_json2[key]["numDatesFeeInj"] ||
-                                            "-"
-                                        }
-                                        readOnly
-                                    />
-                                </Col>
-                            </div>
-                        </Form.Group>
-                    </Form>
-                </Container>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <div id="line">
+                                            <Form.Label id="form_line" column sm="5">
+                                                (c) the number & dates of injection &
+                                                the fee paid for each injection
+                                            </Form.Label>
+                                            <Col id="text" sm="5">
+                                                <Form.Control
+                                                    type="text"
+                                                    style={{
+                                                        padding: "12px",
+                                                        backgroundColor: "white",
+                                                        border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                        borderRadius: "0", // This ensures edges are not rounded
+                                                    }}
+                                                    placeholder={
+                                                        result_json2[key]["numDatesFeeInj"] ||
+                                                        "-"
+                                                    }
+                                                    readOnly
+                                                />
+                                            </Col>
+                                        </div>
+                                    </Form.Group>
+                                </Form>
+                            </Container>
 
-                <h5>
-                    (ii) Charges for pathological, Radiological or other
-                    similar tests undertaken during diagnosis indicating the
-                    test name and the charges incurred
-                </h5>
-                <Container>
-                    <Form>
-                        <Form.Group as={Row} className="mb-3">
-                            <div id="line">
-                                <Form.Label id="form_line" column sm="5">
-                                    (a) Name of the hospital or laboratory
-                                    where any radiological tests were
-                                    undertaken
-                                </Form.Label>
-                                <Col id="text" sm="5">
-                                    <Form.Control
-                                        type="text"
-                                        style={{
-                                                padding: "12px",
-                                                backgroundColor: "white",
-                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
-                                                borderRadius: "0", // This ensures edges are not rounded
-                                            }}
-                                        placeholder={
-                                            result_json2[key]["hospitalName"] ||
-                                            "-"
-                                        }
-                                        readOnly
-                                    />
-                                </Col>
-                            </div>
-                        </Form.Group>
+                            <h5>
+                                (ii) Charges for pathological, Radiological or other
+                                similar tests undertaken during diagnosis indicating the
+                                test name and the charges incurred
+                            </h5>
+                            <Container>
+                                <Form>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <div id="line">
+                                            <Form.Label id="form_line" column sm="5">
+                                                (a) Name of the hospital or laboratory
+                                                where any radiological tests were
+                                                undertaken
+                                            </Form.Label>
+                                            <Col id="text" sm="5">
+                                                <Form.Control
+                                                    type="text"
+                                                    style={{
+                                                        padding: "12px",
+                                                        backgroundColor: "white",
+                                                        border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                        borderRadius: "0", // This ensures edges are not rounded
+                                                    }}
+                                                    placeholder={
+                                                        result_json2[key]["hospitalName"] ||
+                                                        "-"
+                                                    }
+                                                    readOnly
+                                                />
+                                            </Col>
+                                        </div>
+                                    </Form.Group>
 
-                        <Form.Group as={Row} className="mb-3">
-                            <div id="line">
-                                <Form.Label id="form_line" column sm="5">
-                                    <h5>
-                                        (iii) Cost of medicines purchased
-                                        from the market :
-                                    </h5>
-                                </Form.Label>
-                                <Col id="text" sm="5">
-                                    <Form.Control
-                                        type="text"
-                                        style={{
-                                                padding: "12px",
-                                                backgroundColor: "white",
-                                                border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
-                                                borderRadius: "0", // This ensures edges are not rounded
-                                            }}
-                                        placeholder={
-                                            result_json2[key]["costMedicine"] ||
-                                            "-"
-                                        }
-                                        readOnly
-                                    />
-                                </Col>
-                            </div>
-                        </Form.Group>
-                    </Form>
-                </Container>
-            </div>
-        ))}
-    </div>
-</Container>
+                                    <Form.Group as={Row} className="mb-3">
+                                        <div id="line">
+                                            <Form.Label id="form_line" column sm="5">
+                                                <h5>
+                                                    (iii) Cost of medicines purchased
+                                                    from the market :
+                                                </h5>
+                                            </Form.Label>
+                                            <Col id="text" sm="5">
+                                                <Form.Control
+                                                    type="text"
+                                                    style={{
+                                                        padding: "12px",
+                                                        backgroundColor: "white",
+                                                        border: "none", borderBottom: "2px solid black", // Adjust thickness and color as needed
+                                                        borderRadius: "0", // This ensures edges are not rounded
+                                                    }}
+                                                    placeholder={
+                                                        result_json2[key]["costMedicine"] ||
+                                                        "-"
+                                                    }
+                                                    readOnly
+                                                />
+                                            </Col>
+                                        </div>
+                                    </Form.Group>
+                                </Form>
+                            </Container>
+                        </div>
+                    ))}
+                </div>
+            </Container>
 
             <Container>
                 <h2>(II) Consultation with Specialist</h2>
@@ -1306,8 +1308,8 @@ function ShowApplication() {
                         </Form.Group>
 
                         <br />
-                       
-                     
+
+
                         <br />
                         <br />
 
