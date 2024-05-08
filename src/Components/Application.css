@@ -93,7 +93,6 @@
         margin-left: 10%;
         margin-right: -100%;  
     }
- 
   
     .form-control {
       border: 0;
@@ -105,6 +104,33 @@
     .btn {
       display: none;
     }
-   
+    .statusss {
+        /* text-align: center; */
+        white-space: nowrap; 
+        margin-left: 20%;/* Prevent line breaks */
+    }
+    .statussss {
+        text-align: center;
+        white-space: nowrap;
+        margin-left: -10%;
+    }
+    #table1,
+    #table2 {
+        width: 140%; /* Adjust width as needed */
+        margin-left: 25%;  /* Center tables */
+        text-align: center; /* Center table contents */
+    }
+
+    .figure {
+        text-align: center; /* Center images */
+        margin-left: 25%;  /* Center images */
+    }
+
+    .figure-img {
+        max-width: 150%; /* Ensure images fit within page width */
+        height: auto;
+        display: block; /* Prevent inline spacing */
+        margin-left: 25%; /* Center images */
+    }
   }
   
