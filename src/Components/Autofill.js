@@ -5,8 +5,8 @@ import { Row, Col, Container, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "./Home.css";
 import "./Autofill.css";
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 function Autofill() {
   const email = localStorage.getItem("email");
@@ -54,6 +54,23 @@ function Autofill() {
 
   const saveBasicDetails = async (e) => {
     e.preventDefault();
+
+    // Check if any of the required fields are empty
+    const requiredFields = [
+      "name",
+      "martial_status",
+      "partner_place",
+      "Mobile_number",
+      "employee_code_no",
+      "pay",
+      "address",
+    ];
+    const emptyFields = requiredFields.filter((field) => !user[field]);
+
+    if (emptyFields.length > 0) {
+      alert(`Please fill in the following fields: ${emptyFields.join(", ")}`);
+      return;
+    }
     user["email"] = email;
 
     const res = await fetch("http://127.0.0.1:5000/basicDetails", {
@@ -92,17 +109,17 @@ function Autofill() {
         <h2 class="text_center">Menu</h2>
         <br />
         <ul class="nav nav-pills flex-column mb-auto">
-        <Link
+          <Link
             id="link_to_other_pages"
             to="/Home"
             style={{ textDecoration: "none" }}
           >
-          <li class="nav-item">
-            <a href="#" class="nav-link text-white">
-              <i class="fa fa-home"></i>
-              <span class="ms-2 font_size_18">Home </span>
-            </a>
-          </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-white">
+                <i class="fa fa-home"></i>
+                <span class="ms-2 font_size_18">Home </span>
+              </a>
+            </li>
           </Link>
 
           <Link
@@ -111,7 +128,7 @@ function Autofill() {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <a href="#" class="nav-link text-white active" >
+              <a href="#" class="nav-link text-white active">
                 <i class="fa fa-first-order"></i>
                 <span class="ms-2 font_size_18">Auto Fill</span>
               </a>
@@ -124,10 +141,7 @@ function Autofill() {
             style={{ textDecoration: "none" }}
           >
             <li>
-              <a
-                class="nav-link text-white"
-                href="#"
-              >
+              <a class="nav-link text-white" href="#">
                 <i class="fa fa-first-order"></i>
                 <span class="ms-2 font_size_18">Approved applications</span>
               </a>
@@ -144,33 +158,33 @@ function Autofill() {
       </div>
 
       <div style={{ marginBottom: "50px", width: "100%" }}>
-        
-      <div className="main-content">
-        <div className="top-navbar">
-          <div className="btns">
-            <Link to="/Home/Instructions" className="btn">
-              <div className="inst-button">Instructions</div>
-            </Link>
-            <Link to="/Page1" className="btn">
-              <div className="apply-button">Apply for Reimbursement</div>
-            </Link>
-          </div>
-          <div className="welcome">
-          <div className="welcome-icon">
-  <i className="fas fa-user-circle" ></i> {/* Add margin to move the icon */}
-</div>
+        <div className="main-content">
+          <div className="top-navbar">
+            <div className="btns">
+              <Link to="/Home/Instructions" className="btn">
+                <div className="inst-button">Instructions</div>
+              </Link>
+              <Link to="/Page1" className="btn">
+                <div className="apply-button">Apply for Reimbursement</div>
+              </Link>
+            </div>
+            <div className="welcome">
+              <div className="welcome-icon">
+                <i className="fas fa-user-circle"></i>{" "}
+                {/* Add margin to move the icon */}
+              </div>
 
-            <div className="welcome-text">
-
-              <div className="name">Mohit</div> {/* Replace [Dummy Name] with "Mohit" */}
-              <div className="email">
-                <i className="fas fa-envelope"></i> {email} {/* You can use envelope icon for email */}
+              <div className="welcome-text">
+                <div className="name">Mohit</div>{" "}
+                {/* Replace [Dummy Name] with "Mohit" */}
+                <div className="email">
+                  <i className="fas fa-envelope"></i> {email}{" "}
+                  {/* You can use envelope icon for email */}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
-        
 
         <div class="heading" style={{ marginLeft: "30px" }}>
           <br />
@@ -190,10 +204,13 @@ function Autofill() {
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
                     1. Name & Designation of Govt. Servant (In Block Letters) -
+                    *
                   </Form.Label>
                   <Col sm="7">
-                    <Form.Control required
-                      type="text" style = {{padding : "12px", width:"450px"}}
+                    <Form.Control
+                      required
+                      type="text"
+                      style={{ padding: "12px", width: "450px" }}
                       name="name"
                       defaultValue={user.name}
                       onChange={(e) =>
@@ -203,16 +220,17 @@ function Autofill() {
                         })
                       }
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
-                    (i) Whether married or unmarried -
+                    (i) Whether married or unmarried - *
                   </Form.Label>
                   <Col sm="7">
-                    <Form.Control required
-                      type="text" style = {{padding : "12px", width:"450px"}}
+                    <Form.Control
+                      required
+                      type="text"
+                      style={{ padding: "12px", width: "450px" }}
                       name="martial_status"
                       defaultValue={user.martial_status}
                       onChange={(e) =>
@@ -222,17 +240,18 @@ function Autofill() {
                         })
                       }
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
                     (ii) If married, the place where wife / husband is employed
-                    -
+                    - *
                   </Form.Label>
                   <Col sm="7">
-                    <Form.Control required
-                      type="text" style = {{padding : "12px", width:"450px"}}
+                    <Form.Control
+                      required
+                      type="text"
+                      style={{ padding: "12px", width: "450px" }}
                       name="partner_place"
                       defaultValue={user.partner_place}
                       onChange={(e) =>
@@ -242,40 +261,46 @@ function Autofill() {
                         })
                       }
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
-                    2. Mobile number
+                    2. Mobile number - *
                   </Form.Label>
                   <Form.Label column sm="7">
                     <PhoneInput
-                      country={'in'}
+                      country={"in"}
                       value={user.Mobile_number}
-                      onChange={(e) => setUser({...user, Mobile_number: e, })}
+                      onChange={(e) => setUser({ ...user, Mobile_number: e })}
                     />
                   </Form.Label>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
-                    3. Employees Code No., Deptt/ Section -
+                    3. Employees Code No., Deptt/ Section - *
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control required type="text" style = {{padding : "12px", width:"450px"}} name="employee_code_no" defaultValue={user.employee_code_no}
-                      onChange={(e) => setUser({...user, employee_code_no: e.target.value, })}
+                    <Form.Control
+                      required
+                      type="text"
+                      style={{ padding: "12px", width: "450px" }}
+                      name="employee_code_no"
+                      defaultValue={user.employee_code_no}
+                      onChange={(e) =>
+                        setUser({ ...user, employee_code_no: e.target.value })
+                      }
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Form.Label>
                 </Form.Group>
-
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
-                    4. Pay of Govt. Servant (Band Pay & Grade Pay) -
+                    4. Pay of Govt. Servant (Band Pay & Grade Pay) - *
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control required
-                      type="text" style = {{padding : "12px", width:"450px"}}
+                    <Form.Control
+                      required
+                      type="text"
+                      style={{ padding: "12px", width: "450px" }}
                       name="pay"
                       defaultValue={user.pay}
                       onChange={(e) =>
@@ -285,16 +310,17 @@ function Autofill() {
                         })
                       }
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Form.Label>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3">
                   <Form.Label column sm="5">
-                    5. Residential address -
+                    5. Residential address - *
                   </Form.Label>
                   <Form.Label column sm="7">
-                    <Form.Control required
-                      type="text" style = {{padding : "12px", width:"450px"}}
+                    <Form.Control
+                      required
+                      type="text"
+                      style={{ padding: "12px", width: "450px" }}
                       name="address"
                       defaultValue={user.address}
                       onChange={(e) =>
@@ -304,9 +330,9 @@ function Autofill() {
                         })
                       }
                     />
-                    {/* {user.errors.name && <p>{user.errors.name}</p>} */}
                   </Form.Label>
                 </Form.Group>
+
                 <br />
                 <div class="heading">
                   <Button type="button" onClick={saveBasicDetails}>

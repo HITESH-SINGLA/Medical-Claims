@@ -76,10 +76,10 @@ function Director() {
           comparison = a[0] - b[0];
           break;
         case "date":
-          comparison = new Date(a[4].user.date) - new Date(b[4].user.date);
+          comparison = new Date(a[1].user.date) - new Date(b[1].user.date);
           break;
         case "amount":
-          comparison = a[4].user.amountClaimed - b[4].user.amountClaimed;
+          comparison = a[1].user.amountClaimed - b[1].user.amountClaimed;
           break;
         default:
           break;

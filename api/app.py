@@ -381,8 +381,8 @@ def updateStatus():
         id = '\'' + request_data["authorityUser"]["application_id"] + '\''
         email_id = '\'' + request_data["authorityUser"]["email"] + '\''
         applicationStatus = '\'' + request_data["authorityUser"]["applicationStatus"] + '\''
-        remarks = '\''+request_data["authorityUser"]["current_auth_remarks"][0]+ '\''
-        # print(request_data["authorityUser"])
+        remarks = '\''+request_data["authorityUser"]["remarks"]+ '\''
+        # print(request_data["authorityUser"]["current_auth_remarks"])
         
         # remarks = request_data["authorityUser"]["remarks"] + '\'' # Get the value of "remarks" or '' if it doesn't exist or is None
 
@@ -680,7 +680,8 @@ def getallApplicationId():
        
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4], item[6]])
+            if(item[4]!=""):
+               result_arr.append([str(item[0]), item[4], item[6]])
             
             
         print(result_arr)
@@ -1104,7 +1105,8 @@ def getallApplicationIdForDirector():
         result = g.db_cursor.fetchall()
         result_arr = []
         for item in result:
-            result_arr.append([str(item[0]), item[4], item[12]])
+            print(item[18])
+            result_arr.append([str(item[0]), item[4], item[18]])
 
         return {"status": "ok","result": result_arr}
 
@@ -1377,7 +1379,7 @@ def getData_from_accounttable(id):
 
         g.db_cursor.execute(query)
         result = g.db_cursor.fetchone()
-        # print("line 140",result)
+        print("line 140",result)
         # print(type(result[1]))
         # print(json.loads(result[1]))
         
@@ -1403,7 +1405,7 @@ def resubmitApplication():
 
         application_id = request_data["application_id"]
         page1 = '\'' + json.dumps(request_data["page1"]) + '\''
-        page2 = '\'' + json.dumps(request_data["page2"]) + '\''
+        page2 = '\'''\''
         page3 = '\'' + json.dumps(request_data["page3"]) + '\''
         page4 = '\'' + json.dumps(request_data["page4"]) + '\''
 
@@ -1469,11 +1471,11 @@ def getRemarks(id):
         elif(email_id == 'medical.officer.901@gmail.com'):
             query = f"select medical_officer_remarks from application where application_id = {id}"
         elif(email_id == 'junioracc.xyz901@gmail.com'):
-            query = f"select DA_JAO_remarks from application where application_id = {id}"
+            query = f"""select "DA_JAO_remarks" from application where application_id = {id}"""
         elif(email_id == 'assessing.officer.901@gmail.com'):
-            query = f"select AO_remarks from application where application_id = {id}"
+            query = f"""select "AO_remarks" from application where application_id = {id}"""
         elif(email_id == 'senior.audit.901@gmail.com'):
-            query = f"select Sr_AO_remarks from application where application_id = {id}"
+            query = f"""select "Sr_AO_remarks" from application where application_id = {id}"""
         elif(email_id == 'registrar.officer.901@gmail.com'):
             query = f"select registrar_remarks from application where application_id = {id}"
         elif(email_id == 'directorxyz@gmail.com'):
@@ -1481,6 +1483,7 @@ def getRemarks(id):
         print("line 990:",query)
         g.db_cursor.execute(query)
         authority_remarks = g.db_cursor.fetchone()
+        print(authority_remarks)
         g.db_conn.commit()
         
         

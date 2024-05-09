@@ -132,7 +132,8 @@ function ShowApplicationToPharmaMed() {
         authorityUser["email"] = email
         authorityUser["application_id"] = id
         authorityUser["applicationStatus"] = "approved"
-        console.log(e)
+        // console.log(authorityUser["applicationStatus"]["current_auth_remarks"])
+        // console.log(e)
 
         const res = await fetch(
             "http://127.0.0.1:5000/updateStatus",
@@ -190,9 +191,10 @@ function ShowApplicationToPharmaMed() {
         authorityUser["email"] = email
         authorityUser["application_id"] = id
         authorityUser["applicationStatus"] = "rejected"
-        console.log(e)
+        
+        console.log(authorityUser)
         const res = await fetch(
-            "http://127.0.0.1:5000//updateStatus",
+            "http://127.0.0.1:5000/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -960,15 +962,18 @@ function ShowApplicationToPharmaMed() {
                                             }
                                             onChange={(e) =>
                                                 setauthorityUser({
-                                                    ...authorityUser,
-                                                    remarks: e.target.value,
-                                                })
+                email: authorityUser.email,
+                remarks: e.target.value,
+                applicationStatus: authorityUser.applicationStatus,
+                application_id: authorityUser.application_id,
+            })
+                                                
                                             }
                                         ></Form.Control>
                                     </Col>
                                     <Col>
                                         <Button
-                                            style={{ marginLeft: "100px" }}
+                                            style={{ marginTop: "40px" }}
                                             value="approved"
                                             onClick={updateStatus_A}
                                         >
@@ -978,7 +983,7 @@ function ShowApplicationToPharmaMed() {
                                     <Col>
                                         <Button
                                             variant="warning"
-                                            style={{ marginLeft: "50px" }}
+                                            style={{ marginTop: "40px" }}
                                             value="rejected"
                                             onClick={updateStatus_H}
                                         >
@@ -988,7 +993,7 @@ function ShowApplicationToPharmaMed() {
                                     <Col>
                                         <Button
                                             variant="danger"
-                                            style={{ marginLeft: "100px" }}
+                                            style={{ marginTop: "40px" }}
                                             value="rejected"
                                             onClick={updateStatus_R}
                                         >
