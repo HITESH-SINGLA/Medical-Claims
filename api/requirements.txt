@@ -9,8 +9,8 @@ coverage==6.3.2
 cycler==0.11.0
 distlib==0.3.4
 filelock==3.6.0
-Flask==2.0.3
-Flask-Cors==3.0.10
+Flask==3.0.3
+Flask-Cors==4.0.1
 fonttools==4.31.2
 greenlet==1.1.2
 gunicorn==20.1.0
@@ -27,7 +27,7 @@ pipenv==2022.1.8
 platformdirs==2.5.1
 pluggy==1.0.0
 protobuf==3.19.4
-psycopg2==2.9.3
+psycopg2==2.9.9
 py==1.11.0
 pydantic==1.9.0
 pyparsing==3.0.7
@@ -45,9 +45,5 @@ uvicorn==0.17.5
 virtualenv==20.13.3
 virtualenv-clone==0.5.7
 Werkzeug==2.0.3
-flask_mail
-flask==3.0.3
-flask_cors==4.0.1
 flask_mail==0.9.1
-psycopg2==2.9.9
 flask_caching==2.3.0
