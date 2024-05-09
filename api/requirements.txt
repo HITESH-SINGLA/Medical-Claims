@@ -12,7 +12,6 @@ distlib==0.3.4
 filelock==3.6.0
 Flask==2.0.3
 Flask-Cors==3.0.10
-Flask-SQLAlchemy>=2.5.1
 fonttools==4.31.2
 greenlet==1.1.2
 gunicorn==20.1.0
