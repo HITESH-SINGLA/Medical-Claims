@@ -33,8 +33,24 @@ function Page2() {
   };
 
   const saveAllForms = async () => {
+    // Check if any form field is empty
+    const isAnyFieldEmpty = forms.some(form => {
+      return (
+        form.name.trim() === "" ||
+        form.numDatesFeeCon.trim() === "" ||
+        form.numDatesFeeInj.trim() === "" ||
+        form.hospitalName.trim() === "" ||
+        form.costMedicine.trim() === ""
+      );
+    });
+  
+    if (isAnyFieldEmpty) {
+      alert("Please fill in all fields before saving the forms.");
+      return;
+    }
+  
     try {
-      const response = await fetch("http://localhost:5000/save_form", {
+      const response = await fetch("http://172.30.2.244:5006/save_form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +60,7 @@ function Page2() {
       const data = await response.json();
       console.log(data.application_id);
       localStorage.setItem("application_id", data.application_id);
-
+  
       navigate("./Page3");
       return true;
     } catch (error) {
@@ -52,6 +68,7 @@ function Page2() {
       return false;
     }
   };
+  
 
   const handleLogout = () => {
     localStorage.removeItem("email");
