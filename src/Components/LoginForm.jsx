@@ -88,7 +88,7 @@ const LoginForm = () => {
         <div>
           <nav className="navbar navbar-dark bg-dark border-bottom border-body">
             <div className="container-fluid">
-              <a href="http://localhost:3000/" className="navbar-brand">
+              <a href="/" className="navbar-brand">
                 <img
                   className="logoimg"
                   src="./logo.png"
