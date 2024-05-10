@@ -24,7 +24,7 @@ function DAorJAO() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForDAorJAO",
+      "http://172.30.2.244:5003/getallApplicationIdForDAorJAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data: { email } }), // Send email under "user_data" key

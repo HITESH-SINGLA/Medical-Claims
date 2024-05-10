@@ -47,7 +47,7 @@ function SrAO_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApprovedApplicationIdFromSrAO",
+      "http://172.30.2.244:5003/getallApprovedApplicationIdFromSrAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

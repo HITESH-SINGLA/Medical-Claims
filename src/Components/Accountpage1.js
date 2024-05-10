@@ -243,7 +243,7 @@ function Accountpage1() {
     setResponses1([]);
     setResponses2([]);
 
-    const res = await fetch("http://127.0.0.1:5000/check_user", {
+    const res = await fetch("http://172.30.2.244:5003/check_user", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },
@@ -254,7 +254,7 @@ function Accountpage1() {
 
   const handleupload = async () => {
     const email1 = email;
-    const id = await fetch("http://127.0.0.1:5000/get_application_id", {
+    const id = await fetch("http://172.30.2.244:5003/get_application_id", {
       method: "POST",
       body: JSON.stringify({ email1 }),
       headers: { "Content-Type": "application/json" },

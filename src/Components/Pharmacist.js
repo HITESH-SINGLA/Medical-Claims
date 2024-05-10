@@ -27,7 +27,7 @@ function Pharmacist() {
   const [result_arr, setresult_arr] = useState([]);
 
   const getApplicationId = async () => {
-    const res = await fetch("http://127.0.0.1:5000/getallApplicationId", {
+    const res = await fetch("http://172.30.2.244:5003/getallApplicationId", {
       method: "POST",
       body: JSON.stringify({ user_data }),
       headers: { "Content-Type": "application/json" },

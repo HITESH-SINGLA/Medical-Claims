@@ -30,7 +30,7 @@ function Home_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApprovedApplicationId",
+      "http://172.30.2.244:5003/getallApprovedApplicationId",
       {
         method: "POST",
         body: JSON.stringify({ email: email }),

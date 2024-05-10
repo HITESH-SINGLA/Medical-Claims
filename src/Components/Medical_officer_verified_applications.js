@@ -24,7 +24,7 @@ function Medical_officer_verified_applications() {
 
   const getallApplicationIdFromPharmacist = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApprovedApplicationIdFromMedicalOff",
+      "http://172.30.2.244:5003/getallApprovedApplicationIdFromMedicalOff",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

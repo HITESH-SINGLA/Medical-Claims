@@ -30,7 +30,7 @@ function Medical_officer() {
 
   const getallApplicationIdFromPharmacist = async () => {
     const res = await fetch(
-      "http://127.0.0.1:5000/getallApplicationIdForMedicalOff",
+      "http://172.30.2.244:5003/getallApplicationIdForMedicalOff",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

@@ -19,7 +19,7 @@ function Home() {
     const getApplicationId = async () => {
       try {
         const res = await fetch(
-          "http://127.0.0.1:5000/getallApplicationIdForHome",
+          "http://172.30.2.244:5003/getallApplicationIdForHome",
           {
             method: "POST",
             body: JSON.stringify({ email: getEmail }),

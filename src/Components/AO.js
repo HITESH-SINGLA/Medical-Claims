@@ -20,7 +20,7 @@ function AO() {
 
   const getApplicationId = async () => {
     try {
-      const res = await fetch("http://127.0.0.1:5000/getallApplicationIdForAO", {
+      const res = await fetch("http://172.30.2.244:5003/getallApplicationIdForAO", {
         method: "POST",
         body: JSON.stringify({ user_data: { email } }),
         headers: { "Content-Type": "application/json" },

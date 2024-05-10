@@ -36,7 +36,7 @@ function SignupPage() {
 
     event.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:5000/userexist", {
+      const response = await axios.post("http://172.30.2.244:5003/userexist", {
         email,
       });
       console.log(email);
@@ -52,7 +52,7 @@ function SignupPage() {
         //write a route for sending thr otp by mail only
 
         try {
-          const response = await axios.post("http://127.0.0.1:5000/sendotp", {
+          const response = await axios.post("http://172.30.2.244:5003/sendotp", {
             email: email,
             otp: gotp,
           });
