@@ -24,13 +24,10 @@ class DatabasePool:
         DatabasePool._connection_pool.closeall()
 
 # Initialize the pool when the application starts
-DatabasePool.initialize_pool(dbname="medicalclaimsdb", 
-                             user="dep1", 
-                             password="medicalclaims", 
-                             host="localhost",
-                             port=5432)  # Replace 5432 with the actual port number if different
-
-
+DatabasePool.initialize_pool(dbname="ccllhwkz", 
+                             user="ccllhwkz", 
+                             password="L95oB6NUPitwNQfsCBb4fqhYkFtu1oAS", 
+                             host="abul.db.elephantsql.com")
 
 
 
