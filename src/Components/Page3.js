@@ -66,7 +66,7 @@ function Page3() {
       return;
     } else {
       const res = await fetch(
-        "http://127.0.0.1:5006/check_user",
+        "http://172.30.2.244:5006/check_user",
         {
           method: "POST",
           body: JSON.stringify({ user }),

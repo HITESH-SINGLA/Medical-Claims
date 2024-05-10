@@ -20,7 +20,7 @@ function AccountSection() {
 
     const getApplicationId = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5006/getallApplicationIdFromMedicalOff",
+            "http://172.30.2.244:5006/getallApplicationIdFromMedicalOff",
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),

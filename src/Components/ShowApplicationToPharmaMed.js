@@ -30,7 +30,7 @@ function ShowApplicationToPharmaMed() {
 
     const getData2 = async () => {
         const res2 = await fetch(
-            "http://127.0.0.1:5006/get_medical_attendance",
+            "http://172.30.2.244:5006/get_medical_attendance",
             {
                 method: "POST",
                 body: JSON.stringify({ "application_id": id }),
@@ -99,7 +99,7 @@ function ShowApplicationToPharmaMed() {
 
     const getData = async () => {
         const res = await fetch(
-            "http://127.0.0.1:5006/showallApplicationId/" + id,
+            "http://172.30.2.244:5006/showallApplicationId/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ user_data }),
@@ -136,7 +136,7 @@ function ShowApplicationToPharmaMed() {
         // console.log(e)
 
         const res = await fetch(
-            "http://127.0.0.1:5006/updateStatus",
+            "http://172.30.2.244:5006/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -165,7 +165,7 @@ function ShowApplicationToPharmaMed() {
         console.log(e)
 
         const res = await fetch(
-            "http://127.0.0.1:5006//updateStatus",
+            "http://172.30.2.244:5006//updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -194,7 +194,7 @@ function ShowApplicationToPharmaMed() {
         
         console.log(authorityUser)
         const res = await fetch(
-            "http://127.0.0.1:5006/updateStatus",
+            "http://172.30.2.244:5006/updateStatus",
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),
@@ -218,7 +218,7 @@ function ShowApplicationToPharmaMed() {
     const getRemarks = async () => {
         authorityUser["email"] = email
         const res = await fetch(
-            "http://127.0.0.1:5006/getRemarks/" + id,
+            "http://172.30.2.244:5006/getRemarks/" + id,
             {
                 method: "POST",
                 body: JSON.stringify({ authorityUser }),

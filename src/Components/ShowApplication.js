@@ -186,7 +186,7 @@ function ShowApplication() {
   });
 
   const getData2 = async () => {
-    const res2 = await fetch("http://127.0.0.1:5006/get_medical_attendance", {
+    const res2 = await fetch("http://172.30.2.244:5006/get_medical_attendance", {
       method: "POST",
       body: JSON.stringify({ application_id: id }),
       headers: { "Content-Type": "application/json" },
@@ -199,7 +199,7 @@ function ShowApplication() {
   };
 
   const getData = async () => {
-    const res = await fetch("http://127.0.0.1:5006/showApplicationId/" + id, {
+    const res = await fetch("http://172.30.2.244:5006/showApplicationId/" + id, {
       method: "POST",
       body: JSON.stringify({ user_data }),
       headers: { "Content-Type": "application/json" },
@@ -225,7 +225,7 @@ function ShowApplication() {
 
   const getStatus = async () => {
     const res2 = await fetch(
-      "http://127.0.0.1:5006/showApplicationIdStatus/" + id,
+      "http://172.30.2.244:5006/showApplicationIdStatus/" + id,
       {
         method: "POST",
         body: JSON.stringify({ user_data }),
@@ -427,7 +427,7 @@ function ShowApplication() {
         "Fields which are marked as 'required' are compulsory to fill.\nMake sure you fill them all."
       );
     } else {
-      const res4 = await fetch("http://127.0.0.1:5006/resubmitApplication", {
+      const res4 = await fetch("http://172.30.2.244:5006/resubmitApplication", {
         method: "POST",
         body: JSON.stringify({
           ...new_obj,

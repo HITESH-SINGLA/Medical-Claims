@@ -22,7 +22,7 @@ const LoginForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:5006/login", {
+      const response = await axios.post("http://172.30.2.244:5006/login", {
         email,
       });
 
