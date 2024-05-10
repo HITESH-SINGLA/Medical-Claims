@@ -36,7 +36,7 @@ function Autofill() {
   const getBasicDetails = async () => {
     user["email"] = email;
 
-    const res2 = await fetch("http://172.30.2.244:5003/getbasicDetails", {
+    const res2 = await fetch("http://127.0.0.1:5006/getbasicDetails", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ function Autofill() {
     }
     user["email"] = email;
 
-    const res = await fetch("http://172.30.2.244:5003/basicDetails", {
+    const res = await fetch("http://127.0.0.1:5006/basicDetails", {
       method: "POST",
       body: JSON.stringify({ user }),
       headers: { "Content-Type": "application/json" },

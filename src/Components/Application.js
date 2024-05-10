@@ -83,7 +83,7 @@ const Application = () => {
   });
 
   const getData2 = async () => {
-    const res2 = await fetch("http://172.30.2.244:5003/get_medical_attendance", {
+    const res2 = await fetch("http://127.0.0.1:5006/get_medical_attendance", {
       method: "POST",
       body: JSON.stringify({
         application_id: localStorage.getItem("application_id"),
@@ -98,7 +98,7 @@ const Application = () => {
   };
 
   const getData = async () => {
-    const res = await fetch("http://172.30.2.244:5003/getData", {
+    const res = await fetch("http://127.0.0.1:5006/getData", {
       method: "POST",
       body: JSON.stringify({ user_data }),
       headers: { "Content-Type": "application/json" },

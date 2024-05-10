@@ -36,7 +36,7 @@ const Page1 = () => {
     user["email"] = email;
 
     const res2 = await fetch(
-      "http://172.30.2.244:5003/getbasicDetails",
+      "http://127.0.0.1:5006/getbasicDetails",
       {
         method: "POST",
         body: JSON.stringify({ user }),
@@ -76,7 +76,7 @@ const Page1 = () => {
       );
     } else {
       const res = await fetch(
-        "http://172.30.2.244:5003/check_user",
+        "http://127.0.0.1:5006/check_user",
         {
           method: "POST",
           body: JSON.stringify({ user }),

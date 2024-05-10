@@ -23,7 +23,7 @@ function Registrar_verified_applications() {
 
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://172.30.2.244:5003/getallApprovedApplicationIdFromRegistrar",
+      "http://127.0.0.1:5006/getallApprovedApplicationIdFromRegistrar",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

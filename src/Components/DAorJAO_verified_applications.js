@@ -19,7 +19,7 @@ function DAorJAO_verified_applications() {
   const [data, setData] = useState([]); // C
   const getApplicationId = async () => {
     const res = await fetch(
-      "http://172.30.2.244:5003/getallApprovedApplicationIdFromDAorJAO",
+      "http://127.0.0.1:5006/getallApprovedApplicationIdFromDAorJAO",
       {
         method: "POST",
         body: JSON.stringify({ user_data }),

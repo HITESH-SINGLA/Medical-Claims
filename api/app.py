@@ -25,9 +25,7 @@ app.config['MAIL_PASSWORD'] = 'nxzfkzusithjjfsj'
 
 mail = Mail(app)
 
-@app.route('/')
-def home():
-    return "onepieceisreal"
+
 
 
 app = Flask(__name__)
@@ -44,6 +42,11 @@ def after_request(response):
     g.db_cursor.close()
     database.DatabasePool.return_connection(g.db_conn)
     return response
+
+
+@app.route('/')
+def home():
+    return "onepieceisreal"
 
 @app.route('/save_form', methods=['POST'])
 def save_form():
@@ -1493,5 +1496,5 @@ def getRemarks(id):
 
 
 if __name__ == "__main__":
-    app.debug = False
-    app.run(port=5003)
+    app.debug = True
+    app.run(port=5006)
