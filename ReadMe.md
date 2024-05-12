@@ -225,13 +225,6 @@ On the landing page, users will directly encounter the website's interface. This
 In this landing page, we've incorporated information about the medical staff, providing details about the doctors along with their respective working hours on the landing page. Users can now access comprehensive Information about healthcare professionals, fostering transparency and convenience.
 Furthermore, a footer has been introduced to the landing page, offering information about our college. This section includes essential details about the institution along with links to our social media profiles. Additionally, contact Information is provided for users to reach out for any inquiries or assistance.
 
-
-
-## Getting Started
-
-To set up and run the application just follow this link: https://medical-claims-t17.netlify.app/
-
-
 ## Conclusion
 
 The medical claims website is a comprehensive platform designed to facilitate the submission, verification, and approval of medical claims submitted by students. Through a hierarchical approval process involving various administrative roles such as pharmacists, medical officers, and other authorities, the website ensures thorough evaluation and verification of each claim. With role-based access control and streamlined workflows, the website enhances efficiency, transparency, and accountability in the medical claim approval process. Overall, the project demonstrates a commitment to optimizing the management of medical claims while prioritizing accuracy, compliance, and user satisfaction."
